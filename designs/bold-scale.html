@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ORD System</title>
+<meta name="description" content="ORD System — research and product for reliable agentic orchestration. We study systems. We ship them." />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Cg fill='none' stroke='%23111111' stroke-width='1.2'%3E%3Cpath d='M4 8 H9 L17 16'/%3E%3Cpath d='M4 16 H17'/%3E%3Cpath d='M4 24 H9 L17 16'/%3E%3C/g%3E%3Cpath d='M17 16 H21' stroke='%23b1402e' stroke-width='1.8'/%3E%3Crect x='20' y='13' width='6' height='6' fill='none' stroke='%23111111' stroke-width='1.4'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #111111;
+    --ink-45: #8c8c8c;          /* supporting vocabulary ~45% ink */
+    --ink-30: #b3b3b3;
+    --line-faint: rgba(17,17,17,0.20);
+    --line-soft: rgba(17,17,17,0.10);
+    --bg: #ffffff;
+    --accent: #b1402e;          /* one restrained accent — the spine */
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    --col: 1320px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--mono);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body { line-height: 1.5; }
+
+  a { color: inherit; text-decoration: none; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  ::selection { background: var(--accent); color: #fff; }
+
+  .wrap { max-width: var(--col); margin: 0 auto; padding: 0 40px; }
+
+  /* ---------- nav ---------- */
+  nav {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 30px 0 26px;
+    border-bottom: 1px solid var(--line-faint);
+  }
+  .wordmark { font-weight: 700; font-size: 18px; letter-spacing: 0.24em; color: var(--ink); }
+  .nav-links { display: flex; gap: 30px; font-size: 12px; letter-spacing: 0.16em; color: var(--ink-45); }
+  .nav-links a { text-transform: uppercase; padding: 4px 2px; transition: color .2s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+
+  /* ---------- hero meta strip ---------- */
+  .hero-strip {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    padding: 28px 0 4px;
+    font-size: 11px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink-30);
+  }
+  .hero-strip .eyebrow { color: var(--ink-45); }
+
+  /* ---------- hero / figure (poster-grade, dominates the view) ---------- */
+  .hero { padding: 6px 0 28px; }
+  figure.figure { margin: 0; }
+  .figure-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+  /* SVG text styling */
+  .lbl { font-family: var(--mono); font-size: 18px; letter-spacing: 0.02em; fill: var(--ink-45); font-weight: 400; }
+  .lbl.spine { fill: var(--ink); font-weight: 700; font-size: 24px; }      /* spine words larger + full ink */
+  .col-head { font-family: var(--mono); font-size: 12px; letter-spacing: 0.26em; fill: var(--ink-30); }
+  .converge { font-family: var(--mono); font-size: 12px; letter-spacing: 0.28em; fill: var(--ink-30); }
+  .node-lbl { font-family: var(--mono); font-size: 30px; font-weight: 700; letter-spacing: 0.04em; fill: var(--ink); }
+  .node-sub { font-family: var(--mono); font-size: 11px; letter-spacing: 0.3em; fill: var(--ink-30); }
+  .read-lbl { font-family: var(--mono); font-size: 27px; font-weight: 700; letter-spacing: 0.06em; fill: var(--ink); }
+  .read-sub { font-family: var(--mono); font-size: 13px; letter-spacing: 0.03em; fill: var(--ink-45); }
+
+  /* connector lines — hairline thin/light so 9 lines never clutter */
+  .conv { fill: none; stroke: var(--line-faint); stroke-width: 1; stroke-linecap: butt; stroke-linejoin: miter; }
+  /* spine — bold, decisive accent */
+  .conv.spine { stroke: var(--accent); stroke-width: 3.4; opacity: 1; }
+  .node-box { fill: var(--bg); stroke: var(--ink); stroke-width: 3.4; }    /* big bold System node */
+  .node-corner { fill: var(--accent); }
+  .marker { fill: var(--ink); }
+  .marker.spine { fill: var(--accent); }
+
+  /* draw-in for converging lines (timing only — paths stay straight) */
+  .draw {
+    stroke-dasharray: var(--len, 900);
+    stroke-dashoffset: var(--len, 900);
+    animation: draw 1.4s cubic-bezier(.4,0,.2,1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+
+  /* fan-out group: hidden until revealed, then dimmed so System stays dominant */
+  .fan { opacity: 0; }
+  .fan .fan-line { stroke-dasharray: var(--len, 320); stroke-dashoffset: var(--len, 320); }
+  .fan.reveal { opacity: 1; transition: opacity .6s ease; }
+  .fan.reveal .fan-line { animation: draw 1s cubic-bezier(.4,0,.2,1) forwards; animation-delay: var(--delay, 0s); }
+  .fan.reveal .fan-text { animation: resolve .8s ease forwards; animation-delay: var(--delay, 0s); opacity: 0; }
+  @keyframes resolve { from { opacity: 0; } to { opacity: 1; } }
+  .fan.reveal.dim { opacity: 0.55; transition: opacity 1.2s ease 1.4s; }
+
+  /* ---------- tagline ---------- */
+  .tagline-block {
+    border-top: 1px solid var(--line-faint);
+    display: flex; align-items: baseline; justify-content: space-between; gap: 30px; flex-wrap: wrap;
+    padding: 30px 0 36px;
+  }
+  .tagline { margin: 0; font-size: clamp(24px, 3.6vw, 46px); font-weight: 500; line-height: 1.06; letter-spacing: 0; }
+  .tagline .dot { color: var(--accent); }
+  .tagline-sub { margin: 0; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-45); max-width: 30ch; text-align: right; }
+
+  /* ---------- readings triad ---------- */
+  .readings-caption {
+    padding: 0; margin: 0 0 4px;
+    font-size: 11px; letter-spacing: 0.3em; color: var(--ink-45); text-transform: uppercase;
+    border-top: 1px solid var(--line-faint); padding-top: 14px;
+  }
+  .triad { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .triad-cell { border-top: 1px solid var(--line-faint); padding: 36px 28px 40px 0; }
+  .triad-cell + .triad-cell { border-left: 1px solid var(--line-faint); padding-left: 28px; }
+  .triad-cell .idx { font-size: 11px; letter-spacing: 0.2em; color: var(--ink-45); }
+  .triad-cell .key { font-weight: 700; font-size: clamp(28px, 3.4vw, 40px); letter-spacing: 0.06em; margin: 18px 0 14px; }
+  .triad-cell .key .mark { color: var(--accent); }
+  .triad-cell .desc { font-size: 14px; letter-spacing: 0.02em; color: var(--ink); margin: 0; }
+
+  /* ---------- one plain line ---------- */
+  .plain {
+    border-top: 1px solid var(--line-faint);
+    padding: 32px 0; margin: 0;
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px;
+  }
+  .plain div { font-size: 14px; letter-spacing: 0.02em; color: var(--ink); }
+  .plain .lab { display: block; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-45); margin-bottom: 10px; }
+  .plain .lab .mark { color: var(--accent); }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid var(--line-faint);
+    padding: 28px 0 50px;
+    display: flex; gap: 28px; justify-content: space-between; align-items: baseline;
+    font-size: 11px; letter-spacing: 0.14em; color: var(--ink-30); text-transform: uppercase;
+  }
+  footer .wm { letter-spacing: 0.24em; color: var(--ink); font-weight: 700; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px) {
+    .wrap { padding: 0 20px; }
+    nav { padding: 22px 0; }
+    .nav-links { gap: 18px; }
+    .tagline-sub { text-align: left; }
+    .triad { grid-template-columns: 1fr; }
+    .triad-cell { padding: 28px 0 30px; }
+    .triad-cell + .triad-cell { border-left: 0; padding-left: 0; }
+    .plain { grid-template-columns: 1fr; gap: 22px; }
+    footer { flex-wrap: wrap; gap: 12px 28px; }
+  }
+
+  /* ---------- reduced motion: fully static, fully legible ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .draw, .fan .fan-line, .fan.reveal .fan-line, .fan.reveal .fan-text {
+      animation: none !important; stroke-dashoffset: 0 !important; opacity: 1 !important;
+    }
+    .fan, .fan.reveal.dim { opacity: 1 !important; transition: none !important; }
+  }
+
+  .skip { position: absolute; left: -9999px; top: 0; background: var(--ink); color: #fff; padding: 8px 14px; z-index: 10; letter-spacing: .1em; font-size: 12px; }
+  .skip:focus { left: 12px; }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#figure">Skip to figure</a>
+
+<div class="wrap">
+
+  <nav aria-label="primary">
+    <a class="wordmark" href="#top" aria-label="ORD, home">ORD</a>
+    <div class="nav-links">
+      <a href="#think">Think</a>
+      <a href="#theory">Theory</a>
+      <a href="#build">Build</a>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <div class="hero-strip">
+      <span class="eyebrow">Agentic orchestration · research &amp; product</span>
+      <span>Fig. 01 — Convergence</span>
+    </div>
+
+    <section class="hero" id="figure" aria-labelledby="fig-title">
+      <figure class="figure">
+        <!--
+          Direction D — the bold figure. Canonical layout:
+          LEFT 3 columns (3 words each, side by side) -> converge into (System) -> RIGHT 3 readings.
+          Connectors = short horizontal stubs + slanted straight segments (polylines only).
+          Spine = accent + full ink, larger type (ORCHESTRATION / REASONING / DECISION).
+          Big bold System node. viewBox keeps the left->right composition and scales whole on mobile.
+        -->
+        <svg class="figure-svg" viewBox="0 0 1360 470" role="img"
+             preserveAspectRatio="xMidYMid meet"
+             aria-labelledby="fig-title fig-desc">
+          <title id="fig-title">ORD — Operations, Research, Design converge into one System; read three ways: Think, Theory, Build.</title>
+          <desc id="fig-desc">Three columns of vocabulary on the left — Operations, Optimization, Orchestration; Research, Reasoning, Resources; Design, Decision, Decision — converge along horizontal and slanted straight hairlines into a single large node labeled System, then fan out to three readings on the right: Think, a way of thinking; Theory, a theory of systems; Build, a system you can run. The cognitive spine — Orchestration, Reasoning, Decision — is emphasized at full ink weight and traced in the accent color.</desc>
+
+          <!-- ===== column headers ===== -->
+          <text class="col-head" x="60"  y="54">01 · OPERATE</text>
+          <text class="col-head" x="560" y="54" text-anchor="end">02 · REASON</text>
+          <text class="col-head" x="764" y="54" text-anchor="end">03 · DECIDE</text>
+
+          <!-- ===== LEFT: 9 keyword labels (3 cols x 3 rows) =====
+               row baselines: top=140, mid=258, bottom=378
+               col1 anchored start x=60 ; col2 anchored end x=560 ; col3 anchored end x=764 -->
+          <!-- column 1 : Operations -->
+          <text class="lbl"       x="60" y="140">Operations</text>
+          <text class="lbl"       x="60" y="258">Optimization</text>
+          <text class="lbl spine" x="60" y="380">Orchestration</text>
+          <!-- column 2 : Research -->
+          <text class="lbl"       x="560" y="140" text-anchor="end">Research</text>
+          <text class="lbl spine" x="560" y="260" text-anchor="end">Reasoning</text>
+          <text class="lbl"       x="560" y="378" text-anchor="end">Resources</text>
+          <!-- column 3 : Design -->
+          <text class="lbl"       x="764" y="140" text-anchor="end">Design</text>
+          <text class="lbl"       x="764" y="258" text-anchor="end">Decision</text>
+          <text class="lbl spine" x="764" y="380" text-anchor="end">Decision</text>
+
+          <!-- ===== convergence lines (before node so node sits on top) =====
+               Each keyword: short HORIZONTAL stub then SLANTED straight segment to System.
+               System left edge x=840, vertical center y=240.
+               Rows above 240 slant DOWN; middle row HORIZONTAL; rows below slant UP. -->
+          <g class="conv-lines" aria-hidden="true">
+            <!-- col1 top — Operations (y134) slants down -->
+            <polyline class="conv draw" style="--len:760; --delay:.05s" points="232,134 780,134 840,236" />
+            <!-- col1 mid — Optimization (y252) horizontal -->
+            <polyline class="conv draw" style="--len:600; --delay:.10s" points="252,252 840,252" />
+            <!-- col2 top — Research (y134) slants down -->
+            <polyline class="conv draw" style="--len:560; --delay:.15s" points="572,134 780,134 840,236" />
+            <!-- col2 bot — Resources (y372) slants up -->
+            <polyline class="conv draw" style="--len:560; --delay:.20s" points="572,372 780,372 840,244" />
+            <!-- col3 top — Design (y134) slants down -->
+            <polyline class="conv draw" style="--len:380; --delay:.25s" points="776,134 840,236" />
+            <!-- col3 mid — Decision (y252) horizontal -->
+            <polyline class="conv draw" style="--len:340; --delay:.30s" points="776,252 840,252" />
+
+            <!-- ===== SPINE (accent, bold) ===== -->
+            <!-- Orchestration col1 bottom (y372) slants up -->
+            <polyline class="conv spine draw" style="--len:780; --delay:.10s" points="252,372 780,372 840,244" />
+            <!-- Reasoning col2 mid (y252) horizontal -->
+            <polyline class="conv spine draw" style="--len:600; --delay:.10s" points="404,252 840,252" />
+            <!-- Decision col3 bottom (y372) slants up -->
+            <polyline class="conv spine draw" style="--len:380; --delay:.10s" points="776,372 840,244" />
+          </g>
+
+          <!-- convergence caption + join marker -->
+          <text class="converge" x="660" y="216" text-anchor="middle">CONVERGE INTO</text>
+
+          <!-- ===== CENTER: big bold System node ===== -->
+          <rect class="node-box" x="840" y="182" width="150" height="118" />
+          <polygon class="node-corner" points="840,182 860,182 840,202" />
+          <text class="node-lbl" x="915" y="250" text-anchor="middle">System</text>
+          <text class="node-sub" x="915" y="278" text-anchor="middle">NODE</text>
+
+          <!-- ===== fan-out (revealed on scroll) =====
+               short HORIZONTAL from System right edge (990,240), then slant/horizontal to readings.
+               reading rows y: think=140, theory=240, build=340 ; label x=1196 -->
+          <g class="fan" id="fan">
+            <polyline class="conv fan-line"        style="--len:260; --delay:0s"   points="990,240 1058,240 1140,140 1180,140" />
+            <polyline class="conv spine fan-line"  style="--len:200; --delay:.12s" points="990,240 1180,240" />
+            <polyline class="conv fan-line"        style="--len:260; --delay:.24s" points="990,240 1058,240 1140,340 1180,340" />
+
+            <text class="read-lbl fan-text" x="1196" y="136" style="--delay:0s">THINK</text>
+            <text class="read-sub fan-text" x="1196" y="158" style="--delay:0s">a way of thinking</text>
+
+            <text class="read-lbl fan-text" x="1196" y="236" style="--delay:.12s">THEORY</text>
+            <text class="read-sub fan-text" x="1196" y="258" style="--delay:.12s">a theory of systems</text>
+
+            <text class="read-lbl fan-text" x="1196" y="336" style="--delay:.24s">BUILD</text>
+            <text class="read-sub fan-text" x="1196" y="358" style="--delay:.24s">a system you can run</text>
+          </g>
+        </svg>
+
+        <figcaption class="tagline-block">
+          <h1 class="tagline">We study systems. <span class="dot">We ship them.</span></h1>
+          <p class="tagline-sub">Many AI agents, coordinated into one reliable running system.</p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="readings" aria-label="one word, three readings">
+      <p class="readings-caption">One word, three readings</p>
+      <div class="triad">
+        <div class="triad-cell" id="think">
+          <span class="idx">01 / mindset</span>
+          <p class="key"><span class="mark">·</span> THINK</p>
+          <p class="desc">A way of thinking.</p>
+        </div>
+        <div class="triad-cell" id="theory">
+          <span class="idx">02 / research</span>
+          <p class="key"><span class="mark">·</span> THEORY</p>
+          <p class="desc">A theory of systems.</p>
+        </div>
+        <div class="triad-cell" id="build">
+          <span class="idx">03 / product</span>
+          <p class="key"><span class="mark">·</span> BUILD</p>
+          <p class="desc">A system you can run.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="plain" aria-label="research and product">
+      <div>
+        <span class="lab"><span class="mark">·</span> Research</span>
+        The reliability of multi-agent systems.
+      </div>
+      <div>
+        <span class="lab"><span class="mark">·</span> Product</span>
+        Many agents, coordinated into one running system.
+      </div>
+    </section>
+
+    <footer>
+      <span class="wm">ORD SYSTEM</span>
+      <span>We study systems. We ship them.</span>
+      <span>© 2026</span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  (function () {
+    var fan = document.getElementById('fan');
+    if (!fan) return;
+
+    var reduce = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Reduced motion or no observer: reveal statically (CSS keeps it legible).
+    if (reduce || !('IntersectionObserver' in window)) {
+      fan.classList.add('reveal');
+      return;
+    }
+
+    var revealed = false;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting && !revealed) {
+          revealed = true;
+          fan.classList.add('reveal');
+          // after the moment, dim the fan-out so "System" stays dominant
+          window.setTimeout(function () { fan.classList.add('dim'); }, 1700);
+          io.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    io.observe(fan);
+
+    // smooth in-page nav
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      a.addEventListener('click', function (ev) {
+        var id = a.getAttribute('href');
+        if (id === '#' || id === '#top') return;
+        var t = document.querySelector(id);
+        if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

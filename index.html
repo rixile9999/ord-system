@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ORD System</title>
+<meta name="description" content="ORD System — agents as modules of one reliable, fast, accurate system. A systematic approach to unstructured problems. We study systems. We ship them." />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffffff'/%3E%3Cg fill='none' stroke='%23111111' stroke-width='1.2'%3E%3Cpath d='M4 8 H10 L18 16'/%3E%3Cpath d='M4 24 H10 L18 16'/%3E%3C/g%3E%3Cpath d='M4 16 H18' stroke='%23b5471f' stroke-width='1.6'/%3E%3Crect x='17.5' y='13.5' width='5' height='5' fill='none' stroke='%23111111' stroke-width='1.2'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#111111;
+    --paper:#ffffff;
+    --gray:#6a6a6a;
+    --hair:rgba(17,17,17,.14);
+    --hair-soft:rgba(17,17,17,.07);
+    --line:rgba(17,17,17,.24);
+    --accent:#b5471f;
+    --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+    --col:1100px;
+    --nav-h:64px;
+  }
+
+  *{box-sizing:border-box;}
+  html{
+    -webkit-text-size-adjust:100%;
+    scroll-behavior:smooth;
+    scroll-snap-type:y mandatory;
+  }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  ::selection{background:var(--accent);color:#fff;}
+
+  .wrap{max-width:var(--col);margin:0 auto;padding:0 32px;width:100%;}
+
+  /* ---------- FIXED NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:30;
+    height:var(--nav-h);
+    background:rgba(255,255,255,.86);
+    backdrop-filter:saturate(140%) blur(6px);
+    border-bottom:1px solid var(--hair);
+  }
+  .nav-row{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);}
+  .brand{font-weight:700;font-size:17px;letter-spacing:.22em;}
+  .nav-links{display:flex;gap:30px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);}
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+
+  /* ---------- PAGE / SNAP ---------- */
+  main{display:block;}
+  .page{
+    min-height:100vh;            /* fallback */
+    min-height:100svh;
+    scroll-snap-align:start;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:calc(var(--nav-h) + 28px) 0 56px;
+    position:relative;
+  }
+  .page-last{padding-bottom:0;}
+
+  /* ---------- RIGHT PAGER ---------- */
+  .pager{
+    position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:25;
+    display:flex;flex-direction:column;gap:18px;align-items:flex-end;
+  }
+  .pg{display:flex;align-items:center;gap:10px;color:var(--gray);font-size:12px;letter-spacing:.18em;transition:color .25s;}
+  .pg .pg-n{font-variant-numeric:tabular-nums;}
+  .pg::after{content:"";display:block;width:16px;height:1px;background:currentColor;transition:width .3s ease,background .3s ease;}
+  .pg:hover{color:var(--ink);}
+  .pg.active{color:var(--ink);}
+  .pg.active::after{width:36px;background:var(--accent);}
+
+  /* ---------- SCROLL CUE ---------- */
+  .cue{
+    position:absolute;left:0;right:0;bottom:30px;text-align:center;
+    font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);
+  }
+  .cue .arrow{display:block;margin:8px auto 0;width:1px;height:22px;background:var(--line);position:relative;}
+  .cue .arrow::after{content:"";position:absolute;left:-3px;bottom:0;width:7px;height:7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg);}
+  .cue.bob .arrow{animation:bob 1.8s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  /* ---------- PAGE 01: identity ---------- */
+  .eyebrow{font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--gray);margin:0 0 30px;}
+  .wordmark{font-weight:700;font-size:clamp(80px,15vw,184px);line-height:.9;letter-spacing:.02em;margin:0;}
+  .tagline{margin:28px 0 0;font-size:clamp(17px,2vw,24px);letter-spacing:.03em;color:var(--ink);}
+  .tagline .dim{color:var(--gray);}
+
+  /* ---------- PAGE 02: figure ---------- */
+  .figure-meta{
+    display:flex;justify-content:space-between;align-items:baseline;
+    border-top:1px solid var(--hair);border-bottom:1px solid var(--hair-soft);
+    padding:12px 0;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);
+  }
+  #p2 .wrap{max-width:1260px;}
+  figure{margin:0;}
+  .fig-scroll{margin-top:28px;}
+  .canvas{width:100%;height:auto;display:block;overflow:visible;}
+  .scroll-hint{display:none;}
+
+  .kw{font-family:var(--mono);font-size:17px;letter-spacing:.02em;}
+  .kw-spine{fill:var(--ink);font-weight:700;}
+  .kw-soft{fill:var(--gray);font-weight:400;}
+  .col-head{font-family:var(--mono);font-size:12px;letter-spacing:.26em;fill:var(--gray);}
+  .node-label{font-family:var(--mono);fill:var(--ink);font-weight:700;font-size:20px;letter-spacing:.08em;}
+  .reading-key{font-family:var(--mono);font-weight:700;font-size:17px;letter-spacing:.06em;fill:var(--ink);}
+  .reading-desc{font-family:var(--mono);font-weight:400;font-size:13px;letter-spacing:.02em;fill:var(--gray);}
+
+  .conv-line{fill:none;stroke:var(--line);stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;}
+  .conv-line.axis{stroke:var(--accent);stroke-width:1.7;}
+  .node-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.4;}
+  .node-corner{fill:var(--accent);}
+  .fan-line{fill:none;stroke:var(--line);stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;}
+  .fan-line.axis{stroke:var(--accent);stroke-width:1.7;}
+  .reading-grp{opacity:1;}
+  .js .fan-line,.js .fan-text,.js .reading-grp{opacity:0;}
+
+  /* ---------- PAGE 03: readings + work ---------- */
+  .p3-main{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .triad-head{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);border-top:1px solid var(--hair);padding:16px 0 0;margin:0 0 4px;}
+  .triad-grid{display:grid;grid-template-columns:repeat(3,1fr);}
+  .triad-cell{border-top:1px solid var(--hair);padding:34px 30px 40px 0;}
+  .triad-cell + .triad-cell{border-left:1px solid var(--hair);padding-left:30px;}
+  .triad-cell .idx{font-size:13px;letter-spacing:.2em;color:var(--gray);}
+  .triad-cell .key{font-weight:700;font-size:clamp(30px,3.6vw,46px);letter-spacing:.08em;margin:18px 0 14px;}
+  .triad-cell .key .mark{color:var(--accent);}
+  .triad-cell .desc{font-size:15.5px;letter-spacing:.02em;color:var(--ink);margin:0;}
+
+  .statement{margin-top:48px;}
+  .statement-grid{padding-top:30px;border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
+  .statement .cell{font-size:15.5px;letter-spacing:.02em;}
+  .statement .lab{display:block;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+  .statement .lab .mark{color:var(--accent);}
+
+  footer{border-top:1px solid var(--hair);margin-top:48px;}
+  footer .wrap{padding-top:26px;padding-bottom:38px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);}
+  footer .brand-sm{font-weight:700;color:var(--ink);letter-spacing:.22em;}
+
+  /* ---------- REVEAL (scroll effect) ---------- */
+  .js .reveal-el{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.4,0,.2,1);transition-delay:var(--d,0s);}
+  .js .reveal-el.in{opacity:1;transform:none;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:760px){
+    html{scroll-snap-type:none;}
+    .wrap{padding:0 20px;}
+    .pager{display:none;}
+    .page{padding:calc(var(--nav-h) + 22px) 0 44px;min-height:auto;}
+    .page#p1{min-height:100svh;}
+    .fig-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
+    .canvas{min-width:680px;}
+    .scroll-hint{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin:8px 2px 0;}
+    .triad-grid{grid-template-columns:1fr;}
+    .triad-cell{padding:24px 0 26px;}
+    .triad-cell + .triad-cell{border-left:0;padding-left:0;}
+    .statement-grid{grid-template-columns:1fr;gap:20px;}
+    footer .wrap{flex-direction:column;gap:10px;}
+    .cue{display:none;}
+  }
+
+  /* ---------- REDUCED MOTION ---------- */
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    .js .fan-line,.js .fan-text,.js .reading-grp,.js .reveal-el{opacity:1 !important;transform:none !important;}
+    .cue.bob .arrow{animation:none;}
+  }
+
+  .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:8px 14px;z-index:40;letter-spacing:.1em;font-size:12px;}
+  .skip:focus{left:12px;}
+</style>
+</head>
+<body>
+
+  <a class="skip" href="#p2">Skip to figure</a>
+
+  <nav aria-label="Primary">
+    <div class="wrap nav-row">
+      <a href="#p1" class="brand" aria-label="ORD — home">ORD</a>
+      <div class="nav-links">
+        <a href="#p2">System</a>
+        <a href="#p3">Work</a>
+      </div>
+    </div>
+  </nav>
+
+  <aside class="pager" aria-label="Page navigation">
+    <a href="#p1" class="pg active" data-target="p1"><span class="pg-n">01</span></a>
+    <a href="#p2" class="pg" data-target="p2"><span class="pg-n">02</span></a>
+    <a href="#p3" class="pg" data-target="p3"><span class="pg-n">03</span></a>
+  </aside>
+
+  <main>
+
+    <!-- ===================== PAGE 01 — IDENTITY ===================== -->
+    <section class="page" id="p1" aria-label="ORD">
+      <div class="wrap">
+        <p class="eyebrow reveal-el">Agentic orchestration · research &amp; product</p>
+        <h1 class="wordmark reveal-el" style="--d:.08s">ORD</h1>
+        <p class="tagline reveal-el" style="--d:.18s">Research that runs. <span class="dim">Agents as modules of one reliable system.</span></p>
+      </div>
+      <div class="cue bob" aria-hidden="true">scroll<span class="arrow"></span></div>
+    </section>
+
+    <!-- ===================== PAGE 02 — CONVERGENCE ===================== -->
+    <section class="page" id="p2" aria-labelledby="fig-cap">
+      <div class="wrap">
+        <div class="figure-meta reveal-el">
+          <span>Fig. 01 — Convergence</span>
+          <span>One word, three readings</span>
+        </div>
+
+        <figure class="reveal-el" style="--d:.1s">
+          <div class="fig-scroll">
+            <svg class="canvas" viewBox="0 0 1160 326" role="img"
+                 aria-labelledby="fig-cap fig-desc" preserveAspectRatio="xMidYMid meet">
+              <title id="fig-cap">ORD convergence figure</title>
+              <desc id="fig-desc">
+                Three columns of keywords on the left — Operations, Optimization, Orchestration;
+                Research, Reasoning, Resources; Design, Decision, Distribution — converge along
+                straight horizontal and slanted lines into a single System node at center, then fan out
+                to three readings on the right: Think, a way of thinking; Theory, a theory of systems;
+                Build, a system you can run. The cognitive spine — Orchestration, Reasoning, Decision —
+                is emphasized in full ink.
+              </desc>
+
+              <text class="col-head" x="40"  y="48">OPERATE</text>
+              <text class="col-head" x="250" y="48">REASON</text>
+              <text class="col-head" x="460" y="48">DECIDE</text>
+
+              <!-- Column O -->
+              <text class="kw kw-soft"  x="40" y="116">Operations</text>
+              <text class="kw kw-soft"  x="40" y="196">Optimization</text>
+              <text class="kw kw-spine" x="40" y="276">Orchestration</text>
+              <!-- Column R -->
+              <text class="kw kw-soft"  x="250" y="116">Research</text>
+              <text class="kw kw-spine" x="250" y="196">Reasoning</text>
+              <text class="kw kw-soft"  x="250" y="276">Resources</text>
+              <!-- Column D -->
+              <text class="kw kw-soft"  x="460" y="116">Design</text>
+              <text class="kw kw-spine" x="460" y="196">Decision</text>
+              <text class="kw kw-soft"  x="460" y="276">Distribution</text>
+
+              <!-- convergence: lines start right of the text (x=600), no strikethrough -->
+              <polyline class="conv-line"      points="600,110 662,110 700,190" />
+              <polyline class="conv-line axis" points="600,190 700,190" />
+              <polyline class="conv-line"      points="600,270 662,270 700,190" />
+
+              <rect class="node-box" x="700" y="158" width="120" height="64" />
+              <polygon class="node-corner" points="700,158 718,158 700,176" />
+              <text class="node-label" x="760" y="195" text-anchor="middle">System</text>
+
+              <polyline class="fan-line"      id="fan-think"  points="820,190 882,190 940,110 980,110" />
+              <polyline class="fan-line axis" id="fan-theory" points="820,190 980,190" />
+              <polyline class="fan-line"      id="fan-build"  points="820,190 882,190 940,270 980,270" />
+
+              <g class="reading-grp fan-text" id="r-think">
+                <text class="reading-key"  x="995" y="114">THINK</text>
+                <text class="reading-desc" x="995" y="134">a way of thinking</text>
+              </g>
+              <g class="reading-grp fan-text" id="r-theory">
+                <text class="reading-key"  x="995" y="194">THEORY</text>
+                <text class="reading-desc" x="995" y="214">a theory of systems</text>
+              </g>
+              <g class="reading-grp fan-text" id="r-build">
+                <text class="reading-key"  x="995" y="274">BUILD</text>
+                <text class="reading-desc" x="995" y="294">a system you can run</text>
+              </g>
+            </svg>
+          </div>
+          <p class="scroll-hint" aria-hidden="true">scroll the figure →</p>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== PAGE 03 — READINGS & WORK ===================== -->
+    <section class="page page-last" id="p3" aria-label="Readings and work">
+      <div class="p3-main">
+        <div class="wrap">
+          <p class="triad-head reveal-el">One word, three readings</p>
+          <div class="triad-grid">
+            <div class="triad-cell reveal-el">
+              <span class="idx">01 / mindset</span>
+              <p class="key"><span class="mark">·</span> THINK</p>
+              <p class="desc">A way of thinking.</p>
+            </div>
+            <div class="triad-cell reveal-el" style="--d:.1s">
+              <span class="idx">02 / research</span>
+              <p class="key"><span class="mark">·</span> THEORY</p>
+              <p class="desc">A theory of systems.</p>
+            </div>
+            <div class="triad-cell reveal-el" style="--d:.2s">
+              <span class="idx">03 / product</span>
+              <p class="key"><span class="mark">·</span> BUILD</p>
+              <p class="desc">A system you can run.</p>
+            </div>
+          </div>
+
+          <div class="statement">
+            <div class="statement-grid">
+              <div class="cell reveal-el">
+                <span class="lab"><span class="mark">·</span> Research</span>
+                Unstructured problems, approached systematically.
+              </div>
+              <div class="cell reveal-el" style="--d:.1s">
+                <span class="lab"><span class="mark">·</span> Product</span>
+                Agents as modules — reliable, fast, accurate.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="wrap">
+          <span class="brand-sm">ORD SYSTEM</span>
+          <span>We study systems. We ship them.</span>
+          <span>© 2026</span>
+        </div>
+      </footer>
+    </section>
+
+  </main>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      root.classList.add('js');
+
+      var hasIO = 'IntersectionObserver' in window;
+
+      /* ---------- generic reveal-on-scroll ---------- */
+      var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal-el'));
+      if (reduce || !hasIO) {
+        revealEls.forEach(function (el) { el.classList.add('in'); });
+      } else {
+        var revIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); }
+          });
+        }, { threshold: 0.18 });
+        revealEls.forEach(function (el) { revIO.observe(el); });
+      }
+
+      /* ---------- figure draw-in (triggers when page 02 enters) ---------- */
+      var convLines = Array.prototype.slice.call(document.querySelectorAll('.conv-line'));
+      var fanLines  = Array.prototype.slice.call(document.querySelectorAll('.fan-line'));
+      var fanTexts  = ['r-think','r-theory','r-build'].map(function (id) { return document.getElementById(id); });
+
+      function showFigure() {
+        convLines.concat(fanLines).forEach(function (el) {
+          el.style.strokeDasharray = 'none'; el.style.strokeDashoffset = 0; el.style.opacity = 1;
+        });
+        fanTexts.forEach(function (el) { if (el) el.style.opacity = 1; });
+      }
+
+      if (reduce || !hasIO) {
+        showFigure();
+      } else {
+        var prime = function (el) {
+          var len; try { len = el.getTotalLength(); } catch (e) { len = 600; }
+          el.style.strokeDasharray = len; el.style.strokeDashoffset = len; el.style.opacity = 1;
+        };
+        var draw = function (el, delay, dur) {
+          el.getBoundingClientRect();
+          el.style.transition = 'stroke-dashoffset ' + dur + 'ms cubic-bezier(.4,0,.2,1) ' + delay + 'ms';
+          el.style.strokeDashoffset = 0;
+        };
+        convLines.forEach(prime); fanLines.forEach(prime);
+
+        var played = false;
+        var runFigure = function () {
+          if (played) return; played = true;
+          convLines.forEach(function (el, i) { draw(el, 60 + i * 110, 850); });
+          var fanStart = 60 + convLines.length * 110 + 600;
+          setTimeout(function () {
+            fanLines.forEach(function (el, i) { draw(el, i * 130, 720); });
+            fanTexts.forEach(function (el, i) {
+              if (!el) return;
+              el.style.transition = 'opacity .55s ease ' + (i * 130) + 'ms';
+              el.style.opacity = 1;
+            });
+            setTimeout(function () {
+              fanTexts.forEach(function (el) { if (el) { el.style.transition = 'opacity .9s ease'; el.style.opacity = 0.5; } });
+              fanLines.forEach(function (el) { el.style.transition = 'stroke-opacity .9s ease'; el.style.strokeOpacity = 0.5; });
+            }, 1500);
+          }, fanStart);
+        };
+
+        var figIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { runFigure(); figIO.disconnect(); } });
+        }, { threshold: 0.35 });
+        figIO.observe(document.getElementById('p2'));
+      }
+
+      /* ---------- right pager active state ---------- */
+      var pages = ['p1','p2','p3'];
+      var pgLinks = {};
+      Array.prototype.slice.call(document.querySelectorAll('.pg')).forEach(function (a) {
+        pgLinks[a.getAttribute('data-target')] = a;
+      });
+      function setActive(id) {
+        pages.forEach(function (p) { if (pgLinks[p]) pgLinks[p].classList.toggle('active', p === id); });
+      }
+      if (hasIO) {
+        var pageIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) setActive(e.target.id); });
+        }, { threshold: 0.5 });
+        pages.forEach(function (p) { var el = document.getElementById(p); if (el) pageIO.observe(el); });
+      }
+
+      /* ---------- hide the scroll cue after first scroll ---------- */
+      var cue = document.querySelector('.cue');
+      window.addEventListener('scroll', function () {
+        if (cue && window.scrollY > 40) { cue.style.opacity = '0'; cue.style.transition = 'opacity .4s ease'; }
+      }, { passive: true });
+
+      /* ---------- in-page nav (guarded for reduced motion) ---------- */
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (ev) {
+          var id = a.getAttribute('href');
+          var t = id && id.length > 1 ? document.querySelector(id) : null;
+          if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

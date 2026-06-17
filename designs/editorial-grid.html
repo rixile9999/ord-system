@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ORD System</title>
+<meta name="description" content="ORD System — research and product for reliable agentic orchestration. We study systems. We ship them." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#111111;
+    --paper:#ffffff;
+    --paper-2:#fafafa;
+    --gray:#9a9a9a;            /* ~45% ink — supporting vocabulary */
+    --hair:rgba(17,17,17,.14); /* hairline rules */
+    --hair-soft:rgba(17,17,17,.08);
+    --accent:#b5471f;          /* single restrained accent: the spine */
+    --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+    --col:1100px;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--mono);
+    font-weight:400;
+    line-height:1.5;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible,
+  button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+
+  .wrap{
+    max-width:var(--col);
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{ border-bottom:1px solid var(--hair); }
+  .nav-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.22em;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:12px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--gray);
+  }
+  .nav-links a{transition:color .15s;}
+  .nav-links a:hover{color:var(--ink);}
+
+  /* ---------- HERO HEAD ---------- */
+  header.hero{ padding:84px 0 40px; }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--gray);
+    margin:0 0 26px;
+  }
+  .wordmark{
+    font-weight:700;
+    font-size:clamp(64px,13vw,148px);
+    line-height:.92;
+    letter-spacing:.02em;
+    margin:0;
+  }
+  .tagline{
+    margin:22px 0 0;
+    font-size:15px;
+    letter-spacing:.04em;
+    color:var(--ink);
+  }
+  .tagline .dim{color:var(--gray);}
+
+  /* ---------- FIGURE ---------- */
+  .figure-block{ padding:8px 0 64px; }
+  .figure-meta{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    border-top:1px solid var(--hair);
+    border-bottom:1px solid var(--hair-soft);
+    padding:10px 0;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--gray);
+  }
+  figure{margin:0;}
+  .canvas{
+    width:100%;
+    height:auto;
+    display:block;
+    margin-top:18px;
+  }
+
+  /* SVG type */
+  .kw{font-family:var(--mono);font-size:15px;letter-spacing:.02em;}
+  .kw-spine{fill:var(--ink);font-weight:700;}
+  .kw-soft{fill:var(--gray);font-weight:400;}
+  .col-head{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.26em;
+    fill:var(--gray);
+  }
+  .node-label{font-family:var(--mono);fill:var(--ink);font-weight:700;font-size:18px;letter-spacing:.08em;}
+  .reading-key{font-family:var(--mono);font-weight:700;font-size:15px;letter-spacing:.06em;fill:var(--ink);}
+  .reading-desc{font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.02em;fill:var(--gray);}
+
+  /* connectors */
+  .line{fill:none;stroke:var(--ink);stroke-opacity:.20;stroke-width:1;}
+  .line-spine{fill:none;stroke:var(--accent);stroke-opacity:.9;stroke-width:1.6;}
+  .fan{fill:none;stroke:var(--ink);stroke-opacity:.20;stroke-width:1;}
+
+  /* node */
+  .node-box{fill:var(--paper);stroke:var(--ink);stroke-width:1.4;}
+
+  /* reading reveal */
+  .reading-grp{opacity:.14;transition:opacity .6s ease;}
+  .reading-grp.lit{opacity:1;}
+  .reading-grp.settle{opacity:.5;}
+  .fan.lit{stroke-opacity:.5;transition:stroke-opacity .6s ease;}
+
+  /* ---------- TRIAD ---------- */
+  .triad{ padding:0 0 8px; }
+  .triad-head{
+    font-size:11px;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:var(--gray);
+    border-top:1px solid var(--hair);
+    padding:14px 0 0;
+    margin:0 0 4px;
+  }
+  .triad-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+  }
+  .triad-cell{
+    border-top:1px solid var(--hair);
+    padding:30px 28px 34px 0;
+  }
+  .triad-cell + .triad-cell{
+    border-left:1px solid var(--hair);
+    padding-left:28px;
+  }
+  .triad-cell .idx{
+    font-size:11px;
+    letter-spacing:.2em;
+    color:var(--gray);
+  }
+  .triad-cell .key{
+    font-weight:700;
+    font-size:26px;
+    letter-spacing:.1em;
+    margin:16px 0 10px;
+  }
+  .triad-cell .key .mark{color:var(--accent);}
+  .triad-cell .desc{
+    font-size:13px;
+    letter-spacing:.02em;
+    color:var(--ink);
+    margin:0;
+  }
+
+  /* ---------- ONE PLAIN LINE ---------- */
+  .statement{
+    border-top:1px solid var(--hair);
+    padding:30px 0;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:28px;
+  }
+  .statement div{font-size:13px;letter-spacing:.02em;}
+  .statement .lab{
+    display:block;
+    font-size:11px;
+    letter-spacing:.24em;
+    text-transform:uppercase;
+    color:var(--gray);
+    margin-bottom:8px;
+  }
+  .statement .lab .mark{color:var(--accent);}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--hair);
+    padding:26px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:16px;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gray);
+  }
+  footer .brand-sm{font-weight:700;color:var(--ink);letter-spacing:.22em;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:720px){
+    .wrap{padding:0 20px;}
+    header.hero{padding:54px 0 28px;}
+    .tagline{font-size:13px;}
+    .triad-grid{grid-template-columns:1fr;}
+    .triad-cell{padding:26px 0 30px;}
+    .triad-cell + .triad-cell{ border-left:0; padding-left:0; }
+    .statement{grid-template-columns:1fr;gap:22px;}
+    footer{flex-direction:column;gap:10px;}
+  }
+
+  /* ---------- REDUCED MOTION: fully static, fully legible ---------- */
+  @media (prefers-reduced-motion:reduce){
+    .reading-grp{opacity:1 !important;transition:none !important;}
+    .fan{stroke-opacity:.5 !important;transition:none !important;}
+  }
+
+  .skip{
+    position:absolute;left:-9999px;top:0;
+    background:var(--ink);color:#fff;padding:8px 14px;z-index:10;
+    letter-spacing:.1em;font-size:12px;
+  }
+  .skip:focus{left:12px;}
+</style>
+</head>
+<body>
+
+  <a class="skip" href="#figure">Skip to figure</a>
+
+  <nav aria-label="Primary">
+    <div class="wrap nav-row">
+      <a href="#top" class="brand" aria-label="ORD — home">ORD</a>
+      <div class="nav-links">
+        <a href="#triad">Readings</a>
+        <a href="#work">Work</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Agentic orchestration · research &amp; product</p>
+        <h1 class="wordmark">ORD</h1>
+        <p class="tagline">Research that runs. <span class="dim">Reliable multi-agent systems.</span></p>
+      </div>
+    </header>
+
+    <!-- FIGURE -->
+    <section class="figure-block" id="figure" aria-labelledby="fig-cap">
+      <div class="wrap">
+        <div class="figure-meta">
+          <span>Fig. 01 — Convergence</span>
+          <span>One word, three readings</span>
+        </div>
+
+        <figure>
+          <!-- responsive viewBox keeps the left->right composition; scales to fit on mobile -->
+          <svg class="canvas" viewBox="0 0 1100 360" role="img"
+               aria-labelledby="fig-cap fig-desc" preserveAspectRatio="xMidYMid meet">
+            <title id="fig-cap">ORD convergence figure</title>
+            <desc id="fig-desc">
+              Three columns of keywords on the left — Operations, Optimization, Orchestration;
+              Research, Reasoning, Resources; Design, Decision, Decision — converge along thin
+              straight lines into a single System node at center, then fan out to three readings on the
+              right: Think, a way of thinking; Theory, a theory of systems; Build, a system you can run.
+              The spine Orchestration, Reasoning, Decision is emphasized.
+            </desc>
+
+            <!-- ================= LEFT: column heads ================= -->
+            <text class="col-head" x="40"  y="40">OPERATE</text>
+            <text class="col-head" x="236" y="40">REASON</text>
+            <text class="col-head" x="424" y="40">DECIDE</text>
+
+            <!-- ================= LEFT KEYWORDS =================
+                 3 columns side by side; each 3 words stacked.
+                 Rows: y=100 (top), 184 (middle/spine), 268 (bottom). -->
+
+            <!-- Column 1 -->
+            <text class="kw kw-soft"  x="40" y="100">Operations</text>
+            <text class="kw kw-soft"  x="40" y="184">Optimization</text>
+            <text class="kw kw-spine" x="40" y="268">Orchestration</text>
+
+            <!-- Column 2 -->
+            <text class="kw kw-soft"  x="236" y="100">Research</text>
+            <text class="kw kw-spine" x="236" y="184">Reasoning</text>
+            <text class="kw kw-soft"  x="236" y="268">Resources</text>
+
+            <!-- Column 3 -->
+            <text class="kw kw-soft"  x="424" y="100">Design</text>
+            <text class="kw kw-soft"  x="424" y="184">Decision</text>
+            <text class="kw kw-spine" x="424" y="268">Decision</text>
+
+            <!-- ================= CONVERGENCE LINES =================
+                 Each keyword emits a short HORIZONTAL stub, then a SLANTED straight
+                 segment to the System node entry (x=632, y=180). Top row slants down,
+                 middle row stays horizontal, bottom row slants up. Polylines only. -->
+
+            <!-- top row (y=96) -> slants DOWN -->
+            <polyline class="line" points="200,96 580,96 632,180" />  <!-- Operations -->
+            <polyline class="line" points="376,96 580,96 632,180" />  <!-- Research -->
+            <polyline class="line" points="528,96 580,96 632,180" />  <!-- Design -->
+
+            <!-- middle row (y=180) -> HORIZONTAL -->
+            <polyline class="line" points="216,180 632,180" />        <!-- Optimization -->
+            <polyline class="line" points="528,180 632,180" />        <!-- Decision (col 3, mid) -->
+            <polyline class="line-spine" points="388,180 632,180" />  <!-- REASONING (spine) -->
+
+            <!-- bottom row (y=264) -> slants UP -->
+            <polyline class="line" points="378,264 580,264 632,180" />       <!-- Resources -->
+            <polyline class="line-spine" points="216,264 580,264 632,180" /> <!-- ORCHESTRATION (spine) -->
+            <polyline class="line-spine" points="528,264 580,264 632,180" /> <!-- DECISION (spine) -->
+
+            <!-- ================= SYSTEM NODE ================= -->
+            <rect class="node-box" x="632" y="150" width="120" height="60" />
+            <text class="node-label" x="692" y="186" text-anchor="middle">System</text>
+
+            <!-- ================= FAN-OUT to readings =================
+                 From node right edge (x=752, y=180): short HORIZONTAL segment then
+                 SLANTED straight segments to THINK (up) / THEORY (mid) / BUILD (down). -->
+            <polyline class="fan" id="fan-think"  points="752,180 800,180 880,108 928,108" />
+            <polyline class="fan" id="fan-theory" points="752,180 928,180" />
+            <polyline class="fan" id="fan-build"  points="752,180 800,180 880,252 928,252" />
+
+            <!-- reading targets (revealed on scroll) -->
+            <g class="reading-grp" id="r-think">
+              <text class="reading-key"  x="936" y="104">THINK</text>
+              <text class="reading-desc" x="936" y="124">a way of thinking</text>
+            </g>
+            <g class="reading-grp" id="r-theory">
+              <text class="reading-key"  x="936" y="176">THEORY</text>
+              <text class="reading-desc" x="936" y="196">a theory of systems</text>
+            </g>
+            <g class="reading-grp" id="r-build">
+              <text class="reading-key"  x="936" y="248">BUILD</text>
+              <text class="reading-desc" x="936" y="268">a system you can run</text>
+            </g>
+          </svg>
+        </figure>
+      </div>
+    </section>
+
+    <!-- TRIAD -->
+    <section class="triad" id="triad" aria-label="Three readings">
+      <div class="wrap">
+        <p class="triad-head">One word, three readings</p>
+        <div class="triad-grid">
+          <div class="triad-cell">
+            <span class="idx">01 / mindset</span>
+            <p class="key"><span class="mark">·</span> THINK</p>
+            <p class="desc">A way of thinking.</p>
+          </div>
+          <div class="triad-cell">
+            <span class="idx">02 / research</span>
+            <p class="key"><span class="mark">·</span> THEORY</p>
+            <p class="desc">A theory of systems.</p>
+          </div>
+          <div class="triad-cell">
+            <span class="idx">03 / product</span>
+            <p class="key"><span class="mark">·</span> BUILD</p>
+            <p class="desc">A system you can run.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONE PLAIN LINE -->
+    <section class="statement" id="work">
+      <div>
+        <span class="lab"><span class="mark">·</span> Research</span>
+        The reliability of multi-agent systems.
+      </div>
+      <div>
+        <span class="lab"><span class="mark">·</span> Product</span>
+        Many agents, coordinated into one running system.
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="brand-sm">ORD</span>
+    <span>We study systems. We ship them.</span>
+    <span>© 2026</span>
+  </footer>
+
+  <script>
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      var pairs = [
+        ['r-think',  'fan-think'],
+        ['r-theory', 'fan-theory'],
+        ['r-build',  'fan-build']
+      ];
+
+      function set(p, litG, litF) {
+        var g = document.getElementById(p[0]);
+        var f = document.getElementById(p[1]);
+        if (g) { g.classList.toggle('lit', litG); }
+        if (f) { f.classList.toggle('lit', litF); }
+      }
+
+      // Static fallback: everything legible and lit.
+      if (reduce || !('IntersectionObserver' in window)) {
+        pairs.forEach(function (p) { set(p, true, true); });
+        return;
+      }
+
+      var fig = document.getElementById('figure');
+      var revealed = false;
+
+      function reveal() {
+        pairs.forEach(function (p, i) {
+          setTimeout(function () { set(p, true, true); }, i * 220);
+        });
+        // After the moment, dim readings back so "System" stays dominant.
+        setTimeout(function () {
+          pairs.forEach(function (p) {
+            var g = document.getElementById(p[0]);
+            if (g) { g.classList.remove('lit'); g.classList.add('settle'); }
+          });
+        }, 2400);
+      }
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting && !revealed) {
+            revealed = true;
+            reveal();
+            io.disconnect();
+          }
+        });
+      }, { threshold: 0.45 });
+
+      io.observe(fig);
+    })();
+  </script>
+
+</body>
+</html>

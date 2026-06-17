@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ORD System — Research that runs.</title>
+<meta name="description" content="ORD System researches and productizes agentic orchestration — coordinating many AI agents into one reliable running system.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fdfdfc;
+    --ink:#111111;
+    --ink-45:#9a9a97;
+    --accent:#c2410c;
+    --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, "Liberation Mono", monospace;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--mono);font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  a{color:inherit;text-decoration:none;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;padding:0;margin:-1px;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 32px;}
+  nav{display:flex;align-items:baseline;justify-content:space-between;padding:26px 0 22px;border-bottom:1px solid rgba(17,17,17,.12);}
+  .mark{font-weight:700;font-size:18px;letter-spacing:.18em;}
+  .mark .sub{font-weight:400;color:var(--ink-45);letter-spacing:.14em;font-size:12px;margin-left:.7em;}
+  .navlinks{display:flex;gap:26px;font-size:12px;letter-spacing:.16em;color:var(--ink-45);text-transform:uppercase;}
+  .navlinks a:hover{color:var(--ink);}
+  header.hero{padding:54px 0 30px;}
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-45);margin:0 0 26px;}
+  figure.figure{margin:0;}
+  .figure-svg{display:block;width:100%;height:auto;}
+  figcaption{margin-top:30px;display:flex;flex-wrap:wrap;align-items:baseline;gap:18px 30px;border-top:1px solid rgba(17,17,17,.12);padding-top:22px;}
+  .tagline{font-size:20px;font-weight:500;letter-spacing:.01em;margin:0;}
+  .wedge{font-size:12px;color:var(--ink-45);letter-spacing:.04em;margin:0;}
+  .kw{font-family:var(--mono);font-size:13px;letter-spacing:.04em;}
+  .kw-support{fill:var(--ink-45);font-weight:400;}
+  .kw-spine{fill:var(--ink);font-weight:700;}
+  .col-head{font-family:var(--mono);font-size:10px;letter-spacing:.22em;fill:var(--ink-45);}
+  .rail{stroke:rgba(17,17,17,.20);stroke-width:1;fill:none;}
+  .rail-spine{stroke:var(--accent);stroke-width:1.5;fill:none;}
+  .node-box{fill:var(--bg);stroke:var(--ink);stroke-width:1.5;}
+  .node-label{font-family:var(--mono);font-weight:700;font-size:17px;letter-spacing:.12em;fill:var(--ink);}
+  .node-sub{font-family:var(--mono);font-size:9px;letter-spacing:.18em;fill:var(--ink-45);}
+  .reading-key{font-family:var(--mono);font-weight:700;font-size:14px;letter-spacing:.1em;}
+  .reading-desc{font-family:var(--mono);font-size:10.5px;letter-spacing:.02em;fill:var(--ink-45);}
+  .reading{opacity:.32;transition:opacity .5s ease;}
+  .reading.lit{opacity:1;}
+  .reading.lit .reading-key{fill:var(--accent);}
+  .reading.settled{opacity:.6;}
+  .reading.settled .reading-key{fill:var(--ink);}
+  .marker{fill:rgba(17,17,17,.55);}
+  .marker.spine{fill:var(--accent);}
+  section.readings{padding:30px 0 8px;}
+  .readings h2{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-45);font-weight:400;margin:0 0 20px;}
+  .reading-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .reading-list li{padding:18px 22px 18px 0;border-top:1px solid rgba(17,17,17,.12);}
+  .reading-list li .k{display:block;font-weight:700;font-size:15px;letter-spacing:.1em;margin-bottom:7px;}
+  .reading-list li .d{display:block;font-size:12px;color:var(--ink-45);}
+  section.statement{padding:40px 0;}
+  .statement p{font-size:14px;max-width:62ch;margin:0;line-height:1.7;}
+  .statement .accent{color:var(--accent);}
+  footer{border-top:1px solid rgba(17,17,17,.12);padding:24px 0 40px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;font-size:11px;letter-spacing:.1em;color:var(--ink-45);}
+  footer .mark{font-size:13px;letter-spacing:.18em;color:var(--ink);}
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    header.hero{padding:34px 0 20px;}
+    .tagline{font-size:17px;}
+    .reading-list{grid-template-columns:1fr;}
+    .reading-list li{padding:14px 0;}
+    .navlinks{gap:16px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .marker{display:none;}
+    .reading{opacity:.7 !important;transition:none;}
+    .reading .reading-key{fill:var(--ink) !important;}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#figure" style="position:absolute;left:-9999px;top:0;background:#111;color:#fff;padding:8px 12px;z-index:10;" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to figure</a>
+
+<div class="wrap">
+
+  <nav aria-label="Primary">
+    <span class="mark">ORD<span class="sub">/ system</span></span>
+    <div class="navlinks">
+      <a href="#readings">Readings</a>
+      <a href="#research">Research</a>
+      <a href="#product">Product</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="eyebrow">One word, three readings</p>
+
+    <figure class="figure" id="figure" aria-labelledby="figure-text">
+      <p id="figure-text" class="sr-only">
+        Three columns of keywords — Operations, Optimization, Orchestration; Research, Reasoning, Resources;
+        Design, Decision, Decision — converge into one System. That single System reads three ways:
+        THINK, a way of thinking; THEORY, a theory of systems; BUILD, a system you can run.
+      </p>
+
+      <svg class="figure-svg" viewBox="0 0 1200 460" role="img" preserveAspectRatio="xMidYMid meet"
+           aria-label="ORD figure: nine keywords converge into one System, which reads as THINK, THEORY and BUILD.">
+
+        <text class="col-head" x="60"  y="58">OPERATIONS</text>
+        <text class="col-head" x="225" y="58">RESEARCH</text>
+        <text class="col-head" x="385" y="58">DESIGN</text>
+
+        <text class="kw kw-support" x="60"  y="170">Operations</text>
+        <text class="kw kw-support" x="60"  y="230">Optimization</text>
+        <text class="kw kw-spine"   x="60"  y="290">ORCHESTRATION</text>
+
+        <text class="kw kw-support" x="225" y="170">Research</text>
+        <text class="kw kw-spine"   x="225" y="230">REASONING</text>
+        <text class="kw kw-support" x="225" y="290">Resources</text>
+
+        <text class="kw kw-support" x="385" y="170">Design</text>
+        <text class="kw kw-support" x="385" y="230">Decision</text>
+        <text class="kw kw-spine"   x="385" y="290">DECISION</text>
+
+        <g id="rails">
+          <polyline class="rail" points="190,166 250,166 640,230"/>
+          <polyline class="rail" points="190,226 250,226 640,230"/>
+          <polyline class="rail" points="330,166 390,166 640,230"/>
+          <polyline class="rail" points="330,286 390,286 640,230"/>
+          <polyline class="rail" points="470,166 530,166 640,230"/>
+          <polyline class="rail" points="470,226 530,226 640,230"/>
+
+          <polyline class="rail-spine" id="spine-1" points="190,286 270,286 640,230"/>
+          <polyline class="rail-spine" id="spine-2" points="330,226 640,226"/>
+          <polyline class="rail-spine" id="spine-3" points="470,286 550,286 640,230"/>
+        </g>
+
+        <rect class="node-box" x="640" y="200" width="120" height="60"/>
+        <text class="node-label" x="700" y="227" text-anchor="middle">System</text>
+        <text class="node-sub"   x="700" y="244" text-anchor="middle">CONVERGENCE</text>
+
+        <g id="outflow">
+          <polyline class="rail-spine" id="out-1" points="760,230 820,230 980,120"/>
+          <polyline class="rail-spine" id="out-2" points="760,230 980,230"/>
+          <polyline class="rail-spine" id="out-3" points="760,230 820,230 980,340"/>
+        </g>
+
+        <g class="reading" id="r-think">
+          <text class="reading-key"  x="990" y="118">THINK</text>
+          <text class="reading-desc" x="990" y="136">a way of thinking</text>
+        </g>
+        <g class="reading" id="r-theory">
+          <text class="reading-key"  x="990" y="228">THEORY</text>
+          <text class="reading-desc" x="990" y="246">a theory of systems</text>
+        </g>
+        <g class="reading" id="r-build">
+          <text class="reading-key"  x="990" y="338">BUILD</text>
+          <text class="reading-desc" x="990" y="356">a system you can run</text>
+        </g>
+
+        <g id="markers" aria-hidden="true"></g>
+      </svg>
+
+      <figcaption>
+        <p class="tagline">Research that runs.</p>
+        <p class="wedge">Reliability for multi-agent systems.</p>
+      </figcaption>
+    </figure>
+  </header>
+
+  <section class="readings" id="readings" aria-label="The three readings">
+    <h2>System, read three ways</h2>
+    <ul class="reading-list">
+      <li><span class="k">THINK</span><span class="d">a way of thinking — the mindset.</span></li>
+      <li><span class="k">THEORY</span><span class="d">a theory of systems — the research arm.</span></li>
+      <li><span class="k">BUILD</span><span class="d">a system you can run — the product arm.</span></li>
+    </ul>
+  </section>
+
+  <section class="statement" aria-label="What we do">
+    <p id="research">We study how to coordinate many agents into one running system,
+    <span class="accent">and</span> <span id="product">we ship that system.</span></p>
+  </section>
+
+  <footer>
+    <span class="mark">ORD</span>
+    <span>ORD System · agentic orchestration · 2026</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var readings = [
+    {el: document.getElementById("r-think"),  delay: 0},
+    {el: document.getElementById("r-theory"), delay: 260},
+    {el: document.getElementById("r-build"),  delay: 520}
+  ];
+
+  function lightReadings(){
+    readings.forEach(function(r){
+      setTimeout(function(){
+        r.el.classList.add("lit");
+        setTimeout(function(){
+          r.el.classList.remove("lit");
+          r.el.classList.add("settled");
+        }, 900);
+      }, r.delay);
+    });
+  }
+
+  if (reduce){
+    readings.forEach(function(r){ r.el.classList.add("settled"); });
+  } else if ("IntersectionObserver" in window){
+    var fired = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting && !fired){
+          fired = true;
+          lightReadings();
+          io.disconnect();
+        }
+      });
+    }, {threshold: 0.45});
+    io.observe(document.getElementById("figure"));
+  } else {
+    lightReadings();
+  }
+
+  if (reduce) return;
+
+  var NS = "http://www.w3.org/2000/svg";
+  var markersGroup = document.getElementById("markers");
+
+  var pairs = [
+    ["spine-2", "out-2", true,  6],
+    ["spine-1", "out-1", true,  6],
+    ["spine-3", "out-3", true,  6],
+    [null,      "out-1", false, 4.5],
+    [null,      "out-3", false, 4.5]
+  ];
+
+  function pts(id){
+    var pl = document.getElementById(id);
+    if (!pl) return [];
+    return pl.getAttribute("points").trim().split(/\s+/).map(function(p){
+      var xy = p.split(",");
+      return {x: parseFloat(xy[0]), y: parseFloat(xy[1])};
+    });
+  }
+
+  function buildPath(points){
+    var segs = [], total = 0;
+    for (var i = 1; i < points.length; i++){
+      var a = points[i-1], b = points[i];
+      var len = Math.hypot(b.x - a.x, b.y - a.y);
+      segs.push({a:a, b:b, len:len, start:total});
+      total += len;
+    }
+    return {segs: segs, total: total};
+  }
+
+  function pointAt(path, dist){
+    var segs = path.segs;
+    for (var i = 0; i < segs.length; i++){
+      var s = segs[i];
+      if (dist <= s.start + s.len || i === segs.length - 1){
+        var t = s.len === 0 ? 0 : (dist - s.start) / s.len;
+        t = Math.max(0, Math.min(1, t));
+        return {x: s.a.x + (s.b.x - s.a.x) * t, y: s.a.y + (s.b.y - s.a.y) * t};
+      }
+    }
+    var last = segs[segs.length-1].b;
+    return {x:last.x, y:last.y};
+  }
+
+  var travelers = pairs.map(function(p, idx){
+    var ip = p[0] ? pts(p[0]) : [];
+    var op = pts(p[1]);
+    var all;
+    if (ip.length){
+      var bridgeIn  = ip[ip.length-1];
+      var bridgeOut = op[0];
+      all = ip.concat([bridgeIn, bridgeOut]).concat(op.slice(1));
+    } else {
+      all = op.slice();
+    }
+    return {
+      path: buildPath(all),
+      spine: p[2],
+      size: p[3],
+      phase: (idx / pairs.length) + Math.random()*0.15,
+      speed: p[2] ? 0.000034 : 0.000026
+    };
+  });
+
+  travelers.forEach(function(t){
+    var sq = document.createElementNS(NS, "rect");
+    sq.setAttribute("width", t.size);
+    sq.setAttribute("height", t.size);
+    sq.setAttribute("class", t.spine ? "marker spine" : "marker");
+    t.rect = sq;
+    markersGroup.appendChild(sq);
+  });
+
+  var raf = null, last = null, running = false;
+
+  function frame(now){
+    if (!running){ raf = null; return; }
+    if (last === null) last = now;
+    var dt = now - last;
+    last = now;
+    travelers.forEach(function(t){
+      t.phase += t.speed * dt;
+      if (t.phase > 1) t.phase -= 1;
+      var d = t.phase * t.path.total;
+      var pt = pointAt(t.path, d);
+      t.rect.setAttribute("x", (pt.x - t.size/2).toFixed(2));
+      t.rect.setAttribute("y", (pt.y - t.size/2).toFixed(2));
+      var edge = Math.min(t.phase, 1 - t.phase);
+      var fade = Math.min(1, edge / 0.06);
+      t.rect.setAttribute("opacity", ((t.spine ? 0.9 : 0.55) * fade).toFixed(3));
+    });
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start(){ if (!raf){ last = null; running = true; raf = requestAnimationFrame(frame); } }
+  function stop(){ running = false; }
+
+  document.addEventListener("visibilitychange", function(){
+    if (document.hidden) stop(); else start();
+  });
+
+  if ("IntersectionObserver" in window){
+    var vis = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting) start(); else stop(); });
+    }, {threshold: 0});
+    vis.observe(document.getElementById("figure"));
+  } else {
+    start();
+  }
+})();
+</script>
+</body>
+</html>
