@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>ORD System</title>
 <meta name="description" content="ORD System — agents as modules of one reliable, fast, accurate system. A systematic approach to unstructured problems. We study systems. We ship them." />
 <meta name="theme-color" content="#ffffff" />
@@ -160,6 +160,43 @@
   .js .reveal-el{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s cubic-bezier(.4,0,.2,1);transition-delay:var(--d,0s);}
   .js .reveal-el.in{opacity:1;transform:none;}
 
+  /* ---------- DECK MODE (JS on): one screen at a time, no page scroll ---------- */
+  html.deck,html.deck body{height:100%;overflow:hidden;}
+  html.deck{scroll-snap-type:none;}
+  .deck main{height:100svh;position:relative;}
+  .deck .page{
+    position:absolute;left:0;right:0;top:0;bottom:0;min-height:0;
+    overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;
+    /* center when it fits, fall back to top-aligned (scrollable) when it doesn't */
+    justify-content:safe center;
+    opacity:0;visibility:hidden;pointer-events:none;transform:translateY(6vh);
+    transition:opacity .5s ease,transform .6s cubic-bezier(.4,0,.2,1),visibility 0s linear .6s;
+  }
+  .deck .page.active{
+    opacity:1;visibility:visible;pointer-events:auto;transform:none;z-index:1;
+    transition:opacity .5s ease,transform .6s cubic-bezier(.4,0,.2,1);
+  }
+  .deck .cue{display:none;}
+
+  /* up / down controls */
+  .deck-nav{
+    position:fixed;right:clamp(1rem,3vw,2rem);
+    bottom:calc(clamp(1rem,3vw,2rem) + env(safe-area-inset-bottom));
+    z-index:35;display:flex;flex-direction:column;gap:.6rem;
+  }
+  .deck-nav[hidden]{display:none;}
+  .deck-btn{
+    width:2.9rem;height:2.9rem;padding:0;border:1px solid var(--line);
+    background:rgba(255,255,255,.82);backdrop-filter:saturate(140%) blur(6px);
+    color:var(--ink);cursor:pointer;display:grid;place-items:center;
+    transition:border-color .2s,background .2s,opacity .2s;
+  }
+  .deck-btn:hover:not(:disabled){border-color:var(--ink);background:#fff;}
+  .deck-btn:disabled{opacity:.26;cursor:default;}
+  .deck-btn .chev{width:.6rem;height:.6rem;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;}
+  .deck-btn.prev .chev{transform:translateY(22%) rotate(-135deg);}
+  .deck-btn.next .chev{transform:translateY(-22%) rotate(45deg);}
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:760px){
     /* crisp per-view snapping on mobile. mandatory is safe even though p3 is
@@ -190,6 +227,7 @@
     html{scroll-behavior:auto;}
     .js .fan-line,.js .fan-text,.js .reading-grp,.js .reveal-el{opacity:1 !important;transform:none !important;}
     .cue.bob .arrow{animation:none;}
+    .deck .page{transition:none !important;}
   }
 
   .skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:8px 14px;z-index:40;letter-spacing:.1em;font-size:12px;}
@@ -348,31 +386,25 @@
 
   </main>
 
+  <div class="deck-nav" role="navigation" aria-label="Section navigation" hidden>
+    <button type="button" class="deck-btn prev" aria-label="Previous section"><span class="chev" aria-hidden="true"></span></button>
+    <button type="button" class="deck-btn next" aria-label="Next section"><span class="chev" aria-hidden="true"></span></button>
+  </div>
+
   <script>
     (function () {
       var root = document.documentElement;
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       root.classList.add('js');
 
-      var hasIO = 'IntersectionObserver' in window;
+      var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+      var ids = pages.map(function (p) { return p.id; });
 
-      /* ---------- generic reveal-on-scroll ---------- */
-      var revealEls = Array.prototype.slice.call(document.querySelectorAll('.reveal-el'));
-      if (reduce || !hasIO) {
-        revealEls.forEach(function (el) { el.classList.add('in'); });
-      } else {
-        var revIO = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) { e.target.classList.add('in'); revIO.unobserve(e.target); }
-          });
-        }, { threshold: 0.18 });
-        revealEls.forEach(function (el) { revIO.observe(el); });
-      }
-
-      /* ---------- figure draw-in (triggers when page 02 enters) ---------- */
+      /* ---------- figure draw-in (runs once, when p2 is first shown) ---------- */
       var convLines = Array.prototype.slice.call(document.querySelectorAll('.conv-line'));
       var fanLines  = Array.prototype.slice.call(document.querySelectorAll('.fan-line'));
       var fanTexts  = ['r-think','r-theory','r-build'].map(function (id) { return document.getElementById(id); });
+      var figurePlayed = false;
 
       function showFigure() {
         convLines.concat(fanLines).forEach(function (el) {
@@ -380,74 +412,135 @@
         });
         fanTexts.forEach(function (el) { if (el) el.style.opacity = 1; });
       }
-
-      if (reduce || !hasIO) {
-        showFigure();
-      } else {
-        var prime = function (el) {
+      function primeFigure() {
+        convLines.concat(fanLines).forEach(function (el) {
           var len; try { len = el.getTotalLength(); } catch (e) { len = 600; }
           el.style.strokeDasharray = len; el.style.strokeDashoffset = len; el.style.opacity = 1;
-        };
+        });
+      }
+      function runFigure() {
+        if (figurePlayed) return; figurePlayed = true;
+        if (reduce) { showFigure(); return; }
         var draw = function (el, delay, dur) {
           el.getBoundingClientRect();
           el.style.transition = 'stroke-dashoffset ' + dur + 'ms cubic-bezier(.4,0,.2,1) ' + delay + 'ms';
           el.style.strokeDashoffset = 0;
         };
-        convLines.forEach(prime); fanLines.forEach(prime);
-
-        var played = false;
-        var runFigure = function () {
-          if (played) return; played = true;
-          convLines.forEach(function (el, i) { draw(el, 60 + i * 110, 850); });
-          var fanStart = 60 + convLines.length * 110 + 600;
+        convLines.forEach(function (el, i) { draw(el, 60 + i * 110, 850); });
+        var fanStart = 60 + convLines.length * 110 + 600;
+        setTimeout(function () {
+          fanLines.forEach(function (el, i) { draw(el, i * 130, 720); });
+          fanTexts.forEach(function (el, i) {
+            if (!el) return;
+            el.style.transition = 'opacity .55s ease ' + (i * 130) + 'ms';
+            el.style.opacity = 1;
+          });
           setTimeout(function () {
-            fanLines.forEach(function (el, i) { draw(el, i * 130, 720); });
-            fanTexts.forEach(function (el, i) {
-              if (!el) return;
-              el.style.transition = 'opacity .55s ease ' + (i * 130) + 'ms';
-              el.style.opacity = 1;
-            });
-            setTimeout(function () {
-              fanTexts.forEach(function (el) { if (el) { el.style.transition = 'opacity .9s ease'; el.style.opacity = 0.5; } });
-              fanLines.forEach(function (el) { el.style.transition = 'stroke-opacity .9s ease'; el.style.strokeOpacity = 0.5; });
-            }, 1500);
-          }, fanStart);
-        };
+            fanTexts.forEach(function (el) { if (el) { el.style.transition = 'opacity .9s ease'; el.style.opacity = 0.5; } });
+            fanLines.forEach(function (el) { el.style.transition = 'stroke-opacity .9s ease'; el.style.strokeOpacity = 0.5; });
+          }, 1500);
+        }, fanStart);
+      }
+      if (!reduce) primeFigure(); else showFigure();
 
-        var figIO = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { if (e.isIntersecting) { runFigure(); figIO.disconnect(); } });
-        }, { threshold: 0.35 });
-        figIO.observe(document.getElementById('p2'));
+      /* ---------- reveal a page's elements when it becomes active ---------- */
+      function revealPage(page) {
+        Array.prototype.slice.call(page.querySelectorAll('.reveal-el')).forEach(function (el) { el.classList.add('in'); });
       }
 
       /* ---------- right pager active state ---------- */
-      var pages = ['p1','p2','p3'];
       var pgLinks = {};
       Array.prototype.slice.call(document.querySelectorAll('.pg')).forEach(function (a) {
         pgLinks[a.getAttribute('data-target')] = a;
       });
-      function setActive(id) {
-        pages.forEach(function (p) { if (pgLinks[p]) pgLinks[p].classList.toggle('active', p === id); });
+      function setPager(id) { ids.forEach(function (p) { if (pgLinks[p]) pgLinks[p].classList.toggle('active', p === id); }); }
+
+      /* ---------- deck controller ---------- */
+      var deckNav = document.querySelector('.deck-nav');
+      var btnPrev = document.querySelector('.deck-btn.prev');
+      var btnNext = document.querySelector('.deck-btn.next');
+      var idx = 0;
+
+      function updateButtons() {
+        if (btnPrev) btnPrev.disabled = idx <= 0;
+        if (btnNext) btnNext.disabled = idx >= pages.length - 1;
       }
-      if (hasIO) {
-        var pageIO = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { if (e.isIntersecting) setActive(e.target.id); });
-        }, { threshold: 0.5 });
-        pages.forEach(function (p) { var el = document.getElementById(p); if (el) pageIO.observe(el); });
+      function activate(i) {
+        i = Math.max(0, Math.min(pages.length - 1, i));
+        idx = i;
+        pages.forEach(function (p, k) { p.classList.toggle('active', k === i); });
+        var page = pages[i];
+        page.scrollTop = 0;
+        revealPage(page);
+        if (ids[i] === 'p2') runFigure();
+        setPager(ids[i]);
+        updateButtons();
+        try { history.replaceState(null, '', '#' + ids[i]); } catch (e) {}
       }
 
-      /* ---------- hide the scroll cue after first scroll ---------- */
-      var cue = document.querySelector('.cue');
-      window.addEventListener('scroll', function () {
-        if (cue && window.scrollY > 40) { cue.style.opacity = '0'; cue.style.transition = 'opacity .4s ease'; }
+      /* enable deck (JS available) */
+      root.classList.add('deck');
+      if (deckNav) deckNav.hidden = false;
+      var start = 0;
+      if (location.hash) { var h = ids.indexOf(location.hash.slice(1)); if (h >= 0) start = h; }
+      activate(start);
+
+      /* navigation, gated so an overflowing page (e.g. p3 on small phones)
+         scrolls internally before moving to the next/prev section */
+      var lock = false;
+      function lockNav() { lock = true; setTimeout(function () { lock = false; }, reduce ? 60 : 700); }
+      function atTop(el)    { return el.scrollTop <= 0; }
+      function atBottom(el) { return Math.ceil(el.scrollTop + el.clientHeight) >= el.scrollHeight; }
+      function step(dir, fromGesture) {
+        if (lock) return;
+        var cur = pages[idx];
+        if (fromGesture) {
+          if (dir > 0 && !atBottom(cur)) return;
+          if (dir < 0 && !atTop(cur)) return;
+        }
+        var next = idx + dir;
+        if (next < 0 || next >= pages.length) return;
+        lockNav();
+        activate(next);
+      }
+
+      if (btnPrev) btnPrev.addEventListener('click', function () { step(-1, false); });
+      if (btnNext) btnNext.addEventListener('click', function () { step(1, false); });
+
+      window.addEventListener('wheel', function (e) {
+        if (Math.abs(e.deltaY) < 4) return;
+        step(e.deltaY > 0 ? 1 : -1, true);
       }, { passive: true });
 
-      /* ---------- in-page nav (guarded for reduced motion) ---------- */
-      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      window.addEventListener('keydown', function (e) {
+        switch (e.key) {
+          case 'ArrowDown': case 'PageDown': step(1, true); break;
+          case 'ArrowUp': case 'PageUp': step(-1, true); break;
+          case ' ': step(e.shiftKey ? -1 : 1, true); break;
+          case 'Home': e.preventDefault(); activate(0); break;
+          case 'End': e.preventDefault(); activate(pages.length - 1); break;
+          default: return;
+        }
+      });
+
+      var touchY = null;
+      window.addEventListener('touchstart', function (e) {
+        touchY = (e.touches.length === 1) ? e.touches[0].clientY : null;
+      }, { passive: true });
+      window.addEventListener('touchend', function (e) {
+        if (touchY === null) return;
+        var endY = (e.changedTouches[0] || {}).clientY;
+        var dy = (endY == null) ? 0 : touchY - endY;
+        touchY = null;
+        if (Math.abs(dy) < 40) return;
+        step(dy > 0 ? 1 : -1, true);
+      }, { passive: true });
+
+      /* in-page anchors (brand, nav links, skip, pager dots) drive the deck */
+      Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]')).forEach(function (a) {
         a.addEventListener('click', function (ev) {
-          var id = a.getAttribute('href');
-          var t = id && id.length > 1 ? document.querySelector(id) : null;
-          if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
+          var i = ids.indexOf(a.getAttribute('href').slice(1));
+          if (i >= 0) { ev.preventDefault(); activate(i); }
         });
       });
     })();
