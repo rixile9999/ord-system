@@ -20,12 +20,17 @@
     --line:rgba(17,17,17,.24);
     --accent:#b5471f;
     --mono:'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
-    --col:1100px;
-    --nav-h:64px;
+    --col:min(108rem,90vw);
+    --nav-h:4.4rem;
   }
 
   *{box-sizing:border-box;}
   html{
+    /* fluid root: the WHOLE design is sized in rem, so type, spacing and
+       layout scale together with the monitor. The preferred term reacts to
+       both axes (vw + vh) so it fills wide AND tall displays, clamped so it
+       stays sane from laptops (~15px) up to 4K (~30px). */
+    font-size:clamp(15px, 0.42vw + 0.5vh + 4.6px, 30px);
     -webkit-text-size-adjust:100%;
     scroll-behavior:smooth;
     scroll-snap-type:y mandatory;
@@ -46,7 +51,7 @@
   a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
   ::selection{background:var(--accent);color:#fff;}
 
-  .wrap{max-width:var(--col);margin:0 auto;padding:0 32px;width:100%;}
+  .wrap{max-width:var(--col);margin:0 auto;padding:0 clamp(1.25rem,3vw,3.5rem);width:100%;}
 
   /* ---------- FIXED NAV ---------- */
   nav{
@@ -57,8 +62,8 @@
     border-bottom:1px solid var(--hair);
   }
   .nav-row{display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);}
-  .brand{font-weight:700;font-size:17px;letter-spacing:.22em;}
-  .nav-links{display:flex;gap:30px;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);}
+  .brand{font-weight:700;font-size:1.06rem;letter-spacing:.22em;}
+  .nav-links{display:flex;gap:1.9rem;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gray);}
   .nav-links a{transition:color .15s;}
   .nav-links a:hover{color:var(--ink);}
 
@@ -69,48 +74,47 @@
     min-height:100svh;
     scroll-snap-align:start;
     display:flex;flex-direction:column;justify-content:center;
-    padding:calc(var(--nav-h) + 28px) 0 56px;
+    padding:calc(var(--nav-h) + 1.75rem) 0 3.5rem;
     position:relative;
   }
   .page-last{padding-bottom:0;}
 
   /* ---------- RIGHT PAGER ---------- */
   .pager{
-    position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:25;
-    display:flex;flex-direction:column;gap:18px;align-items:flex-end;
+    position:fixed;right:1.6rem;top:50%;transform:translateY(-50%);z-index:25;
+    display:flex;flex-direction:column;gap:1.1rem;align-items:flex-end;
   }
-  .pg{display:flex;align-items:center;gap:10px;color:var(--gray);font-size:12px;letter-spacing:.18em;transition:color .25s;}
+  .pg{display:flex;align-items:center;gap:.6rem;color:var(--gray);font-size:.75rem;letter-spacing:.18em;transition:color .25s;}
   .pg .pg-n{font-variant-numeric:tabular-nums;}
-  .pg::after{content:"";display:block;width:16px;height:1px;background:currentColor;transition:width .3s ease,background .3s ease;}
+  .pg::after{content:"";display:block;width:1rem;height:1px;background:currentColor;transition:width .3s ease,background .3s ease;}
   .pg:hover{color:var(--ink);}
   .pg.active{color:var(--ink);}
-  .pg.active::after{width:36px;background:var(--accent);}
+  .pg.active::after{width:2.25rem;background:var(--accent);}
 
   /* ---------- SCROLL CUE ---------- */
   .cue{
-    position:absolute;left:0;right:0;bottom:30px;text-align:center;
-    font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);
+    position:absolute;left:0;right:0;bottom:1.9rem;text-align:center;
+    font-size:.75rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gray);
   }
-  .cue .arrow{display:block;margin:8px auto 0;width:1px;height:22px;background:var(--line);position:relative;}
+  .cue .arrow{display:block;margin:.5rem auto 0;width:1px;height:1.4rem;background:var(--line);position:relative;}
   .cue .arrow::after{content:"";position:absolute;left:-3px;bottom:0;width:7px;height:7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg);}
   .cue.bob .arrow{animation:bob 1.8s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
 
   /* ---------- PAGE 01: identity ---------- */
-  .eyebrow{font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--gray);margin:0 0 30px;}
-  .wordmark{font-weight:700;font-size:clamp(80px,15vw,184px);line-height:.9;letter-spacing:.02em;margin:0;}
-  .tagline{margin:28px 0 0;font-size:clamp(17px,2vw,24px);letter-spacing:.03em;color:var(--ink);}
+  .eyebrow{font-size:.85rem;letter-spacing:.34em;text-transform:uppercase;color:var(--gray);margin:0 0 2.2rem;}
+  .wordmark{font-weight:700;font-size:min(19rem,42vw);line-height:.86;letter-spacing:.02em;margin:0;}
+  .tagline{margin:2.2rem 0 0;font-size:1.35rem;letter-spacing:.03em;color:var(--ink);}
   .tagline .dim{color:var(--gray);}
 
   /* ---------- PAGE 02: figure ---------- */
   .figure-meta{
     display:flex;justify-content:space-between;align-items:baseline;
     border-top:1px solid var(--hair);border-bottom:1px solid var(--hair-soft);
-    padding:12px 0;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);
+    padding:.75rem 0;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);
   }
-  #p2 .wrap{max-width:1260px;}
   figure{margin:0;}
-  .fig-scroll{margin-top:28px;}
+  .fig-scroll{margin-top:1.9rem;}
   .canvas{width:100%;height:auto;display:block;overflow:visible;}
   .scroll-hint{display:none;}
 
@@ -133,23 +137,23 @@
 
   /* ---------- PAGE 03: readings + work ---------- */
   .p3-main{flex:1;display:flex;flex-direction:column;justify-content:center;}
-  .triad-head{font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);border-top:1px solid var(--hair);padding:16px 0 0;margin:0 0 4px;}
+  .triad-head{font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gray);border-top:1px solid var(--hair);padding:1rem 0 0;margin:0 0 .25rem;}
   .triad-grid{display:grid;grid-template-columns:repeat(3,1fr);}
-  .triad-cell{border-top:1px solid var(--hair);padding:34px 30px 40px 0;}
-  .triad-cell + .triad-cell{border-left:1px solid var(--hair);padding-left:30px;}
-  .triad-cell .idx{font-size:13px;letter-spacing:.2em;color:var(--gray);}
-  .triad-cell .key{font-weight:700;font-size:clamp(30px,3.6vw,46px);letter-spacing:.08em;margin:18px 0 14px;}
+  .triad-cell{border-top:1px solid var(--hair);padding:2.1rem 1.9rem 2.5rem 0;}
+  .triad-cell + .triad-cell{border-left:1px solid var(--hair);padding-left:1.9rem;}
+  .triad-cell .idx{font-size:.8rem;letter-spacing:.2em;color:var(--gray);}
+  .triad-cell .key{font-weight:700;font-size:2.6rem;letter-spacing:.08em;margin:1.1rem 0 .9rem;}
   .triad-cell .key .mark{color:var(--accent);}
-  .triad-cell .desc{font-size:15.5px;letter-spacing:.02em;color:var(--ink);margin:0;}
+  .triad-cell .desc{font-size:.97rem;letter-spacing:.02em;color:var(--ink);margin:0;}
 
-  .statement{margin-top:48px;}
-  .statement-grid{padding-top:30px;border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(2,1fr);gap:32px;}
-  .statement .cell{font-size:15.5px;letter-spacing:.02em;}
-  .statement .lab{display:block;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+  .statement{margin-top:3rem;}
+  .statement-grid{padding-top:1.9rem;border-top:1px solid var(--hair);display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;}
+  .statement .cell{font-size:.97rem;letter-spacing:.02em;}
+  .statement .lab{display:block;font-size:.8rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gray);margin-bottom:.6rem;}
   .statement .lab .mark{color:var(--accent);}
 
-  footer{border-top:1px solid var(--hair);margin-top:48px;}
-  footer .wrap{padding-top:26px;padding-bottom:38px;display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);}
+  footer{border-top:1px solid var(--hair);margin-top:3rem;}
+  footer .wrap{padding-top:1.6rem;padding-bottom:2.4rem;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);}
   footer .brand-sm{font-weight:700;color:var(--ink);letter-spacing:.22em;}
 
   /* ---------- REVEAL (scroll effect) ---------- */
@@ -234,7 +238,7 @@
                 Three columns of keywords on the left — Operations, Optimization, Orchestration;
                 Research, Reasoning, Resources; Design, Decision, Distribution — converge along
                 straight horizontal and slanted lines into a single System node at center, then fan out
-                to three readings on the right: Think, a way of thinking; Theory, a theory of systems;
+                to three readings on the right: Think, thinking in systems; Theory, a theory of systems;
                 Build, a system you can run. The cognitive spine — Orchestration, Reasoning, Decision —
                 is emphasized in full ink.
               </desc>
@@ -271,7 +275,7 @@
 
               <g class="reading-grp fan-text" id="r-think">
                 <text class="reading-key"  x="995" y="114">THINK</text>
-                <text class="reading-desc" x="995" y="134">a way of thinking</text>
+                <text class="reading-desc" x="995" y="134">thinking in systems</text>
               </g>
               <g class="reading-grp fan-text" id="r-theory">
                 <text class="reading-key"  x="995" y="194">THEORY</text>
@@ -297,7 +301,7 @@
             <div class="triad-cell reveal-el">
               <span class="idx">01 / mindset</span>
               <p class="key"><span class="mark">·</span> THINK</p>
-              <p class="desc">A way of thinking.</p>
+              <p class="desc">Thinking in systems.</p>
             </div>
             <div class="triad-cell reveal-el" style="--d:.1s">
               <span class="idx">02 / research</span>
