@@ -162,11 +162,14 @@
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:760px){
-    html{scroll-snap-type:none;}
+    /* keep crisp per-view snapping on mobile; proximity (not mandatory) so a
+       page taller than the viewport — e.g. p3 — can still scroll to its end
+       without the snap fighting back, while short pages still click into place */
+    html{scroll-snap-type:y proximity;}
     .wrap{padding:0 20px;}
     .pager{display:none;}
-    .page{padding:calc(var(--nav-h) + 22px) 0 44px;min-height:auto;}
-    .page#p1{min-height:100svh;}
+    .page{padding:calc(var(--nav-h) + 22px) 0 44px;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;justify-content:center;}
+    .page-last{justify-content:flex-start;}
     .fig-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
     .canvas{min-width:680px;}
     .scroll-hint{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin:8px 2px 0;}
