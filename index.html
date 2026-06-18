@@ -116,6 +116,7 @@
   figure{margin:0;}
   .fig-scroll{margin-top:1.9rem;}
   .canvas{width:100%;height:auto;display:block;overflow:visible;}
+  .canvas-v{display:none;}            /* mobile-only vertical figure */
   .scroll-hint{display:none;}
 
   .kw{font-family:var(--mono);font-size:17px;letter-spacing:.02em;}
@@ -174,9 +175,11 @@
     /* p3 is taller than the viewport: give it a 2nd snap point at the very end
        so mandatory snap can rest on the footer instead of trapping it up top */
     footer{scroll-snap-align:end;scroll-snap-stop:always;}
-    .fig-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;}
-    .canvas{min-width:680px;}
-    .scroll-hint{display:block;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin:8px 2px 0;}
+    /* show the vertical figure, hide the wide one — no horizontal scroll */
+    .fig-scroll{overflow:visible;margin-top:1.4rem;}
+    .canvas{display:none;}
+    .canvas-v{display:block;width:100%;height:auto;overflow:visible;}
+    .scroll-hint{display:none;}
     .triad-grid{grid-template-columns:1fr;}
     .triad-cell{padding:24px 0 26px;}
     .triad-cell + .triad-cell{border-left:0;padding-left:0;}
@@ -294,6 +297,69 @@
               </g>
             </svg>
           </div>
+
+          <!-- vertical figure: same story (inputs → System → readings) flowing
+               top→bottom so it fits the phone width with nothing cropped -->
+          <svg class="canvas-v" viewBox="0 0 320 580" role="img"
+               aria-labelledby="figv-cap figv-desc" preserveAspectRatio="xMidYMid meet">
+            <title id="figv-cap">ORD convergence figure (vertical)</title>
+            <desc id="figv-desc">
+              Three groups of keywords — Operate (Operations, Optimization, Orchestration),
+              Reason (Research, Reasoning, Resources) and Decide (Design, Decision, Distribution) —
+              flow down a rail into a single System node, which then distributes down to three
+              readings: Think, thinking in systems; Theory, a theory of systems; Build, a system
+              you can run. The cognitive spine — Orchestration, Reasoning, Decision — is in full ink.
+            </desc>
+
+            <!-- inputs converge down the rail into the node (draw-in) -->
+            <line class="conv-line" x1="40" y1="20"  x2="40" y2="316" />
+            <line class="conv-line" x1="40" y1="26"  x2="64" y2="26" />
+            <line class="conv-line" x1="40" y1="124" x2="64" y2="124" />
+            <line class="conv-line" x1="40" y1="222" x2="64" y2="222" />
+
+            <!-- OPERATE -->
+            <text class="col-head" x="66" y="30">OPERATE</text>
+            <text class="kw kw-soft"  x="66" y="52">Operations</text>
+            <text class="kw kw-soft"  x="66" y="74">Optimization</text>
+            <text class="kw kw-spine" x="66" y="96">Orchestration</text>
+
+            <!-- REASON -->
+            <text class="col-head" x="66" y="128">REASON</text>
+            <text class="kw kw-soft"  x="66" y="150">Research</text>
+            <text class="kw kw-spine" x="66" y="172">Reasoning</text>
+            <text class="kw kw-soft"  x="66" y="194">Resources</text>
+
+            <!-- DECIDE -->
+            <text class="col-head" x="66" y="226">DECIDE</text>
+            <text class="kw kw-soft"  x="66" y="248">Design</text>
+            <text class="kw kw-spine" x="66" y="270">Decision</text>
+            <text class="kw kw-soft"  x="66" y="292">Distribution</text>
+
+            <!-- System node -->
+            <rect class="node-box" x="40" y="316" width="160" height="60" />
+            <polygon class="node-corner" points="40,316 58,316 40,334" />
+            <text class="node-label" x="120" y="352" text-anchor="middle">System</text>
+
+            <!-- node distributes down to the three readings (draw-in + fade) -->
+            <line class="fan-line" x1="40" y1="376" x2="40" y2="534" />
+            <line class="fan-line" x1="40" y1="414" x2="64" y2="414" />
+            <line class="fan-line" x1="40" y1="474" x2="64" y2="474" />
+            <line class="fan-line" x1="40" y1="534" x2="64" y2="534" />
+
+            <g class="reading-grp fan-text">
+              <text class="reading-key"  x="66" y="418">THINK</text>
+              <text class="reading-desc" x="66" y="436">thinking in systems</text>
+            </g>
+            <g class="reading-grp fan-text">
+              <text class="reading-key"  x="66" y="478">THEORY</text>
+              <text class="reading-desc" x="66" y="496">a theory of systems</text>
+            </g>
+            <g class="reading-grp fan-text">
+              <text class="reading-key"  x="66" y="538">BUILD</text>
+              <text class="reading-desc" x="66" y="556">a system you can run</text>
+            </g>
+          </svg>
+
           <p class="scroll-hint" aria-hidden="true">scroll the figure →</p>
         </figure>
       </div>
@@ -372,7 +438,9 @@
       /* ---------- figure draw-in (triggers when page 02 enters) ---------- */
       var convLines = Array.prototype.slice.call(document.querySelectorAll('.conv-line'));
       var fanLines  = Array.prototype.slice.call(document.querySelectorAll('.fan-line'));
-      var fanTexts  = ['r-think','r-theory','r-build'].map(function (id) { return document.getElementById(id); });
+      /* class-based so BOTH the desktop and the mobile-vertical figures'
+         reading groups fade in/settle together (the hidden one is harmless) */
+      var fanTexts  = Array.prototype.slice.call(document.querySelectorAll('.fan-text'));
 
       function showFigure() {
         convLines.concat(fanLines).forEach(function (el) {
