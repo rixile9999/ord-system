@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORD Systems — 디자인 비교</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f0f2f5; color: #172137; font: 15px/1.7 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    main { width: min(1280px, calc(100% - 48px)); margin: 46px auto; }
+    h1 { margin: 0 0 12px; font-size: 32px; letter-spacing: -1px; }
+    .intro { margin: 0 0 32px; color: #526078; }
+    .options { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    article { border: 1px solid #d4dbe5; background: white; }
+    .copy { padding: 25px; }
+    h2 { margin: 0 0 10px; font-size: 22px; letter-spacing: -.6px; }
+    p { margin: 0 0 17px; }
+    a { color: #2459ff; text-underline-offset: 4px; }
+    a:focus-visible { outline: 2px solid #2459ff; outline-offset: 5px; }
+    .preview { display: block; border-top: 1px solid #d4dbe5; }
+    .preview img { display: block; width: 100%; height: auto; }
+    .brand { margin-top: 28px; padding: 25px; background: white; border: 1px solid #d4dbe5; }
+    .marks { display: flex; align-items: center; gap: 50px; padding-block: 24px 30px; }
+    .symbol { width: 70px; height: 70px; }
+    .wordmark { width: 240px; height: auto; }
+    .brand p { max-width: 750px; color: #526078; }
+    @media (max-width: 760px) { main { width: calc(100% - 32px); margin-top: 28px; } .options { grid-template-columns: 1fr; } .marks { gap: 25px; } .wordmark { width: min(210px, 64%); } h1 { font-size: 27px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>ORD Systems — 두 가지 디자인 방향</h1>
+    <p class="intro">Operations Research &amp; Decision · Mathematical Optimization × Language Models → Agentic AI</p>
+    <div class="options">
+      <article>
+        <div class="copy"><h2>1안 · System architecture</h2><p>기존 symbol을 유지하고, 두 기술이 하나의 agentic system으로 연결되는 구조를 보여줍니다. 밝은 배경과 절제된 색상으로 회사의 기술적 지향점을 설명합니다.</p><a href="../index.html">1안 열기 →</a></div>
+        <a class="preview" href="../index.html" aria-label="1안 전체 화면 열기"><img src="../shots/agentic-desktop.png" alt="1안 desktop 화면" /></a>
+      </article>
+      <article>
+        <div class="copy"><h2>2안 · Feasible region</h2><p>로고와 디자인을 새로 만들었습니다. 목표·제약·decision이라는 기술적 개념을 symbol, wordmark, 메인 visual에 연결합니다.</p><a href="decision-field.html">2안 열기 →</a></div>
+        <a class="preview" href="decision-field.html" aria-label="2안 전체 화면 열기"><img src="../shots/decision-field-desktop.png" alt="2안 desktop 화면" /></a>
+      </article>
+    </div>
+    <section class="brand" aria-labelledby="brand-name">
+      <h2 id="brand-name">2안의 새로운 로고</h2>
+      <div class="marks"><img class="symbol" src="../brand/ord-v2/ord-symbol.svg" alt="새 ORD symbol" /><img class="wordmark" src="../brand/ord-v2/ord-wordmark.svg" alt="새 ORD wordmark" /></div>
+      <p>경계는 feasible region, 파란 점은 선택된 decision을 의미합니다. wordmark의 O는 symbol을 사용하고, R과 D도 같은 기준으로 만든 vector path입니다.</p>
+      <a href="../brand/ord-v2/ord-symbol.svg">Symbol SVG</a> · <a href="../brand/ord-v2/ord-wordmark.svg">Wordmark SVG</a>
+    </section>
+  </main>
+</body>
+</html>
