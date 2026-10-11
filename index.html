@@ -4,182 +4,159 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ORD Systems — Operations Research &amp; Decision</title>
-  <meta name="description" content="ORD stands for Operations Research &amp; Decision. We combine mathematical optimization and language models to solve complex operational problems. Explore our approach and RN-AI, our service for nursing operations." />
-  <meta name="theme-color" content="#faf9f6" />
+  <meta name="description" content="ORD Systems combines language models and mathematical optimization to build agentic AI for operational planning. Turn requests into explicit constraints, compute a feasible plan, and replan as conditions change." />
+  <meta name="theme-color" content="#f5f7fa" />
   <meta property="og:title" content="ORD Systems — Operations Research &amp; Decision" />
-  <meta property="og:description" content="Mathematical optimization and language models, integrated into agentic systems for complex operations." />
+  <meta property="og:description" content="Language models and mathematical optimization for operational planning." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ord.systems/" />
   <link rel="canonical" href="https://ord.systems/" />
-  <link rel="icon" type="image/svg+xml" href="brand/linkedin/ord-icon.svg" />
+  <link rel="alternate" hreflang="en" href="https://ord.systems/" />
+  <link rel="alternate" hreflang="ko" href="https://ord.systems/ko/" />
+  <link rel="alternate" hreflang="x-default" href="https://ord.systems/" />
+  <link rel="icon" type="image/svg+xml" href="brand/ord-favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: light;
-      --paper: #faf9f6;
-      --ink: #242923;
-      --muted: #63695f;
-      --accent: #ae451f;
-      --line: #d8dbd2;
-      --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 28px; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
-    ::selection { background: #eed9ce; }
-    .wrap { width: min(1280px, calc(100% - 112px)); margin-inline: auto; }
-    .skip { position: absolute; top: -80px; left: 24px; padding: 12px 20px; background: var(--ink); color: white; z-index: 10; }
-    .skip:focus { top: 12px; }
-    .header { height: 100px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
-    .brand { display: inline-flex; gap: 12px; align-items: center; font-size: 20px; font-weight: 600; letter-spacing: -.7px; }
-    .brand-icon { width: 33px; height: 33px; flex: none; }
-    .brand span { font-weight: 400; }
-    .navigation { display: flex; gap: 34px; font-size: 13px; color: var(--muted); }
-    .navigation a:hover, .service-link:hover { color: var(--accent); }
-    .hero { display: grid; grid-template-columns: 1.08fr 1fr; gap: 66px; align-items: center; padding-block: 100px 94px; }
-    .eyebrow { margin: 0 0 31px; font: 10px/1.7 var(--mono); letter-spacing: .13em; color: var(--accent); text-transform: uppercase; }
-    h1 { margin: 0; font-size: clamp(50px, 5.4vw, 77px); font-weight: 500; line-height: 1.04; letter-spacing: -.068em; }
-    h1 span { display: block; }
-    .hero-copy { margin: 34px 0 0; max-width: 420px; color: var(--muted); font-size: 17px; line-height: 1.8; letter-spacing: -.025em; }
-    .hero-copy strong { color: var(--ink); font-weight: 500; }
-    .technical-note { display: flex; gap: 12px; align-items: center; margin-top: 41px; color: var(--muted); font: 10px/1.8 var(--mono); letter-spacing: .04em; }
-    .technical-note::before { content: ''; width: 26px; height: 1px; background: var(--accent); }
-    .architecture { margin: 3px 0 0; min-width: 0; }
-    .figure-heading { display: flex; align-items: center; justify-content: space-between; margin: 0 0 12px; color: var(--muted); font: 9px/1.8 var(--mono); letter-spacing: .12em; }
-    .figure-heading span:last-child { color: var(--accent); }
-    .system-diagram { display: block; width: 100%; height: auto; overflow: visible; }
-    .system-diagram text { font-family: var(--sans); fill: var(--ink); }
-    .system-diagram .mono { font-family: var(--mono); }
-    .system-diagram .label { font-size: 18px; font-weight: 500; letter-spacing: -.5px; }
-    .system-diagram .detail { font-size: 12px; fill: var(--muted); }
-    .system-diagram .micro { font-size: 9px; letter-spacing: 1.2px; fill: var(--muted); }
-    .system-diagram .accent { fill: var(--accent); }
-    .diagram-caption { margin: 2px 0 0; text-align: center; font: 10px/1.8 var(--mono); color: var(--muted); }
-    .service { display: grid; grid-template-columns: .44fr 1fr auto; gap: 35px; align-items: center; padding-block: 35px 38px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .section-label { margin: 0; align-self: start; padding-top: 6px; font: 10px/1.8 var(--mono); letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
-    .section-label span { margin-right: 12px; color: var(--accent); }
-    .service-description h2 { margin: 0 0 9px; font-size: 27px; font-weight: 500; letter-spacing: -.055em; }
-    .service-description p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
-    .service-link { display: inline-flex; gap: 27px; align-items: center; padding-block: 13px; font-size: 13px; transition: color .15s ease; }
-    .service-link svg { width: 16px; height: 16px; }
-    .footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 26px 30px; color: var(--muted); font: 9px/1.8 var(--mono); letter-spacing: .03em; }
-    @media (min-width: 1700px) { .hero { padding-block: 120px; } }
-    @media (max-width: 1050px) {
-      .wrap { width: calc(100% - 72px); }
-      .hero { gap: 32px; padding-block: 85px 80px; }
-      h1 { font-size: 58px; }
-      .hero-copy { font-size: 16px; }
-      .service { grid-template-columns: .4fr 1fr auto; gap: 24px; }
-    }
-    @media (max-width: 760px) {
-      .wrap { width: calc(100% - 44px); }
-      .header { height: 78px; }
-      .brand { font-size: 18px; gap: 8px; }
-      .brand-icon { width: 29px; height: 29px; }
-      .navigation { gap: 20px; font-size: 11px; }
-      .hero { grid-template-columns: 1fr; gap: 53px; padding-block: 63px 47px; }
-      .eyebrow { margin-bottom: 26px; font-size: 9px; }
-      h1 { font-size: clamp(49px, 10.8vw, 72px); }
-      .hero-copy { max-width: 450px; margin-top: 25px; font-size: 16px; line-height: 1.75; }
-      .technical-note { margin-top: 25px; font-size: 9px; }
-      .architecture { max-width: 550px; width: 100%; margin-inline: auto; }
-      .figure-heading { font-size: 8px; }
-      .system-diagram .detail { font-size: 14px; }
-      .system-diagram .micro { font-size: 11px; }
-      .diagram-caption { margin-top: 8px; font-size: 9px; }
-      .service { grid-template-columns: 1fr; gap: 20px; padding-block: 28px; }
-      .section-label { padding-top: 0; }
-      .service-description h2 { font-size: 28px; }
-      .service-link { justify-self: start; gap: 27px; padding-block: 6px; }
-      .footer { flex-direction: column; gap: 8px; padding-block: 23px; }
-    }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles/site.css" />
+  <script src="scripts/site.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#technology">Skip to content</a>
-  <div class="wrap">
-    <header class="header">
-      <a class="brand" href="./index.html" aria-label="ORD Systems home">
-        <svg class="brand-icon" viewBox="0 0 40 40" aria-hidden="true">
-          <g fill="none" stroke="currentColor" stroke-width="1.6">
-            <path d="M3 9h12l9 11M3 31h12l9-11" />
-            <path d="M3 20h21" stroke="#ae451f" />
-            <path d="M24 13h13v14H24z" />
-          </g>
-          <path d="M24 13h6l-6 6z" fill="#ae451f" />
-        </svg>
-        <div>ORD <span>Systems</span></div>
-      </a>
-      <nav class="navigation" aria-label="Main navigation">
-        <a href="#technology">Technology</a>
-        <a href="#service">Service</a>
+  <a class="skip" href="#identity">Skip to content</a>
+  <header class="header">
+    <div class="header-inner wrap">
+      <a class="brand" href="#identity" aria-label="ORD Systems home">ORD <span>Systems</span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#identity" data-slide-link="identity" aria-current="location"><span class="number">01</span>ORD</a>
+        <a href="#planning" data-slide-link="planning"><span class="number">02</span>Plan</a>
+        <a href="#model" data-slide-link="model"><span class="number">03</span>Model</a>
+        <a href="#execution" data-slide-link="execution"><span class="number">04</span>Operate</a>
       </nav>
-    </header>
-    <main>
-      <section class="hero" id="technology" aria-labelledby="headline">
-        <div>
-          <p class="eyebrow">Operations Research &amp; Decision</p>
-          <h1 id="headline"><span>Agentic AI</span><span>for complex</span><span>operations.</span></h1>
-          <p class="hero-copy">We combine <strong>mathematical optimization</strong> and <strong>language models</strong> to solve complex operational problems.</p>
-          <p class="technical-note">Explicit objectives. Modeled constraints.</p>
+      <div class="languages" aria-label="Language"><a href="index.html" lang="en" hreflang="en" aria-current="page" data-language-href="index.html">EN</a><span aria-hidden="true">/</span><a href="ko/index.html" lang="ko" hreflang="ko" data-language-href="ko/index.html">KO</a></div>
+    </div>
+  </header>
+  <main>
+    <section class="slide identity-slide" id="identity" aria-labelledby="identity-title">
+      <div class="wrap">
+        <p class="eyebrow">Our name</p>
+        <div class="identity-grid">
+          <div>
+            <h1 class="identity-wordmark" id="identity-title">ORD <span>Systems</span></h1>
+            <p class="identity-statement">Agentic AI for complex operations.</p>
+          </div>
+          <div class="name-expansion" aria-label="ORD stands for Operations Research and Decision">
+            <div><strong>O</strong>perations</div>
+            <div><strong>R</strong>esearch <span>&amp;</span></div>
+            <div><strong>D</strong>ecision</div>
+          </div>
         </div>
-        <figure class="architecture">
-          <div class="figure-heading" aria-hidden="true"><span>Two capabilities. One system.</span><span>01 / Architecture</span></div>
-          <svg class="system-diagram" viewBox="0 0 540 455" role="img" aria-labelledby="diagram-title diagram-description">
-            <title id="diagram-title">Mathematical optimization and language models in one agentic system</title>
-            <desc id="diagram-description">Language models interpret context and intent. Mathematical optimization computes solutions under explicit objectives and constraints. An agentic system combines both capabilities to decide, act, and refine operational decisions using feedback.</desc>
-            <defs>
-              <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="#d8dbd2" /></pattern>
-              <marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M1 1l4 2.5L1 6" fill="none" stroke="#ae451f" stroke-width="1.2" /></marker>
-            </defs>
-            <path d="M0 0h540v455H0z" fill="url(#grid)" />
-            <path d="M142 175v37h128m128-37v37H270v38" fill="none" stroke="#ae451f" stroke-width="1.4" />
-            <path d="M142 37v26m256-26v26" stroke="#b2b9ad" stroke-width="1.2" />
-            <text x="142" y="25" text-anchor="middle" class="micro mono">CONTEXT &amp; INTENT</text>
-            <text x="398" y="25" text-anchor="middle" class="micro mono">OBJECTIVES &amp; CONSTRAINTS</text>
-            <rect x="28" y="63" width="228" height="112" fill="#faf9f6" stroke="#b2b9ad" />
-            <rect x="284" y="63" width="228" height="112" fill="#faf9f6" stroke="#b2b9ad" />
-            <text x="47" y="88" class="micro mono accent">01</text>
-            <text x="47" y="118" class="label">Language models</text>
-            <text x="47" y="159" class="detail">Interpret &amp; structure</text>
-            <text x="303" y="88" class="micro mono accent">02</text>
-            <text x="303" y="110" class="label">Mathematical</text>
-            <text x="303" y="132" class="label">optimization</text>
-            <text x="303" y="159" class="detail">Formulate &amp; solve</text>
-            <path d="M256 122h27" stroke="#ae451f" stroke-width="1.2" marker-end="url(#arrow)" />
-            <circle cx="270" cy="212" r="4" fill="#ae451f" />
-            <rect x="124" y="250" width="292" height="97" fill="#242923" />
-            <path d="M124 250h12l-12 12z" fill="#ae451f" />
-            <text x="270" y="276" text-anchor="middle" class="mono" style="font-size:10px;letter-spacing:1.6px;fill:#c5ccc1">AGENTIC SYSTEM</text>
-            <text x="270" y="310" text-anchor="middle" style="font-size:23px;font-weight:500;letter-spacing:-.5px;fill:#faf9f6">Decide. Act. Refine.</text>
-            <path d="M270 347v37" stroke="#ae451f" stroke-width="1.4" marker-end="url(#arrow)" />
-            <text x="270" y="408" text-anchor="middle" class="label">Operational decisions</text>
-            <path d="M422 402h96V298H417" fill="none" stroke="#ae451f" stroke-width="1.2" stroke-dasharray="3 5" marker-end="url(#arrow)" />
-            <rect x="467" y="354" width="68" height="17" fill="#faf9f6" />
-            <text x="501" y="366" text-anchor="middle" class="micro mono accent">FEEDBACK</text>
-          </svg>
-          <figcaption class="diagram-caption">Context to models. Models to decisions.</figcaption>
-        </figure>
-      </section>
-      <section class="service" id="service" aria-labelledby="service-name">
-        <p class="section-label"><span>02</span>In practice</p>
-        <div class="service-description">
-          <h2 id="service-name">RN-AI</h2>
-          <p>Our agentic AI service for nursing operations.</p>
+        <div class="meaning-grid">
+          <div><h2>Operations Research</h2><p>Represent operational requirements as mathematical models. Compute allocations and schedules against explicit objectives and constraints.</p></div>
+          <div><h2>Decision</h2><p>Turn the computed result into a plan that people can review and systems can execute. Recalculate when the operating conditions change.</p></div>
         </div>
-        <a class="service-link" href="https://rn.ai.kr/intro">
-          <span>Explore RN-AI</span>
-          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 16 16 4M5 4h11v11" /></svg>
-        </a>
-      </section>
-    </main>
-    <footer class="footer"><span>© 2026 ORD Systems</span><span>Operations Research &amp; Decision</span></footer>
-  </div>
+        <p class="identity-connection">Language models interpret the request. Mathematical optimization computes the plan. Agents coordinate the workflow.</p>
+      </div>
+      <div class="slide-footer wrap"><span>01 / 04 — Operations Research &amp; Decision</span><a class="next" href="#planning">See a planning example <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide" id="planning" aria-labelledby="headline">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Operations Research &amp; Decision</p>
+            <h2 class="planning-title" id="headline">Agentic AI for<br><span>operational<br>planning.</span></h2>
+            <p class="lead">Schedules and resource allocations depend on availability, requirements, and competing priorities. We combine <strong>language models</strong> with <strong>mathematical optimization</strong> to turn those conditions into a plan.</p>
+            <p class="technical-line"><span>Language models interpret the request.</span><span>Optimization computes the allocation.</span></p>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel" aria-labelledby="dispatch-title">
+              <div class="panel-top"><span>Dispatch example</span><span>4 teams · 3 visits</span></div>
+              <h3 id="dispatch-title">Who should cover each visit?</h3>
+              <p class="panel-description">Cover every visit in the same time window. Assign at most one visit per team. Minimize total travel time.</p>
+              <table class="matrix">
+                <caption>Travel time in minutes</caption>
+                <thead><tr><th scope="col">Available team</th><th scope="col">Visit 1</th><th scope="col">Visit 2</th><th scope="col">Visit 3</th></tr></thead>
+                <tbody>
+                  <tr data-team="A"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="A" aria-label="Team A available" checked disabled />Team A</label></th><td data-cost="12" class="chosen">12</td><td data-cost="26">26</td><td data-cost="18">18</td></tr>
+                  <tr data-team="B"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="B" aria-label="Team B available" checked disabled />Team B</label></th><td data-cost="20">20</td><td data-cost="10" class="chosen">10</td><td data-cost="24">24</td></tr>
+                  <tr data-team="C"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="C" aria-label="Team C available" checked disabled />Team C</label></th><td data-cost="16">16</td><td data-cost="18">18</td><td data-cost="8" class="chosen">8</td></tr>
+                  <tr data-team="D"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="D" aria-label="Team D available" checked disabled />Team D</label></th><td data-cost="22">22</td><td data-cost="14">14</td><td data-cost="20">20</td></tr>
+                </tbody>
+              </table>
+              <p class="matrix-help">Change team availability to recalculate. Highlighted cells show the selected assignments.</p>
+              <div class="result" role="status" aria-live="polite" aria-atomic="true">
+                <div class="result-heading"><span class="result-label" id="result-label">Minimum total travel</span><div class="result-cost"><span id="total-cost">30</span><small id="cost-unit">min</small></div></div>
+                <div class="assignments" id="assignments"><div class="assignment"><span>Visit 1</span>Team A</div><div class="assignment"><span>Visit 2</span>Team B</div><div class="assignment"><span>Visit 3</span>Team C</div></div>
+                <p class="result-note" id="result-note">3 visits covered · No team assigned twice</p>
+              </div>
+              <noscript><p class="noscript">The example above uses all four teams. Enable JavaScript to change availability.</p></noscript>
+            </div>
+            <p class="example-note">Illustrative inputs. The minimum is computed over all feasible assignments.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer wrap"><span>02 / 04 — The planning problem</span><a class="next" href="#model">Define the model <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide" id="model" aria-labelledby="model-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Language models + problem formulation</p>
+            <h2 id="model-title">Make the rules<br><span>explicit.</span></h2>
+            <p class="lead">An operational request rarely specifies every rule. The agent uses a language model to structure the request, asks about missing information, and confirms ambiguous constraints before solving.</p>
+            <ol class="model-notes">
+              <li><span class="step-number">01</span><span>Extract resources, required work, and priorities from the request.</span></li>
+              <li><span class="step-number">02</span><span>Ask which rules are mandatory and which goals can be traded off.</span></li>
+              <li><span class="step-number">03</span><span>Express the agreed rules as decision variables, constraints, and an objective.</span></li>
+            </ol>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel" aria-labelledby="formulation-title">
+              <div class="panel-top"><span id="formulation-title">The same dispatch problem</span><span>Request → Model</span></div>
+              <div class="request"><span class="mini-label">Illustrative request</span><blockquote>“Cover all three visits this morning. Keep travel time low.”</blockquote></div>
+              <div class="clarification"><span class="mini-label">Clarify before solving</span><p>Can a team cover more than one visit in this time window?</p><p><strong>Confirmed:</strong> No. At most one visit per team.</p></div>
+              <dl class="model-spec">
+                <div><dt>Decision variables</dt><dd><code>assign[team, visit] ∈ {0, 1}</code><br>Choose the team assigned to each visit.</dd></div>
+                <div><dt>Hard constraints</dt><dd><ul><li>Exactly one team per visit.</li><li>At most one visit per team.</li><li>Only available teams may be assigned.</li></ul></dd></div>
+                <div><dt>Objective</dt><dd class="objective"><code>min Σ travel[team, visit] × assign[team, visit]</code></dd></div>
+              </dl>
+            </div>
+            <p class="example-note">The model states what must hold and what the solver should improve.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer wrap"><span>03 / 04 — From intent to model</span><a class="next" href="#execution">Use the result <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide execution-slide" id="execution" aria-labelledby="execution-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Optimization + agentic orchestration</p>
+            <h2 id="execution-title">Compute the plan.<br><span>Replan when<br>conditions change.</span></h2>
+            <p class="lead">The solver returns an allocation and its objective value. The agent checks the result against the model, presents it for review, and uses connected tools to carry out approved actions.</p>
+            <p class="technical-line"><span>Changed availability → update the model → solve again.</span><span>If the rules conflict, surface the conflict for review.</span></p>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel execution-panel" aria-labelledby="replan-title">
+              <div class="panel-top"><span id="replan-title">Replanning example</span><span>Same objective · New input</span></div>
+              <div class="change-line"><p><strong>Team C becomes unavailable.</strong><br>Visits and assignment rules stay the same.</p><span class="change-pill">C → unavailable</span></div>
+              <div class="comparison">
+                <div><span class="mini-label">All teams available</span><div class="metric"><span id="baseline-cost">30</span> <small>min</small></div><p class="allocation" id="baseline-allocation">Visit 1 → Team A<br>Visit 2 → Team B<br>Visit 3 → Team C</p></div>
+                <div class="after"><span class="mini-label">Team C unavailable</span><div class="metric"><span id="replan-cost">42</span> <small>min</small></div><p class="allocation" id="replan-allocation">Visit 1 → Team A<br>Visit 2 → Team B<br>Visit 3 → Team D</p></div>
+              </div>
+              <ul class="checks" aria-label="Replanned assignment checks"><li><span>Visits covered</span><strong id="coverage-check">3 / 3</strong></li><li><span>Teams assigned twice</span><strong id="duplicate-check">0</strong></li><li><span>Unavailable teams assigned</span><strong id="unavailable-check">0</strong></li></ul>
+              <p class="execution-note"><strong>Before execution:</strong> review the changed allocation. If fewer than three teams are available, this model has no feasible assignment.</p>
+            </div>
+            <p class="example-note">Both plans are calculated from the travel times shown in the first example.</p>
+          </div>
+        </div>
+        <aside class="service" aria-labelledby="service-name">
+          <p class="mini-label">In practice</p>
+          <div><h3 id="service-name">RN-AI</h3><p>Our agentic AI service for nurse scheduling.</p></div>
+          <a class="service-link" href="https://rn.ai.kr/intro">Explore RN-AI <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 16 16 4M5 4h11v11" /></svg></a>
+        </aside>
+      </div>
+      <div class="slide-footer wrap"><span class="footer-text">© 2026 ORD Systems · Operations Research &amp; Decision</span><span>04 / 04</span></div>
+    </section>
+  </main>
 </body>
 </html>

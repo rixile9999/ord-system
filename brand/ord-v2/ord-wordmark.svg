@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 64" fill="none">
-  <title>ORD wordmark</title>
-  <g fill="#142137" fill-rule="evenodd">
-    <path d="M6 26 26 6h30v30L36 56H6V26Zm10 5v15h15l15-15V16H31L16 31Z" />
-    <path d="M80 6h27c19 0 29 8 29 22 0 10-6 17-16 20l18 8h-23L94 45v11H80V6Zm14 12v16h13c10 0 15-2 15-8s-5-8-15-8H94Z" />
-    <path d="M150 6h22c22 0 36 9 36 25s-14 25-36 25h-22V6Zm14 12v26h8c14 0 22-4 22-13s-8-13-22-13h-8Z" />
-  </g>
-  <circle cx="56" cy="6" r="6" fill="#2459ff" />
-</svg>
