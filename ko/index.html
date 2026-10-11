@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ORD Systems — Operations Research &amp; Decision</title>
+  <meta name="description" content="ORD Systems는 language model과 mathematical optimization을 결합해 복잡한 운영 문제를 최적화하는 agentic AI를 만듭니다. 요청과 제약을 명시하고, 배정을 계산하며, 조건이 바뀌면 계획을 다시 계산합니다." />
+  <meta name="theme-color" content="#f5f7fa" />
+  <meta property="og:title" content="ORD Systems — Operations Research &amp; Decision" />
+  <meta property="og:description" content="language model과 mathematical optimization을 결합해 복잡한 운영 문제를 최적화합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ord.systems/ko/" />
+  <link rel="canonical" href="https://ord.systems/ko/" />
+  <link rel="alternate" hreflang="en" href="https://ord.systems/" />
+  <link rel="alternate" hreflang="ko" href="https://ord.systems/ko/" />
+  <link rel="alternate" hreflang="x-default" href="https://ord.systems/" />
+  <link rel="icon" type="image/svg+xml" href="../brand/ord-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles/site.css" />
+  <script src="../scripts/site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#identity">본문으로 이동</a>
+  <header class="header">
+    <div class="header-inner wrap">
+      <a class="brand" href="#identity" aria-label="ORD Systems home">ORD <span>Systems</span></a>
+      <nav class="nav" aria-label="주요 메뉴">
+        <a href="#identity" data-slide-link="identity" aria-current="location"><span class="number">01</span>ORD</a>
+        <a href="#planning" data-slide-link="planning"><span class="number">02</span>계획</a>
+        <a href="#model" data-slide-link="model"><span class="number">03</span>정의</a>
+        <a href="#execution" data-slide-link="execution"><span class="number">04</span>실행</a>
+      </nav>
+      <div class="languages" aria-label="언어"><a href="../index.html" lang="en" hreflang="en" data-language-href="../index.html">EN</a><span aria-hidden="true">/</span><a href="index.html" lang="ko" hreflang="ko" aria-current="page" data-language-href="index.html">KO</a></div>
+    </div>
+  </header>
+  <main>
+    <section class="slide identity-slide" id="identity" aria-labelledby="identity-title">
+      <div class="wrap">
+        <p class="eyebrow">ORD의 의미</p>
+        <div class="identity-grid">
+          <div>
+            <h1 class="identity-wordmark" id="identity-title">ORD <span>Systems</span></h1>
+            <p class="identity-statement">복잡한 운영 문제를 최적화하는 agentic AI</p>
+          </div>
+          <div class="name-expansion" aria-label="ORD는 Operations Research와 Decision을 의미합니다">
+            <div><strong>O</strong>perations</div>
+            <div><strong>R</strong>esearch <span>&amp;</span></div>
+            <div><strong>D</strong>ecision</div>
+          </div>
+        </div>
+        <div class="meaning-grid">
+          <div><h2>Operations Research</h2><p>운영 조건을 mathematical model로 표현합니다. 명시적인 목표와 제약을 바탕으로 일정과 자원 배정을 계산합니다.</p></div>
+          <div><h2>Decision</h2><p>계산 결과를 사람이 검토하고 시스템이 실행할 수 있는 계획으로 연결합니다. 운영 조건이 바뀌면 계획을 다시 계산합니다.</p></div>
+        </div>
+        <p class="identity-connection">language model은 요청을 해석하고, mathematical optimization은 계획을 계산합니다. agent가 이 과정과 실행을 연결합니다.</p>
+      </div>
+      <div class="slide-footer wrap"><span>01 / 04 — Operations Research &amp; Decision</span><a class="next" href="#planning">운영 문제 예시 보기 <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide" id="planning" aria-labelledby="headline">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">Operations Research &amp; Decision</p>
+            <h2 class="planning-title" id="headline">조건을 명시하고,<br><span>배정을<br>계산합니다.</span></h2>
+            <p class="lead">일정과 자원 배정에는 가용 인력, 필수 조건, 우선순위가 함께 작용합니다. <strong>language model</strong>이 요청을 구체화하고, <strong>mathematical optimization</strong>이 조건을 만족하는 배정을 계산합니다.</p>
+            <p class="technical-line"><span>language model: 요청과 조건을 해석합니다.</span><span>mathematical optimization: 배정을 계산합니다.</span></p>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel" aria-labelledby="dispatch-title">
+              <div class="panel-top"><span>방문 업무 배정 예시</span><span>4개 팀 · 방문 3건</span></div>
+              <h3 id="dispatch-title">방문 업무별 팀 배정</h3>
+              <p class="panel-description">같은 시간대의 방문 업무를 모두 배정합니다. 팀당 한 건만 맡을 수 있으며, 총 이동 시간을 최소화합니다.</p>
+              <table class="matrix">
+                <caption>각 팀의 방문지별 이동 시간 · 분</caption>
+                <thead><tr><th scope="col">사용 가능한 팀</th><th scope="col">방문 1</th><th scope="col">방문 2</th><th scope="col">방문 3</th></tr></thead>
+                <tbody>
+                  <tr data-team="A"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="A" aria-label="팀 A 사용 가능" checked disabled />팀 A</label></th><td data-cost="12" class="chosen">12</td><td data-cost="26">26</td><td data-cost="18">18</td></tr>
+                  <tr data-team="B"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="B" aria-label="팀 B 사용 가능" checked disabled />팀 B</label></th><td data-cost="20">20</td><td data-cost="10" class="chosen">10</td><td data-cost="24">24</td></tr>
+                  <tr data-team="C"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="C" aria-label="팀 C 사용 가능" checked disabled />팀 C</label></th><td data-cost="16">16</td><td data-cost="18">18</td><td data-cost="8" class="chosen">8</td></tr>
+                  <tr data-team="D"><th scope="row"><label class="team-control"><input type="checkbox" data-team-input="D" aria-label="팀 D 사용 가능" checked disabled />팀 D</label></th><td data-cost="22">22</td><td data-cost="14">14</td><td data-cost="20">20</td></tr>
+                </tbody>
+              </table>
+              <p class="matrix-help">팀의 사용 가능 여부를 바꾸면 다시 계산합니다. 파란색 칸이 선택된 배정입니다.</p>
+              <div class="result" role="status" aria-live="polite" aria-atomic="true">
+                <div class="result-heading"><span class="result-label" id="result-label">최소 총 이동 시간</span><div class="result-cost"><span id="total-cost">30</span><small id="cost-unit">분</small></div></div>
+                <div class="assignments" id="assignments"><div class="assignment"><span>방문 1</span>팀 A</div><div class="assignment"><span>방문 2</span>팀 B</div><div class="assignment"><span>방문 3</span>팀 C</div></div>
+                <p class="result-note" id="result-note">방문 3건 모두 배정 · 중복 배정 없음</p>
+              </div>
+              <noscript><p class="noscript">위 예시는 네 팀 모두 사용할 수 있는 경우입니다. 팀의 사용 가능 여부를 바꾸려면 JavaScript를 활성화하세요.</p></noscript>
+            </div>
+            <p class="example-note">설명을 위한 예시 데이터입니다. 가능한 모든 배정 중 총 이동 시간이 가장 짧은 배정을 계산합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer wrap"><span>02 / 04 — 운영 문제</span><a class="next" href="#model">model 구성 보기 <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide" id="model" aria-labelledby="model-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">language model + 문제 정의</p>
+            <h2 id="model-title">요청에 담긴 조건을<br><span>명확하게 정의합니다.</span></h2>
+            <p class="lead">운영 요청에는 조건이 생략되거나 모호하게 표현될 수 있습니다. agent는 language model로 요청을 구조화하고, 빠진 정보를 질문하며, 불분명한 조건을 확인한 뒤 계산합니다.</p>
+            <ol class="model-notes">
+              <li><span class="step-number">01</span><span>요청에서 가용 자원, 필요한 업무, 우선순위를 파악합니다.</span></li>
+              <li><span class="step-number">02</span><span>반드시 지켜야 할 조건과 조정할 수 있는 목표를 확인합니다.</span></li>
+              <li><span class="step-number">03</span><span>확인된 조건을 decision variables, constraints, objective로 표현합니다.</span></li>
+            </ol>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel" aria-labelledby="formulation-title">
+              <div class="panel-top"><span id="formulation-title">앞의 배정 문제를 model로 표현</span><span>요청 → Model</span></div>
+              <div class="request"><span class="mini-label">요청 예시</span><blockquote>“오늘 오전 방문 업무 세 건을 모두 배정하고, 이동 시간은 줄여주세요.”</blockquote></div>
+              <div class="clarification"><span class="mini-label">계산 전 확인</span><p>이 시간대에 한 팀이 두 건 이상 맡아도 되나요?</p><p><strong>확인된 조건:</strong> 아니요. 팀당 한 건만 맡을 수 있습니다.</p></div>
+              <dl class="model-spec">
+                <div><dt>Decision variables</dt><dd><code>assign[team, visit] ∈ {0, 1}</code><br>각 방문 업무를 맡을 팀을 선택합니다.</dd></div>
+                <div><dt>Hard constraints</dt><dd><ul><li>각 방문 업무에 정확히 한 팀을 배정합니다.</li><li>각 팀은 최대 한 건만 맡습니다.</li><li>사용 가능한 팀만 배정합니다.</li></ul></dd></div>
+                <div><dt>Objective</dt><dd class="objective"><code>min Σ travel[team, visit] × assign[team, visit]</code></dd></div>
+              </dl>
+            </div>
+            <p class="example-note">반드시 지켜야 할 조건과 solver가 개선할 목표를 model에 명시합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer wrap"><span>03 / 04 — 요청에서 model로</span><a class="next" href="#execution">계산 결과 활용 보기 <svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5" /></svg></a></div>
+    </section>
+    <section class="slide execution-slide" id="execution" aria-labelledby="execution-title">
+      <div class="wrap">
+        <div class="split">
+          <div>
+            <p class="eyebrow">mathematical optimization + agentic orchestration</p>
+            <h2 id="execution-title">조건이 바뀌면,<br><span>계획도 다시<br>계산합니다.</span></h2>
+            <p class="lead">solver는 배정과 objective 값을 반환합니다. agent는 model의 조건에 맞는 결과인지 확인하고 검토를 요청합니다. 승인된 작업은 연결된 tool을 통해 실행합니다.</p>
+            <p class="technical-line"><span>가용 자원 변경 → model 수정 → 재계산</span><span>조건이 서로 충돌하면 확인을 요청합니다.</span></p>
+          </div>
+          <div class="panel-wrap">
+            <div class="panel execution-panel" aria-labelledby="replan-title">
+              <div class="panel-top"><span id="replan-title">조건 변경 후 재계산 예시</span><span>같은 목표 · 변경된 입력</span></div>
+              <div class="change-line"><p><strong>팀 C를 사용할 수 없게 됐습니다.</strong><br>방문 업무와 배정 규칙은 동일합니다.</p><span class="change-pill">C → 사용 불가</span></div>
+              <div class="comparison">
+                <div><span class="mini-label">모든 팀 사용 가능</span><div class="metric"><span id="baseline-cost">30</span> <small>분</small></div><p class="allocation" id="baseline-allocation">방문 1 → 팀 A<br>방문 2 → 팀 B<br>방문 3 → 팀 C</p></div>
+                <div class="after"><span class="mini-label">팀 C 사용 불가</span><div class="metric"><span id="replan-cost">42</span> <small>분</small></div><p class="allocation" id="replan-allocation">방문 1 → 팀 A<br>방문 2 → 팀 B<br>방문 3 → 팀 D</p></div>
+              </div>
+              <ul class="checks" aria-label="재계산한 배정의 조건 확인"><li><span>배정된 방문 업무</span><strong id="coverage-check">3 / 3</strong></li><li><span>두 번 배정된 팀</span><strong id="duplicate-check">0</strong></li><li><span>사용 불가한 팀의 배정</span><strong id="unavailable-check">0</strong></li></ul>
+              <p class="execution-note"><strong>실행 전 확인:</strong> 변경된 배정을 검토합니다. 사용 가능한 팀이 세 팀보다 적으면 현재 조건을 만족하는 배정은 없습니다.</p>
+            </div>
+            <p class="example-note">두 계획 모두 앞의 예시에 표시한 이동 시간을 바탕으로 계산합니다.</p>
+          </div>
+        </div>
+        <aside class="service" aria-labelledby="service-name">
+          <p class="mini-label">실제 서비스</p>
+          <div><h3 id="service-name">RN-AI</h3><p>간호사 근무표를 위한 agentic AI 서비스</p></div>
+          <a class="service-link" href="https://rn.ai.kr/intro">RN-AI 소개 보기 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M4 16 16 4M5 4h11v11" /></svg></a>
+        </aside>
+      </div>
+      <div class="slide-footer wrap"><span class="footer-text">© 2026 ORD Systems · Operations Research &amp; Decision</span><span>04 / 04</span></div>
+    </section>
+  </main>
+</body>
+</html>
