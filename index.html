@@ -26,7 +26,7 @@
   <header class="header">
     <div class="header-inner wrap">
       <a class="brand" href="#identity" aria-label="ORD Systems">ORD <span>Systems</span></a>
-      <nav class="nav" aria-label="Main navigation"><a href="#identity" data-slide-link="identity" aria-current="location"><span class="number">01</span>ORD</a><a href="#formulation" data-slide-link="formulation"><span class="number">02</span>Formulate</a><a href="#optimization" data-slide-link="optimization"><span class="number">03</span>Optimize</a><a href="#orchestration" data-slide-link="orchestration"><span class="number">04</span>Orchestrate</a></nav>
+      <nav class="nav" aria-label="Main navigation"><a href="#identity" data-slide-link="identity" aria-current="location"><span class="number">01</span>ORD</a><a href="#formulation" data-slide-link="formulation"><span class="number">02</span>Formulate</a><a href="#optimization" data-slide-link="optimization"><span class="number">03</span>Optimize</a><a href="#orchestration" data-slide-link="orchestration"><span class="number">04</span>Orchestrate</a><a href="#rn-ai" data-slide-link="rn-ai"><span class="number">05</span>RN-AI</a></nav>
       <div class="languages" aria-label="Language"><a href="index.html" lang="en" hreflang="en" aria-current="page" data-language-href="index.html">EN</a><a href="ko/index.html" lang="ko" hreflang="ko" data-language-href="ko/index.html">KO</a></div>
     </div>
     <div class="reading-progress" aria-hidden="true"></div>
@@ -59,7 +59,7 @@
           <figcaption id="ord-caption">Interpretation and optimization, coordinated through tools and state.</figcaption>
         </figure>
       </div>
-      <div class="slide-footer wrap"><span>01 / 04 <span class="footer-detail">— Operations Research &amp; Decision</span></span><a class="next" href="#formulation">From context to model<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
+      <div class="slide-footer wrap"><span>01 / 05 <span class="footer-detail">— Operations Research &amp; Decision</span></span><a class="next" href="#formulation">From context to model<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
     </section>
     <section class="slide" id="formulation" aria-labelledby="formulation-title">
       <div class="wrap split">
@@ -79,7 +79,7 @@
           <figcaption id="formulation-caption">The formulation makes assumptions and decision criteria explicit.</figcaption>
         </figure>
       </div>
-      <div class="slide-footer wrap"><span>02 / 04 <span class="footer-detail">— Context → Model</span></span><a class="next" href="#optimization">From model to solution<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
+      <div class="slide-footer wrap"><span>02 / 05 <span class="footer-detail">— Context → Model</span></span><a class="next" href="#optimization">From model to solution<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
     </section>
     <section class="slide optimization-slide" id="optimization" aria-labelledby="optimization-title">
       <div class="wrap split">
@@ -102,7 +102,7 @@
           <figcaption id="optimization-caption">A computed solution is evaluated against the model before use.</figcaption>
         </figure>
       </div>
-      <div class="slide-footer wrap"><span>03 / 04 <span class="footer-detail">— Model → Solution</span></span><a class="next" href="#orchestration">From solution to action<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
+      <div class="slide-footer wrap"><span>03 / 05 <span class="footer-detail">— Model → Solution</span></span><a class="next" href="#orchestration">From solution to action<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
     </section>
     <section class="slide orchestration-slide" id="orchestration" aria-labelledby="orchestration-title">
       <div class="wrap">
@@ -126,11 +126,38 @@
             <figcaption id="orchestration-caption">Next steps depend on state, tool results, and human input.</figcaption>
           </figure>
         </div>
-        <aside class="service reveal" aria-labelledby="service-name">
-          <p class="mini-label">In practice</p><div class="service-description"><h3 id="service-name">RN-AI</h3><p>Agentic AI for nurse scheduling.</p></div><a class="service-link" href="https://rn.ai.kr/intro">Explore RN-AI <span aria-hidden="true">↗</span></a>
-        </aside>
       </div>
-      <div class="slide-footer wrap"><span>© 2026 ORD Systems <span class="footer-detail">· Operations Research &amp; Decision</span></span><span>04 / 04</span></div>
+      <div class="slide-footer wrap"><span>04 / 05 <span class="footer-detail">— Solution → Action → Feedback</span></span><a class="next" href="#rn-ai">See the platform in practice<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
+    </section>
+    <section class="slide platform-slide" id="rn-ai" aria-labelledby="platform-title">
+      <div class="wrap split">
+        <div class="copy">
+          <p class="eyebrow reveal">04 / The platform in practice</p>
+          <h2 class="reveal" id="platform-title">RN-AI.<br><span>Agentic AI for<br>nurse scheduling.</span></h2>
+          <p class="lead reveal">From existing spreadsheets to a reviewable roster. RN-AI connects conversational requests and workspace editing to structured ward data and constraint-based scheduling.</p>
+          <dl class="concepts reveal"><div><dt>Context-aware tools</dt><dd>UI and agent operations share domain services for staff, shift codes, and requests. Current screen context informs the conversation.</dd></div><div><dt>Constraint programming</dt><dd>Staffing, work patterns, skills, and preferences are represented through hard constraints and weighted penalties in OR-Tools CP-SAT.</dd></div><div><dt>Solver-independent evaluation</dt><dd>Candidate and edited rosters can be evaluated for rule violations and penalty breakdowns without running a new optimization.</dd></div></dl>
+          <div class="platform-cta reveal"><a class="service-link" href="https://rn.ai.kr/intro">Explore the RN-AI platform<span aria-hidden="true">↗</span></a><p>Product workflow & actual demonstrations</p></div>
+        </div>
+        <figure class="diagram platform-diagram" aria-labelledby="platform-caption">
+          <div class="diagram-heading"><span>RN-AI / Platform architecture</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>Replay diagram</span></button></div>
+          <div class="platform-inputs">
+            <div class="platform-entry sequence" style="--order:0"><h3>Workspace UI</h3><p>Spreadsheet import · Editing</p></div>
+            <div class="platform-entry sequence" style="--order:0"><h3>Conversational agent</h3><p>Screen context · Domain tools</p></div>
+          </div>
+          <svg class="platform-lines" viewBox="0 0 480 40" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M120 0V8Q120 20 132 20H228Q240 20 240 32V40M360 0V8Q360 20 348 20H252Q240 20 240 32"/></svg>
+          <div class="platform-domain sequence" style="--order:1"><h3>Shared domain services</h3><p>Staff · Shift codes · Requests · Ward rules</p><span>Workspace-scoped data · Change history</span></div>
+          <div class="platform-model sequence" style="--order:2"><span>Structured scheduling model</span><svg class="platform-model-lines" viewBox="0 0 480 26" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M240 0V3Q240 13 230 13H130Q120 13 120 23V26M240 3Q240 13 250 13H350Q360 13 360 23V26"/></svg></div>
+          <div class="platform-compute">
+            <div class="platform-engine sequence" style="--order:2"><span class="mini-label">Solve</span><h3>CP-SAT optimization</h3><p>Generate candidate rosters</p></div>
+            <span class="compute-arrow" aria-hidden="true">→</span>
+            <div class="platform-engine sequence" style="--order:3"><span class="mini-label">Evaluate</span><h3>Rule evaluation</h3><p>Violations · Penalty breakdown</p></div>
+          </div>
+          <svg class="platform-lines platform-output-line" viewBox="0 0 480 40" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M360 0V8Q360 20 348 20H252Q240 20 240 32V40"/></svg>
+          <div class="platform-review sequence" style="--order:4"><h3>Review → Save → Revise</h3><p>Inspect the result and update the next run.</p></div>
+          <figcaption id="platform-caption">Optimization and evaluation use the same rule definitions through separate execution paths.</figcaption>
+        </figure>
+      </div>
+      <div class="slide-footer wrap"><span>© 2026 ORD Systems <span class="footer-detail">· Operations Research &amp; Decision</span></span><span>05 / 05</span></div>
     </section>
   </main>
 </body>
