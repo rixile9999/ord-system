@@ -1,125 +1,102 @@
 (() => {
-  const korean = document.documentElement.lang === 'ko';
-  const labels = korean ? {
-    minimum: '최소 총 이동 시간',
-    infeasible: '조건을 만족하는 배정이 없습니다',
-    visit: number => `방문 ${number}`,
-    team: name => `팀 ${name}`,
-    covered: count => `방문 ${count}건 모두 배정 · 중복 배정 없음`,
-    shortage: (available, required) => `같은 시간대의 방문 ${required}건에 ${available}개 팀을 사용할 수 있습니다. 가용 팀을 추가하거나 조건을 조정해야 합니다.`,
-  } : {
-    minimum: 'Minimum total travel',
-    infeasible: 'No feasible assignment',
-    visit: number => `Visit ${number}`,
-    team: name => `Team ${name}`,
-    covered: count => `${count} visits covered · No team assigned twice`,
-    shortage: (available, required) => `${available} teams available for ${required} simultaneous visits. Add availability or revise the requirements.`,
-  };
-  const rows = [...document.querySelectorAll('[data-team]')];
-  const teams = rows.map(row => ({
-    name: row.dataset.team,
-    costs: [...row.querySelectorAll('[data-cost]')].map(cell => Number(cell.dataset.cost)),
-    input: row.querySelector('[data-team-input]'),
-    row,
-  }));
-  const visitCount = teams[0].costs.length;
-
-  // This small example enumerates every feasible assignment exactly.
-  function solve(availableTeams) {
-    let best = null;
-    function search(assignment, cost) {
-      const visit = assignment.length;
-      if (visit === visitCount) {
-        if (!best || cost < best.cost) best = { assignment: [...assignment], cost };
-        return;
-      }
-      for (const team of availableTeams) {
-        if (assignment.includes(team)) continue;
-        assignment.push(team);
-        search(assignment, cost + team.costs[visit]);
-        assignment.pop();
-      }
-    }
-    search([], 0);
-    return best;
-  }
-
-  function updatePlan() {
-    const available = teams.filter(team => team.input.checked);
-    const plan = solve(available);
-    for (const team of teams) {
-      team.row.classList.toggle('unavailable', !team.input.checked);
-      [...team.row.querySelectorAll('[data-cost]')].forEach((cell, visit) => {
-        cell.classList.toggle('chosen', plan?.assignment[visit] === team);
-      });
-    }
-    document.getElementById('result-label').textContent = plan ? labels.minimum : labels.infeasible;
-    document.getElementById('total-cost').textContent = plan ? String(plan.cost) : '—';
-    document.getElementById('cost-unit').hidden = !plan;
-    const assignmentList = document.getElementById('assignments');
-    assignmentList.replaceChildren();
-    if (plan) {
-      plan.assignment.forEach((team, visit) => {
-        const item = document.createElement('div');
-        item.className = 'assignment';
-        const label = document.createElement('span');
-        label.textContent = labels.visit(visit + 1);
-        item.append(label, labels.team(team.name));
-        assignmentList.append(item);
-      });
-    }
-    assignmentList.hidden = !plan;
-    document.getElementById('result-note').textContent = plan
-      ? labels.covered(visitCount)
-      : labels.shortage(available.length, visitCount);
-  }
-
-  const baseline = solve(teams);
-  const changedTeams = teams.filter(team => team.name !== 'C');
-  const replanned = solve(changedTeams);
-  for (const [prefix, plan] of [['baseline', baseline], ['replan', replanned]]) {
-    document.getElementById(`${prefix}-cost`).textContent = String(plan.cost);
-    const allocation = document.getElementById(`${prefix}-allocation`);
-    allocation.replaceChildren();
-    plan.assignment.forEach((team, visit) => {
-      if (visit) allocation.append(document.createElement('br'));
-      allocation.append(`${labels.visit(visit + 1)} → ${labels.team(team.name)}`);
-    });
-  }
-  document.getElementById('coverage-check').textContent = `${replanned.assignment.length} / ${visitCount}`;
-  document.getElementById('duplicate-check').textContent = String(replanned.assignment.length - new Set(replanned.assignment).size);
-  document.getElementById('unavailable-check').textContent = String(replanned.assignment.filter(team => !changedTeams.includes(team)).length);
-  for (const team of teams) {
-    team.input.disabled = false;
-    team.input.addEventListener('change', updatePlan);
-  }
-  updatePlan();
-
-  const links = [...document.querySelectorAll('[data-slide-link]')];
   const slides = [...document.querySelectorAll('main > .slide')];
-  let scheduled = false;
+  const links = [...document.querySelectorAll('[data-slide-link]')];
+  const languages = [...document.querySelectorAll('[data-language-href]')];
+  const diagrams = [...document.querySelectorAll('.diagram')];
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const played = new WeakSet();
+  const timers = new Map();
+  let frame = 0;
+
+  // Preserve links to the previous four-slide edition.
+  const aliases = { planning: 'formulation', model: 'formulation', execution: 'orchestration' };
+  function resolveLegacyHash() {
+    const target = aliases[location.hash.slice(1)];
+    if (!target) return;
+    history.replaceState(null, '', `#${target}`);
+    document.getElementById(target)?.scrollIntoView({ behavior: 'instant' });
+  }
+
   function updateNavigation() {
-    const anchor = window.innerHeight * .42;
+    frame = 0;
     let active = slides[0];
     for (const slide of slides) {
-      if (slide.getBoundingClientRect().top <= anchor) active = slide;
+      if (slide.getBoundingClientRect().top <= innerHeight * .42) active = slide;
     }
     for (const link of links) {
       if (link.dataset.slideLink === active.id) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
-    for (const link of document.querySelectorAll('[data-language-href]')) {
-      link.href = `${link.dataset.languageHref}#${active.id}`;
-    }
-    scheduled = false;
+    for (const link of languages) link.href = `${link.dataset.languageHref}#${active.id}`;
+    const length = document.documentElement.scrollHeight - innerHeight;
+    document.documentElement.style.setProperty('--page-progress', length > 0 ? Math.min(1, Math.max(0, scrollY / length)) : 0);
   }
+
   function scheduleNavigation() {
-    if (!scheduled) {
-      scheduled = true;
-      requestAnimationFrame(updateNavigation);
+    if (!frame) frame = requestAnimationFrame(updateNavigation);
+  }
+
+  function stopDiagram(diagram) {
+    clearTimeout(timers.get(diagram));
+    timers.delete(diagram);
+    diagram.classList.remove('is-playing');
+  }
+
+  function playDiagram(diagram) {
+    if (motion.matches) return;
+    stopDiagram(diagram);
+    // Restart the finite sequence for the explicit replay control.
+    void diagram.offsetWidth;
+    diagram.classList.add('is-playing');
+    played.add(diagram);
+    timers.set(diagram, setTimeout(() => stopDiagram(diagram), 3600));
+  }
+
+  function syncMotion() {
+    for (const diagram of diagrams) {
+      diagram.querySelector('.replay').hidden = motion.matches || !('IntersectionObserver' in window);
+      if (motion.matches) stopDiagram(diagram);
     }
   }
-  window.addEventListener('scroll', scheduleNavigation, { passive: true });
-  window.addEventListener('resize', scheduleNavigation);
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        if (!motion.matches) entry.target.classList.add('entered');
+        revealObserver.unobserve(entry.target);
+      }
+    }, { threshold: .12 });
+    document.querySelectorAll('.copy').forEach(copy => {
+      copy.querySelectorAll('.reveal').forEach((element, index) => {
+        element.style.setProperty('--reveal-delay', `${index * 90}ms`);
+      });
+    });
+    document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+
+    const diagramObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (entry.isIntersecting && !played.has(entry.target)) playDiagram(entry.target);
+        else if (!entry.isIntersecting) stopDiagram(entry.target);
+      }
+    }, { threshold: .25 });
+    diagrams.forEach(diagram => {
+      diagramObserver.observe(diagram);
+      diagram.querySelector('.replay').addEventListener('click', () => playDiagram(diagram));
+    });
+  }
+
+  motion.addEventListener('change', syncMotion);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) diagrams.forEach(stopDiagram);
+  });
+  addEventListener('scroll', scheduleNavigation, { passive: true });
+  addEventListener('resize', scheduleNavigation);
+  addEventListener('hashchange', () => {
+    resolveLegacyHash();
+    scheduleNavigation();
+  });
+  resolveLegacyHash();
+  syncMotion();
   updateNavigation();
 })();
