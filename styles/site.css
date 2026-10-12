@@ -126,6 +126,32 @@ figcaption { font-size: 11px; color: var(--muted); line-height: 1.65; padding-to
 .service-description p { font-size: 12px; color: var(--muted); }
 .service-link { font-size: 12px; color: var(--blue); display: flex; align-items: center; gap: 22px; }
 .service-link > span { font-size: 23px; }
+.platform-slide h2 { font-size: clamp(38px, 3.8vw, 55px); }
+.platform-slide .lead { margin-top: 22px; }
+.platform-slide .concepts { margin-top: 25px; }
+.platform-slide .concepts > div { padding-block: 12px; }
+.platform-cta { margin-top: 24px; }
+.platform-cta .service-link { width: fit-content; gap: 28px; font-size: 13px; }
+.platform-cta p { color: var(--muted); font-size: 10px; margin-top: 6px; }
+.platform-inputs, .platform-compute { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.platform-inputs { margin-top: 28px; }
+.platform-entry { padding: 18px 15px; border: 1px solid var(--line); }
+.platform-diagram h3 { font-size: 14px; line-height: 1.5; }
+.platform-diagram p { font-size: 11px; line-height: 1.65; color: var(--muted); margin-top: 6px; }
+.platform-lines { display: block; width: 100%; height: 40px; stroke: var(--blue); stroke-width: 1.2; }
+.platform-domain { padding: 21px 22px 17px; border: 1px solid var(--blue); background: var(--soft); }
+.platform-domain h3 { color: var(--blue); }
+.platform-domain > span { display: block; margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--line); font: 10px/1.5 var(--sans); color: var(--muted); }
+.platform-model { position: relative; display: flex; justify-content: center; align-items: center; height: 70px; }
+.platform-model::before { content: ''; position: absolute; top: 0; bottom: 26px; left: 50%; border-left: 1px solid var(--blue); }
+.platform-model > span { z-index: 1; background: var(--paper); padding: 7px 10px; font: 9px/1.5 var(--mono); color: var(--muted); }
+.platform-model-lines { position: absolute; bottom: 0; width: 100%; height: 26px; stroke: var(--blue); stroke-width: 1.2; }
+.platform-compute { position: relative; }
+.platform-engine { padding: 17px 15px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.platform-engine h3 { margin-top: 7px; }
+.compute-arrow { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--blue); font-size: 18px; }
+.platform-review { padding: 16px 20px; border: 1px solid var(--line); text-align: center; }
+.platform-review h3 { color: var(--blue); font-weight: 400; font-size: 15px; }
 .slide-footer { position: absolute; bottom: 26px; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font: 9px/1.5 var(--mono); }
 .next { display: flex; align-items: center; gap: 14px; font: 11px var(--sans); }
 .next svg { width: 10px; height: 15px; transition: transform .2s; }
@@ -167,6 +193,18 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   .loop-layout { margin-top: 17px; }
   .loop-title { margin-top: 18px; }
   .service { margin-top: 25px; padding-top: 17px; }
+  .platform-slide h2 { font-size: 42px; }
+  html[lang='ko'] .platform-slide h2 { font-size: 35px; }
+  .platform-slide .lead { font-size: 14px; line-height: 1.8; margin-top: 17px; }
+  .platform-slide .concepts { margin-top: 20px; }
+  .platform-slide .concepts > div { padding-block: 10px; }
+  .platform-slide .concepts dd { font-size: 12px; }
+  .platform-cta { margin-top: 18px; }
+  .platform-inputs { margin-top: 22px; }
+  .platform-entry { padding-block: 15px; }
+  .platform-domain { padding-block: 17px 14px; }
+  .platform-model { height: 60px; }
+  .platform-lines { height: 34px; }
   figcaption { margin-top: 14px; padding-top: 11px; }
   .slide-footer { bottom: 23px; }
 }
@@ -208,7 +246,8 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   .brand { font-size: 22px; }
   .nav a { font-size: 10px; gap: 5px; }
   .number { font-size: 8px; }
-  .nav { gap: 9px; }
+  .nav { gap: 8px; }
+  .nav .number { display: none; }
   .slide { padding-top: 140px; padding-bottom: 76px; }
   .eyebrow { font-size: 9px; margin-bottom: 24px; }
   h1 { font-size: clamp(35px, 10.3vw, 44px); line-height: 1.12; }
@@ -255,6 +294,17 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   .service > .mini-label { width: 100%; }
   .service-description p { font-size: 10px; }
   .service-link { font-size: 11px; gap: 10px; }
+  .platform-slide h2 { font-size: clamp(32px, 9.7vw, 41px); }
+  .platform-inputs, .platform-compute { gap: 20px; }
+  .platform-entry, .platform-engine { padding: 14px 10px; }
+  .platform-diagram h3 { font-size: 12px; }
+  .platform-diagram p { font-size: 10px; }
+  .platform-domain { padding: 18px 16px 14px; }
+  .platform-domain h3 { font-size: 14px; }
+  .platform-domain > span { font-size: 10px; }
+  .platform-model > span { font-size: 8px; }
+  .platform-review h3 { font-size: 14px; }
+  .platform-cta .service-link { font-size: 13px; }
   .slide-footer { font-size: 8px; }
   .next { font-size: 10px; gap: 9px; }
 }
