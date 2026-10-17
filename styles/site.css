@@ -25,12 +25,16 @@ figure, h1, h2, h3, p, dl, dd { margin: 0; }
 .wrap { width: calc(100% - 128px); max-width: 1280px; margin-inline: auto; }
 .skip { position: fixed; top: -100px; left: 24px; z-index: 20; background: var(--ink); color: white; padding: 12px 20px; }
 .skip:focus { top: 12px; }
-.header { height: 84px; position: fixed; inset: 0 0 auto; z-index: 10; background: rgb(245 247 250 / 94%); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
-.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; height: 100%; }
+.header { position: fixed; inset: 0 0 auto; z-index: 10; background: rgb(245 247 250 / 94%); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; height: 84px; }
 .brand { font: 600 25px/1 'Inter', sans-serif; letter-spacing: -1.1px; white-space: nowrap; }
 .brand span { font-weight: 400; }
+.page-nav { display: flex; align-items: center; gap: 32px; }
+.page-nav a { padding: 12px 0; border-bottom: 2px solid transparent; color: var(--muted); font-size: 13px; white-space: nowrap; }
+.page-nav a[aria-current] { color: var(--blue); border-bottom-color: var(--blue); }
 .nav { display: flex; gap: 26px; }
-.nav a { display: flex; gap: 8px; align-items: center; color: var(--muted); font-size: 12px; padding: 10px 0; }
+.section-nav { min-height: 44px; align-items: center; border-top: 1px solid var(--line); }
+.nav a { display: flex; gap: 8px; align-items: center; flex-shrink: 0; white-space: nowrap; color: var(--muted); font-size: 12px; padding: 10px 0; }
 .nav a[aria-current] { color: var(--blue); }
 .number { font: 10px var(--mono); opacity: .7; }
 .languages { display: flex; gap: 13px; font: 11px var(--mono); }
@@ -38,6 +42,7 @@ figure, h1, h2, h3, p, dl, dd { margin: 0; }
 .languages a[aria-current] { color: var(--ink); border-bottom: 1px solid var(--ink); }
 .reading-progress { height: 2px; background: var(--blue); transform-origin: left; transform: scaleX(var(--page-progress, 0)); }
 .slide { position: relative; min-height: 100vh; min-height: 100svh; padding: 124px 0 76px; display: flex; align-items: center; border-bottom: 1px solid var(--line); scroll-snap-align: start; }
+.business-page .slide, .technology-page .slide { padding-top: 168px; }
 .split { display: grid; grid-template-columns: 1.04fr 1fr; gap: clamp(44px, 6.3vw, 94px); align-items: center; }
 .copy { min-width: 0; }
 .eyebrow, .mini-label, .diagram-heading { font: 10px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
@@ -73,6 +78,32 @@ figcaption { font-size: 11px; color: var(--muted); line-height: 1.65; padding-to
 .integration-lines, .formulation-lines { display: block; width: 100%; height: 54px; stroke: var(--blue); stroke-width: 1.2; }
 .junction { fill: var(--blue); stroke: var(--paper); stroke-width: 2; }
 .integration-result { text-align: center; color: var(--blue); font-size: 16px; font-weight: 500; }
+.vision-thesis { list-style: none; padding: 0; margin: 7px 0 0; }
+.vision-thesis li { display: grid; grid-template-columns: 25px minmax(0, 1fr); gap: 16px; padding: 19px 0; }
+.vision-thesis li + li { border-top: 1px solid var(--line); }
+.vision-number { color: var(--blue); font: 11px/1.6 var(--mono); padding-top: 2px; }
+.vision-diagram h3 { font-size: 15px; line-height: 1.5; }
+.vision-thesis p, .vision-start > p:not(.mini-label) { font-size: 12px; line-height: 1.75; color: var(--muted); margin-top: 7px; }
+.vision-start { background: var(--soft); border-left: 2px solid var(--blue); padding: 20px 22px; margin-top: 8px; }
+.vision-start .mini-label { color: var(--blue); }
+.vision-start h3 { margin-top: 8px; }
+.vision-start .service-link { margin-top: 12px; width: fit-content; gap: 16px; }
+.vision-start .service-link > span { font-size: 18px; }
+.business-page .section-nav { justify-content: flex-start; gap: 28px; }
+.efficiency-diagram .allocation-node h3, .efficiency-diagram .allocation-agent h3 { font-size: 14px; line-height: 1.5; }
+.allocation-node { padding: 14px 18px; border: 1px solid var(--line); }
+.allocation-node h3, .allocation-agent h3 { margin-top: 6px; }
+.allocation-node p:not(.mini-label), .allocation-agent p:not(.mini-label) { margin-top: 6px; font-size: 12px; line-height: 1.7; color: var(--muted); }
+.allocation-analysis { margin-top: 22px; }
+.allocation-match { background: var(--soft); border-color: var(--blue); }
+.allocation-match h3 { color: var(--blue); }
+.allocation-line, .allocation-branch { display: block; width: 100%; stroke: var(--blue); stroke-width: 1.2; }
+.allocation-line { height: 24px; }
+.allocation-branch { height: 32px; }
+.allocation-agents { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.allocation-agent { padding: 14px; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+.allocation-quality { text-align: center; }
+.allocation-quality h3 { margin-top: 0; color: var(--blue); }
 .context-block { margin-top: 24px; padding: 19px 22px; background: var(--soft); border: 1px solid var(--line); }
 .diagram h3 { font-size: 16px; font-weight: 500; letter-spacing: -.02em; }
 .context-items { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 17px; gap: 10px; font-size: 12px; color: var(--muted); }
@@ -156,10 +187,14 @@ figcaption { font-size: 11px; color: var(--muted); line-height: 1.65; padding-to
 .next { display: flex; align-items: center; gap: 14px; font: 11px var(--sans); }
 .next svg { width: 10px; height: 15px; transition: transform .2s; }
 .next:hover svg { transform: translateY(3px); }
+.next-page svg { width: 18px; height: 14px; }
+.next-page:hover svg { transform: translateX(3px); }
 html[lang='ko'] h1 { font-size: clamp(35px, 3.65vw, 54px); line-height: 1.24; letter-spacing: -.055em; }
 html[lang='ko'] h2 { font-size: clamp(32px, 3.05vw, 45px); line-height: 1.26; letter-spacing: -.055em; }
 html[lang='ko'] .lead { font-size: 15px; line-height: 1.95; word-break: keep-all; }
 html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: keep-all; }
+html[lang='ko'] .vision-diagram { word-break: keep-all; }
+html[lang='ko'] .efficiency-diagram { word-break: keep-all; }
 @keyframes reveal { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes sequence { 0% { opacity: .3; transform: translateY(9px); } 70% { opacity: 1; transform: translateY(0); } 100% { opacity: 1; transform: translateY(0); } }
 @keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
@@ -175,12 +210,18 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
 }
 @media (min-width: 1001px) and (max-height: 850px) {
   .slide { padding-top: 111px; padding-bottom: 64px; }
+  .business-page .slide, .technology-page .slide { padding-top: 155px; }
   .eyebrow { margin-bottom: 23px; }
   .lead { margin-top: 23px; font-size: 15px; line-height: 1.75; }
   .concepts { margin-top: 23px; }
   .concepts > div { padding: 11px 0; }
   .name-expansion { padding-block: 16px; font-size: 49px; }
   .integration { padding-top: 20px; }
+  .vision-thesis li { padding-block: 15px; }
+  .vision-start { padding-block: 17px; }
+  .allocation-analysis { margin-top: 18px; }
+  .allocation-node, .allocation-agent { padding-block: 12px; }
+  .allocation-branch { height: 26px; }
   .context-block { margin-top: 20px; padding-block: 16px; }
   .formulation-lines { height: 42px; }
   .model-row { padding-block: 12px; }
@@ -219,13 +260,16 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   html { scroll-snap-type: none; }
   .wrap { width: calc(100% - 64px); max-width: 690px; }
   .header-inner { max-width: none; }
-  .header { height: 102px; }
-  .header-inner { flex-wrap: wrap; align-content: center; row-gap: 12px; }
+  .header-inner { height: 102px; flex-wrap: wrap; align-content: center; row-gap: 8px; }
+  .page-nav { order: 3; width: 100%; justify-content: center; gap: 32px; }
+  .page-nav a { padding: 6px 0; font-size: 12px; }
   .brand { font-size: 23px; }
   .languages { margin-left: auto; }
-  .nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; }
-  .nav a { padding: 0; font-size: 11px; }
+  .nav { justify-content: space-between; gap: 12px; overflow-x: auto; padding-block: 6px; }
+  .nav a { padding: 2px 0; font-size: 11px; }
+  .nav a:focus-visible { outline-offset: 2px; }
   .slide { min-height: auto; padding: 152px 0 83px; }
+  .business-page .slide, .technology-page .slide { padding-top: 196px; }
   .split { grid-template-columns: 1fr; gap: 47px; }
   h1, h2 { font-size: clamp(40px, 6.4vw, 59px); }
   html[lang='ko'] h1 { font-size: clamp(36px, 5.8vw, 52px); }
@@ -241,7 +285,6 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
 }
 @media (max-width: 480px) {
   .wrap { width: calc(100% - 40px); }
-  .header { height: 101px; }
   .header-inner { column-gap: 16px; }
   .brand { font-size: 22px; }
   .nav a { font-size: 10px; gap: 5px; }
@@ -249,6 +292,7 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   .nav { gap: 8px; }
   .nav .number { display: none; }
   .slide { padding-top: 140px; padding-bottom: 76px; }
+  .business-page .slide, .technology-page .slide { padding-top: 184px; }
   .eyebrow { font-size: 9px; margin-bottom: 24px; }
   h1 { font-size: clamp(35px, 10.3vw, 44px); line-height: 1.12; }
   h2 { font-size: clamp(32px, 9.7vw, 41px); }
@@ -264,6 +308,15 @@ html[lang='ko'] .concepts dd, html[lang='ko'] .name-meaning dd { word-break: kee
   .source-labels strong { font-size: 11px; line-height: 1.5; }
   .source-labels span { font-size: 10px; }
   .integration-result { font-size: 15px; }
+  .vision-thesis li { gap: 11px; padding-block: 17px; }
+  .vision-diagram h3 { font-size: 14px; }
+  .vision-start { padding: 18px 17px; }
+  .allocation-node { padding-inline: 15px; }
+  .allocation-agents { gap: 18px; }
+  .allocation-agent { padding-inline: 8px; }
+  .efficiency-diagram .allocation-agent h3 { font-size: 13px; }
+  .allocation-agent .mini-label { font-size: 8px; letter-spacing: .025em; }
+  .allocation-node p:not(.mini-label), .allocation-agent p:not(.mini-label) { font-size: 11px; }
   .context-block { padding-inline: 16px; }
   .context-items { font-size: 11px; }
   .context-items span + span { padding-left: 9px; }

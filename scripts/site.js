@@ -8,14 +8,25 @@
   const timers = new Map();
   let frame = 0;
 
-  // Preserve links to the previous four-slide edition.
+  // Keep links from the combined page and earlier editions working.
   const aliases = { planning: 'formulation', model: 'formulation', execution: 'orchestration' };
+  const technologySections = new Set(['identity', 'formulation', 'optimization', 'orchestration', 'rn-ai']);
   function resolveLegacyHash() {
-    const target = aliases[location.hash.slice(1)];
-    if (!target) return;
-    history.replaceState(null, '', `#${target}`);
-    document.getElementById(target)?.scrollIntoView({ behavior: 'instant' });
+    const hash = location.hash.slice(1);
+    const target = aliases[hash] || hash;
+    const technologyHref = document.body.dataset.technologyHref;
+    if (technologyHref && technologySections.has(target)) {
+      location.replace(`${technologyHref}#${target}`);
+      return true;
+    }
+    if (aliases[hash]) {
+      history.replaceState(null, '', `#${target}`);
+      document.getElementById(target)?.scrollIntoView({ behavior: 'instant' });
+    }
+    return false;
   }
+
+  if (resolveLegacyHash()) return;
 
   function updateNavigation() {
     frame = 0;
@@ -93,10 +104,9 @@
   addEventListener('scroll', scheduleNavigation, { passive: true });
   addEventListener('resize', scheduleNavigation);
   addEventListener('hashchange', () => {
-    resolveLegacyHash();
+    if (resolveLegacyHash()) return;
     scheduleNavigation();
   });
-  resolveLegacyHash();
   syncMotion();
   updateNavigation();
 })();

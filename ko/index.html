@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ORD Systems — Operations Research &amp; Decision</title>
-  <meta name="description" content="Mathematical optimization에 기반한 agentic decision systems. ORD Systems는 운영 맥락의 이해, problem formulation, optimization, 실행과 재계획을 연결합니다." />
+  <title>ORD Systems — Business</title>
+  <meta name="description" content="ORD Systems는 범용 AI만으로 해결하기 어려운 전문 업무를 위한 에이전트 서비스를 만듭니다. RN-AI의 간호사 근무 편성에서 시작해, 분야별 지식과 mathematical optimization을 실제 업무에 연결합니다." />
   <meta name="theme-color" content="#f5f7fa" />
-  <meta property="og:title" content="ORD Systems — Operations Research &amp; Decision" />
-  <meta property="og:description" content="Mathematical optimization에 기반한 agentic decision systems. ORD Systems는 운영 맥락의 이해, problem formulation, optimization, 실행과 재계획을 연결합니다." />
+  <meta property="og:title" content="ORD Systems — Business" />
+  <meta property="og:description" content="ORD Systems는 범용 AI만으로 해결하기 어려운 전문 업무를 위한 에이전트 서비스를 만듭니다. RN-AI의 간호사 근무 편성에서 시작해, 분야별 지식과 mathematical optimization을 실제 업무에 연결합니다." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ord.systems/ko/" />
   <link rel="canonical" href="https://ord.systems/ko/" />
@@ -21,143 +21,82 @@
   <link rel="stylesheet" href="../styles/site.css" />
   <script src="../scripts/site.js" defer></script>
 </head>
-<body>
-  <a class="skip" href="#identity">본문으로 이동</a>
+<body class="business-page" data-technology-href="technology.html">
+  <a class="skip" href="#vision">본문으로 이동</a>
   <header class="header">
     <div class="header-inner wrap">
-      <a class="brand" href="#identity" aria-label="ORD Systems">ORD <span>Systems</span></a>
-      <nav class="nav" aria-label="주요 화면"><a href="#identity" data-slide-link="identity" aria-current="location"><span class="number">01</span>ORD</a><a href="#formulation" data-slide-link="formulation"><span class="number">02</span>Formulate</a><a href="#optimization" data-slide-link="optimization"><span class="number">03</span>Optimize</a><a href="#orchestration" data-slide-link="orchestration"><span class="number">04</span>Orchestrate</a><a href="#rn-ai" data-slide-link="rn-ai"><span class="number">05</span>RN-AI</a></nav>
+      <a class="brand" href="index.html" aria-label="ORD Systems">ORD <span>Systems</span></a>
+      <nav class="page-nav" aria-label="페이지"><a href="index.html" aria-current="page">Business</a><a href="technology.html">Technology</a></nav>
       <div class="languages" aria-label="언어"><a href="../index.html" lang="en" hreflang="en" data-language-href="../index.html">EN</a><a href="index.html" lang="ko" hreflang="ko" aria-current="page" data-language-href="index.html">KO</a></div>
     </div>
+    <nav class="nav section-nav wrap" aria-label="사업 페이지 목차"><a href="#vision" data-slide-link="vision" aria-current="location"><span class="number">01</span>Vision</a><a href="#efficiency" data-slide-link="efficiency"><span class="number">02</span>Efficiency</a></nav>
     <div class="reading-progress" aria-hidden="true"></div>
   </header>
   <main>
-    <section class="slide identity-slide" id="identity" aria-labelledby="identity-title">
+    <section class="slide vision-slide" id="vision" aria-labelledby="vision-title">
       <div class="wrap split">
         <div class="copy">
-          <p class="eyebrow reveal">Our foundation</p>
-          <h1 class="reveal" id="identity-title">복잡한 운영을 위한<br>agentic decision systems.<br><span>기반은 mathematical<br>optimization입니다.</span></h1>
-          <p class="lead reveal">Language model과 mathematical optimization을 결합합니다. 운영 의도를 이해하는 것부터 의사결정의 평가, 실행, 변화에 따른 재계획까지 연결합니다.</p>
-          <p class="principle reveal">명시적인 model. 맥락을 반영하는 의사결정.</p>
-        </div>
-        <figure class="diagram identity-diagram" aria-labelledby="ord-caption">
-          <div class="diagram-heading"><span>ORD / The name</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
-          <div class="name-expansion" aria-label="ORD는 Operations Research와 Decision을 의미합니다">
-            <div class="sequence" style="--order:0"><strong>O</strong><span>perations</span></div>
-            <div class="sequence" style="--order:1"><strong>R</strong><span>esearch <em>&amp;</em></span></div>
-            <div class="sequence" style="--order:2"><strong>D</strong><span>ecision</span></div>
-          </div>
-          <dl class="name-meaning">
-            <div><dt>Operations Research</dt><dd>운영 문제를 objectives, constraints, decision variables로 표현합니다.</dd></div>
-            <div><dt>Decision</dt><dd>Model의 해를 실행으로 연결하고, 운영 환경의 변화를 다음 의사결정에 반영합니다.</dd></div>
+          <p class="eyebrow reveal">Business vision</p>
+          <h1 class="reveal" id="vision-title">전문 업무를 위한 AI.<br><span>현장에서 쓰는<br>서비스로.</span></h1>
+          <p class="lead reveal">범용 AI만으로 해결하기 어려운 전문 업무에 집중합니다. 분야별 지식과 운영 규칙을 반영해, 기업과 기관이 실제 업무에 사용할 수 있는 에이전트 서비스를 만듭니다.</p>
+          <dl class="concepts reveal">
+            <div><dt>고객의 업무 부담을 줄입니다</dt><dd>복잡한 계획 수립과 반복 조정을 돕고, 담당자가 결과를 검토하고 의사결정에 집중할 수 있도록 하는 것이 목표입니다.</dd></div>
+            <div><dt>현장의 전문성을 제품에 쌓습니다</dt><dd>범용 모델의 발전을 활용하면서, 분야별 업무 지식과 규칙, 최적화 기술, 현장 적용 경험을 서비스의 경쟁력으로 축적합니다.</dd></div>
           </dl>
-          <div class="integration">
-            <div class="source-labels"><div><strong>Language models</strong><span>운영 맥락과 의도 이해</span></div><div><strong>Mathematical optimization</strong><span>Constraints를 만족하는 의사결정 평가</span></div></div>
-            <svg class="integration-lines" viewBox="0 0 480 56" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M120 0V16Q120 28 132 28H228Q240 28 240 40V55M360 0V16Q360 28 348 28H252Q240 28 240 40"/><circle class="junction" cx="240" cy="50" r="4"/></svg>
-            <p class="integration-result sequence" style="--order:4">Agentic decision systems</p>
+        </div>
+        <figure class="diagram vision-diagram" aria-labelledby="vision-caption">
+          <div class="diagram-heading"><span>Our focus / 전문 업무 시장</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
+          <ol class="vision-thesis">
+            <li class="sequence" style="--order:0"><span class="vision-number" aria-hidden="true">01</span><div><h3>세분화된 시장, 서로 다른 요구</h3><p>산업·직무·조직마다 규칙과 업무 방식이 다릅니다. 전문 서비스를 만들려면 각 현장을 깊이 이해해야 합니다.</p></div></li>
+            <li class="sequence" style="--order:1"><span class="vision-number" aria-hidden="true">02</span><div><h3>범용 기술과 현장 사이의 기회</h3><p>범용 플랫폼이 모든 세부 업무를 직접 제품화하기는 어렵습니다. 우리는 분야별로 깊이 있는 구현이 필요한 업무에서 기회를 찾습니다.</p></div></li>
+            <li class="sequence" style="--order:2"><span class="vision-number" aria-hidden="true">03</span><div><h3>반복 공급할 수 있는 제품</h3><p>공통 기술은 재사용하고 조직별 차이는 규칙과 설정으로 반영해, 고객마다 새로 개발하는 부담을 줄이고자 합니다.</p></div></li>
+          </ol>
+          <div class="vision-start sequence" style="--order:3">
+            <p class="mini-label">Starting with / RN-AI</p>
+            <h3>간호사 근무 편성에서 시작합니다.</h3>
+            <p>필요 인원, 숙련도, 근무 규칙, 희망사항을 함께 고려하는 전문 업무가 첫 출발점입니다.</p>
+            <a class="service-link" href="https://rn.ai.kr/intro">RN-AI 서비스 살펴보기<span aria-hidden="true">↗</span></a>
           </div>
-          <figcaption id="ord-caption">Agent가 tools와 state를 통해 이해와 optimization을 연결합니다.</figcaption>
+          <figcaption id="vision-caption">한 분야에서 쌓은 경험과 공통 기술을 바탕으로, 전문 업무의 적용 범위를 넓혀가고자 합니다.</figcaption>
         </figure>
       </div>
-      <div class="slide-footer wrap"><span>01 / 05 <span class="footer-detail">— Operations Research &amp; Decision</span></span><a class="next" href="#formulation">운영 맥락에서 model로<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
+      <div class="slide-footer wrap"><span>01 / 02 <span class="footer-detail">— Specialized agents for professional work</span></span><a class="next" href="#efficiency">Explore efficiency<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
     </section>
-    <section class="slide" id="formulation" aria-labelledby="formulation-title">
+    <section class="slide efficiency-slide" id="efficiency" aria-labelledby="efficiency-title">
       <div class="wrap split">
         <div class="copy">
-          <p class="eyebrow reveal">01 / Problem formulation</p>
-          <h2 class="reveal" id="formulation-title">운영 의도를<br><span>명시적인 model로.</span></h2>
-          <p class="lead reveal">운영 지식은 언어, 데이터, 규칙에 흩어져 있습니다. Language model은 이 맥락을 정리하고, 검토와 계산이 가능한 수학적 문제로 표현하는 과정을 돕습니다.</p>
-          <dl class="concepts reveal"><div><dt>Grounding</dt><dd>요구사항을 운영 데이터 및 도메인 정의와 연결합니다.</dd></div><div><dt>Clarification</dt><dd>누락된 정보와 모호한 규칙을 확인하여, 확인되지 않은 가정이 model에 들어가지 않도록 합니다.</dd></div></dl>
+          <p class="eyebrow reveal">Efficiency / Our approach</p>
+          <h2 class="reveal" id="efficiency-title">품질을 기준으로,<br><span>비용을 최적화합니다.</span></h2>
+          <p class="lead reveal">전문 업무에 필요한 품질은 타협하지 않습니다. 고도로 최적화한 오픈소스 기반 로컬 모델을 활용하고, 단계별 요구에 맞는 이종 모델과 에이전트를 배치해 토큰 사용과 추론 비용을 최적화합니다.</p>
+          <dl class="concepts reveal">
+            <div><dt>토큰 가성비를 업무 결과당 비용으로</dt><dd>고객이 필요한 품질의 결과를 얻는 데 드는 전체 처리 비용을 낮추는 것이 목표입니다. 전문 업무를 반복적으로 사용할 수 있는 경제성을 추구합니다.</dd></div>
+            <div><dt>제품 공급과 운영을 함께 최적화</dt><dd>공통 기술의 재사용으로 개발·공급 부담을, 업무 단계별 모델 배치로 운영 부담을 줄여 세분화된 전문 시장의 경제성을 높이고자 합니다.</dd></div>
+          </dl>
         </div>
-        <figure class="diagram formulation-diagram" aria-labelledby="formulation-caption">
-          <div class="diagram-heading"><span>Context → Model</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
-          <div class="context-block sequence" style="--order:0"><h3>Operational context</h3><div class="context-items"><span>운영 정책</span><span>가용 자원</span><span>우선순위</span></div></div>
-          <svg class="formulation-lines" viewBox="0 0 480 55" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M80 0V12Q80 25 93 25H227Q240 25 240 38V55M240 0V55M400 0V12Q400 25 387 25H253Q240 25 240 38"/></svg>
-          <div class="formulation-core sequence" style="--order:1"><span class="node-dot" aria-hidden="true"></span><div><h3>Problem formulation</h3><p>Language model + 도메인 지식</p></div></div>
-          <div class="model-connector" aria-hidden="true"></div>
-          <div class="model-block"><p class="mini-label">Mathematical model</p><dl class="model-spec"><div class="model-row sequence" style="--order:2"><span class="math-symbol">x</span><div><dt>Decision variables</dt><dd>시스템이 무엇을 결정할 수 있는가?</dd></div></div><div class="model-row sequence" style="--order:3"><span class="math-symbol">g</span><div><dt>Constraints</dt><dd>어떤 조건을 반드시 만족해야 하는가?</dd></div></div><div class="model-row sequence" style="--order:4"><span class="math-symbol">f</span><div><dt>Objectives</dt><dd>가능한 대안을 어떤 기준으로 비교하는가?</dd></div></div></dl></div>
-          <figcaption id="formulation-caption">Formulation 과정에서 가정과 의사결정 기준을 명시합니다.</figcaption>
+        <figure class="diagram efficiency-diagram" aria-labelledby="efficiency-caption">
+          <div class="diagram-heading"><span>Workflow / Model allocation</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
+          <div class="allocation-node allocation-analysis sequence" style="--order:0">
+            <p class="mini-label">01 / Analyze</p>
+            <h3>전체 워크플로우 분석</h3>
+            <p>업무를 단계로 나누고, 필요한 능력과 품질 기준을 파악합니다.</p>
+          </div>
+          <svg class="allocation-line" viewBox="0 0 480 24" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M240 0V23M235 18L240 23L245 18"/></svg>
+          <div class="allocation-node allocation-match sequence" style="--order:1">
+            <p class="mini-label">02 / Match</p>
+            <h3>단계별 요구를 감지·분류</h3>
+            <p>전문 지식·절차와 범용 추론의 필요에 따라 모델과 에이전트를 배치합니다.</p>
+          </div>
+          <svg class="allocation-branch" viewBox="0 0 480 32" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M240 0V5Q240 16 229 16H131Q120 16 120 27V32M240 5Q240 16 251 16H349Q360 16 360 27V32"/></svg>
+          <div class="allocation-agents">
+            <div class="allocation-agent sequence" style="--order:2"><p class="mini-label">Specialized work</p><h3>전문가 특화 에이전트</h3><p>업무에 맞게 고도로 최적화한 오픈소스 기반 로컬 모델</p></div>
+            <div class="allocation-agent sequence" style="--order:3"><p class="mini-label">General reasoning</p><h3>범용 문제 해결 에이전트</h3><p>폭넓은 추론이 필요한 단계에 적합한 문제 해결 능력을 갖춘 모델</p></div>
+          </div>
+          <svg class="allocation-branch" viewBox="0 0 480 32" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M120 0V5Q120 16 131 16H229Q240 16 240 27V32M360 0V5Q360 16 349 16H251Q240 16 240 27"/></svg>
+          <div class="allocation-node allocation-quality sequence" style="--order:4"><h3>품질 기준 안에서 비용 최적화</h3><p>각 단계에 맞는 모델 조합으로 하나의 업무를 수행합니다.</p></div>
+          <figcaption id="efficiency-caption">단일 모델에 모든 단계를 맡기지 않고, 작업의 요구에 따라 여러 모델의 강점을 연결하는 서비스 설계 원칙입니다.</figcaption>
         </figure>
       </div>
-      <div class="slide-footer wrap"><span>02 / 05 <span class="footer-detail">— Context → Model</span></span><a class="next" href="#optimization">Model에서 해의 계산으로<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
-    </section>
-    <section class="slide optimization-slide" id="optimization" aria-labelledby="optimization-title">
-      <div class="wrap split">
-        <div class="copy">
-          <p class="eyebrow reveal">02 / Mathematical optimization</p>
-          <h2 class="reveal" id="optimization-title">Feasibility를 정의하고,<br><span>의사결정을 최적화합니다.</span></h2>
-          <p class="lead reveal">Solver는 명시된 constraints 안에서 해를 탐색합니다. Objectives는 가능한 대안을 어떤 기준으로 비교하는지 검토할 수 있게 합니다.</p>
-          <dl class="concepts reveal"><div><dt>Feasibility</dt><dd>Model에 정의된 constraints를 만족하는지 확인합니다.</dd></div><div><dt>Objective value</dt><dd>명시한 평가 기준으로 각 후보 해를 평가합니다.</dd></div><div><dt>Trade-offs</dt><dd>상충하는 목표를 weights, priorities 또는 대안 scenario로 명시합니다.</dd></div></dl>
-        </div>
-        <figure class="diagram optimization-diagram" aria-labelledby="optimization-caption">
-          <div class="diagram-heading"><span>Model → Solution</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
-          <p class="mini-label equation-label">General optimization formulation</p>
-          <div class="equation" role="math" aria-label="Minimize f of x, theta, over x, subject to g i of x, theta less than or equal to zero for i from one to m, and x in X.">
-            <div class="equation-row sequence" style="--order:0"><span class="operator">minimize<small>over x</small></span><span class="expression"><i>f</i>(<i>x</i>; θ)</span></div>
-            <div class="equation-row sequence" style="--order:1"><span class="operator">subject to</span><span class="expression"><i>g</i><sub>i</sub>(<i>x</i>; θ) ≤ 0 <small>i = 1, …, m</small></span></div>
-            <div class="equation-row sequence" style="--order:2"><span></span><span class="expression"><i>x</i> ∈ <i>X</i></span></div>
-          </div>
-          <dl class="equation-legend"><div class="sequence" style="--order:2"><dt><span class="math-symbol">x</span>Decision variables</dt><dd>시스템이 선택할 수 있는 의사결정입니다.</dd></div><div class="sequence" style="--order:3"><dt><span class="math-symbol">θ</span>Operational parameters</dt><dd>문제를 정의하는 데이터와 운영 조건입니다.</dd></div><div class="sequence" style="--order:4"><dt><span class="math-symbol">f, g, X</span>Objective, constraints & domain</dt><dd>평가 기준, 필수 조건, 변수의 허용 범위입니다.</dd></div></dl>
-          <p class="solver-note">문제의 구조에 맞춰 formulation과 solver를 선택합니다. Feasibility와 optimality는 정의된 model과 solve limits 안에서 평가합니다.</p>
-          <figcaption id="optimization-caption">계산 결과는 사용 전에 model을 기준으로 평가합니다.</figcaption>
-        </figure>
-      </div>
-      <div class="slide-footer wrap"><span>03 / 05 <span class="footer-detail">— Model → Solution</span></span><a class="next" href="#orchestration">계산 결과에서 실행으로<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
-    </section>
-    <section class="slide orchestration-slide" id="orchestration" aria-labelledby="orchestration-title">
-      <div class="wrap">
-        <div class="split">
-          <div class="copy">
-            <p class="eyebrow reveal">03 / Agentic orchestration</p>
-            <h2 class="reveal" id="orchestration-title">이해하고, 계산하고, 실행하며.<br><span>변화에 맞춰 다시 판단합니다.</span></h2>
-            <p class="lead reveal">Agent는 language model, solver, 운영 tools를 연결합니다. State를 유지하고 결과를 확인하며, 새로운 정보와 운영 상황에 따라 다음 행동을 선택합니다.</p>
-            <dl class="concepts reveal"><div><dt>Tool use + state management</dt><dd>Model 구성부터 계산과 실행까지 맥락을 유지합니다.</dd></div><div><dt>Validation + replanning</dt><dd>Solver status와 운영 요구사항을 확인하고, 조건이 바뀌면 model을 다시 검토합니다.</dd></div></dl>
-          </div>
-          <figure class="diagram orchestration-diagram" aria-labelledby="orchestration-caption">
-            <div class="diagram-heading"><span>Solution → Action → Feedback</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
-            <h3 class="loop-title">조건에 따라 경로가 달라지는 decision loop</h3>
-            <p class="mini-label">Conceptual architecture</p>
-            <div class="loop-layout">
-              <svg class="loop-connector" viewBox="0 0 28 350" preserveAspectRatio="none" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M27 325H13Q2 325 2 314V35Q2 24 13 24H27M20 18L27 24L20 30"/></svg>
-              <ol class="loop-steps"><li class="sequence" style="--order:0"><span class="step-number">01</span><div><strong>Observe</strong><span>현재 운영 상태 확인</span></div></li><li class="sequence" style="--order:1"><span class="step-number">02</span><div><strong>Formulate</strong><span>Model 구성 또는 수정</span></div></li><li class="sequence" style="--order:2"><span class="step-number">03</span><div><strong>Solve</strong><span>문제에 맞는 solver 호출</span></div></li><li class="sequence" style="--order:3"><span class="step-number">04</span><div><strong>Validate</strong><span>Status 및 요구사항 확인</span></div></li><li class="sequence" style="--order:4"><span class="step-number">05</span><div><strong>Act</strong><span>권한이 부여된 작업 실행</span></div></li></ol>
-              <div class="branches"><div class="branch sequence" style="--order:3"><span>정보가 부족하면</span><strong>Clarify → Formulate</strong></div><div class="branch sequence" style="--order:4"><span>Constraints가 충돌하면</span><strong>Review → Formulate</strong></div><div class="branch sequence" style="--order:5"><span>운영 조건이 바뀌면</span><strong>Observe → Replan</strong></div></div>
-            </div>
-            <p class="feedback-note sequence" style="--order:5"><span aria-hidden="true">↳</span>결과와 변화를 다음 의사결정에 반영</p>
-            <figcaption id="orchestration-caption">State, tool 결과, 사용자 응답에 따라 다음 단계를 선택합니다.</figcaption>
-          </figure>
-        </div>
-      </div>
-      <div class="slide-footer wrap"><span>04 / 05 <span class="footer-detail">— Solution → Action → Feedback</span></span><a class="next" href="#rn-ai">실제 플랫폼으로 이어보기<svg viewBox="0 0 14 18" fill="none" stroke="currentColor" aria-hidden="true"><path d="M7 1v14m-5-5 5 5 5-5"/></svg></a></div>
-    </section>
-    <section class="slide platform-slide" id="rn-ai" aria-labelledby="platform-title">
-      <div class="wrap split">
-        <div class="copy">
-          <p class="eyebrow reveal">04 / The platform in practice</p>
-          <h2 class="reveal" id="platform-title">RN-AI.<br><span>간호사 근무표를 위한<br>agentic AI.</span></h2>
-          <p class="lead reveal">기존 엑셀에서 시작해 검토 가능한 근무표 초안까지. 채팅 요청과 화면 편집을 병동 데이터, 명시적인 근무 규칙, CP-SAT 기반 계산으로 연결합니다.</p>
-          <dl class="concepts reveal"><div><dt>Context-aware tools</dt><dd>UI와 agent가 간호사·근무코드·희망근무를 다루는 domain services를 공유합니다. 현재 화면의 context를 대화에 반영합니다.</dd></div><div><dt>Constraint programming</dt><dd>필요 인력, 근무 패턴, 숙련도, 선호를 hard constraints와 weighted penalties로 표현하고 OR-Tools CP-SAT으로 계산합니다.</dd></div><div><dt>Solver-independent evaluation</dt><dd>생성한 초안과 수정한 근무표의 규칙 위반 및 penalty를 새 optimization 없이 평가할 수 있습니다.</dd></div></dl>
-          <div class="platform-cta reveal"><a class="service-link" href="https://rn.ai.kr/intro">RN-AI 플랫폼 살펴보기<span aria-hidden="true">↗</span></a><p>서비스 사용 흐름과 실제 시연</p></div>
-        </div>
-        <figure class="diagram platform-diagram" aria-labelledby="platform-caption">
-          <div class="diagram-heading"><span>RN-AI / Platform architecture</span><button class="replay" type="button" hidden><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 7a7 7 0 1 1-1 6M4 2v5h5"/></svg><span>다시 보기</span></button></div>
-          <div class="platform-inputs">
-            <div class="platform-entry sequence" style="--order:0"><h3>Workspace UI</h3><p>엑셀 업로드 · 화면 편집</p></div>
-            <div class="platform-entry sequence" style="--order:0"><h3>Conversational agent</h3><p>화면 context · Domain tools</p></div>
-          </div>
-          <svg class="platform-lines" viewBox="0 0 480 40" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M120 0V8Q120 20 132 20H228Q240 20 240 32V40M360 0V8Q360 20 348 20H252Q240 20 240 32"/></svg>
-          <div class="platform-domain sequence" style="--order:1"><h3>Shared domain services</h3><p>간호사 · 근무코드 · 희망근무 · 병동 규칙</p><span>병동별 데이터 · 변경 이력</span></div>
-          <div class="platform-model sequence" style="--order:2"><span>Structured scheduling model</span><svg class="platform-model-lines" viewBox="0 0 480 26" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M240 0V3Q240 13 230 13H130Q120 13 120 23V26M240 3Q240 13 250 13H350Q360 13 360 23V26"/></svg></div>
-          <div class="platform-compute">
-            <div class="platform-engine sequence" style="--order:2"><span class="mini-label">Solve</span><h3>CP-SAT optimization</h3><p>근무표 후보 생성</p></div>
-            <span class="compute-arrow" aria-hidden="true">→</span>
-            <div class="platform-engine sequence" style="--order:3"><span class="mini-label">Evaluate</span><h3>Rule evaluation</h3><p>규칙 위반 · Penalty 내역</p></div>
-          </div>
-          <svg class="platform-lines platform-output-line" viewBox="0 0 480 40" fill="none" aria-hidden="true"><path class="draw" pathLength="1" d="M360 0V8Q360 20 348 20H252Q240 20 240 32V40"/></svg>
-          <div class="platform-review sequence" style="--order:4"><h3>Review → Save → Revise</h3><p>결과를 검토하고 다음 계산에 반영합니다.</p></div>
-          <figcaption id="platform-caption">같은 규칙 정의를 사용하되 optimization과 evaluation은 별도 경로로 실행합니다.</figcaption>
-        </figure>
-      </div>
-      <div class="slide-footer wrap"><span>© 2026 ORD Systems <span class="footer-detail">· Operations Research &amp; Decision</span></span><span>05 / 05</span></div>
+      <div class="slide-footer wrap"><span>© 2026 ORD Systems <span class="footer-detail">· Operations Research &amp; Decision</span></span><a class="next next-page" href="technology.html">Explore our technology<svg viewBox="0 0 18 14" fill="none" stroke="currentColor" aria-hidden="true"><path d="M1 7h14m-5-5 5 5-5 5"/></svg></a></div>
     </section>
   </main>
 </body>
