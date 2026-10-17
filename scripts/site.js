@@ -28,6 +28,38 @@
 
   if (resolveLegacyHash()) return;
 
+  const header = document.querySelector('.header');
+  const contents = document.querySelector('.mobile-contents');
+  const sectionNav = document.getElementById('section-contents');
+  const mobile = window.matchMedia('(max-width: 600px)');
+  if (header && contents && sectionNav) {
+    const setContentsOpen = open => {
+      header.dataset.contentsOpen = String(open);
+      contents.setAttribute('aria-expanded', String(open));
+      contents.querySelector('span').textContent = open ? '−' : '+';
+    };
+    contents.addEventListener('click', () => setContentsOpen(contents.getAttribute('aria-expanded') !== 'true'));
+    sectionNav.addEventListener('click', event => {
+      if (!event.target.closest('a') || !mobile.matches) return;
+      setContentsOpen(false);
+      contents.focus({ preventScroll: true });
+    });
+    document.addEventListener('click', event => {
+      if (!header.contains(event.target)) setContentsOpen(false);
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || contents.getAttribute('aria-expanded') !== 'true') return;
+      setContentsOpen(false);
+      contents.focus({ preventScroll: true });
+    });
+    header.addEventListener('focusout', event => {
+      if (!header.contains(event.relatedTarget)) setContentsOpen(false);
+    });
+    mobile.addEventListener('change', () => setContentsOpen(false));
+    header.classList.add('has-contents');
+    document.body.classList.add('has-contents');
+  }
+
   function updateNavigation() {
     frame = 0;
     let active = slides[0];
