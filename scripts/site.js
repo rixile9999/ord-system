@@ -1,4 +1,16 @@
 (() => {
+  function redirectToPage(href, hash = location.hash.slice(1)) {
+    const target = new URL(href, location.href);
+    target.search = location.search;
+    target.hash = hash;
+    location.replace(target.href);
+  }
+
+  if (document.body.dataset.redirectHome) {
+    redirectToPage(document.body.dataset.redirectHome);
+    return;
+  }
+
   const slides = [...document.querySelectorAll('main > .slide')];
   const links = [...document.querySelectorAll('[data-slide-link]')];
   const languages = [...document.querySelectorAll('[data-language-href]')];
@@ -11,12 +23,17 @@
   // Keep links from the combined page and earlier editions working.
   const aliases = { planning: 'formulation', model: 'formulation', execution: 'orchestration' };
   const technologySections = new Set(['identity', 'formulation', 'optimization', 'orchestration', 'rn-ai']);
+  const businessSections = new Set(['vision', 'efficiency']);
   function resolveLegacyHash() {
     const hash = location.hash.slice(1);
     const target = aliases[hash] || hash;
-    const technologyHref = document.body.dataset.technologyHref;
-    if (technologyHref && technologySections.has(target)) {
-      location.replace(`${technologyHref}#${target}`);
+    const { homeHref, businessHref } = document.body.dataset;
+    if (homeHref && technologySections.has(target)) {
+      redirectToPage(homeHref, target);
+      return true;
+    }
+    if (businessHref && businessSections.has(target)) {
+      redirectToPage(businessHref, target);
       return true;
     }
     if (aliases[hash]) {

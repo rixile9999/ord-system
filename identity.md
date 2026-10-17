@@ -24,12 +24,12 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 
 ## Pages
 
-사업적 지향점과 기술적 지향점은 별도 HTML 페이지로 제공한다. 공통 상단 메뉴에서 두 페이지를 전환하고, 언어를 바꾸면 현재 페이지와 slide를 유지한다. CSS와 JavaScript를 공유하며 build dependency는 없다.
+회사 정체성과 기술적 지향점을 홈페이지의 기본 내용으로 제공하고, 사업적 지향점은 별도 Business Vision 페이지로 제공한다. 상단에는 Business Vision 링크와 언어 선택을 두며, ORD Systems 로고는 같은 언어의 홈으로 연결한다. 언어를 바꾸면 현재 페이지와 slide를 유지한다. CSS와 JavaScript를 공유하며 build dependency는 없다.
 
-페이지 제목과 메뉴명은 한국어 페이지에서도 영문과 동일하게 Business Vision, Technology Vision, Overview 등을 사용하고, 본문을 한국어로 번역한다.
+홈페이지 제목은 ORD Systems — Agentic Decision Systems이다. 메뉴명은 한국어 페이지에서도 영문과 동일하게 Business Vision, Overview 등을 사용하고, 본문을 한국어로 번역한다.
 
-- **사업적 지향점:** 영문 `index.html`, 한국어 `ko/index.html`. 회사 소개의 첫 진입 화면이다. 공통 메뉴 아래의 Vision과 Efficiency 목차로 두 화면을 이동한다. `#vision`에서 전문 업무 시장의 세분화, 고객 가치, 분야별 제품화의 기회, 공통 기술을 재사용하는 공급 전략을 설명한다. RN-AI를 첫 적용 분야로 소개하고 [서비스 intro](https://rn.ai.kr/intro)로 연결한다. `#efficiency`에서 품질을 기준으로 비용을 최적화하는 원칙과 로컬 모델·이종 모델 에이전트의 단계별 배치를 설명한다. 하단에서 기술적 지향점 페이지로 이동할 수 있다.
-- **기술적 지향점:** 영문 `technology.html`, 한국어 `ko/technology.html`. 공통 상단 메뉴 아래에 기술 페이지의 목차를 표시하며, 다음 다섯 개의 vertical slide를 제공한다.
+- **사업적 지향점:** 영문 `business.html`, 한국어 `ko/business.html`. 상단 Business Vision 링크로 진입한다. 공통 메뉴 아래의 Vision과 Efficiency 목차로 두 화면을 이동한다. `#vision`에서 전문 업무 시장의 세분화, 고객 가치, 분야별 제품화의 기회, 공통 기술을 재사용하는 공급 전략을 설명한다. RN-AI를 첫 적용 분야로 소개하고 [서비스 intro](https://rn.ai.kr/intro)로 연결한다. `#efficiency`에서 품질을 기준으로 비용을 최적화하는 원칙과 로컬 모델·이종 모델 에이전트의 단계별 배치를 설명한다. 첫 화면의 ← Back to Home 링크와 마지막 화면 하단에서 같은 언어의 홈으로 돌아갈 수 있다.
+- **홈페이지:** 영문 `index.html` (`/`), 한국어 `ko/index.html` (`/ko/`). 기술 소개가 기본 화면이며 별도 Technology Vision 탭은 두지 않는다. 상단 아래의 Overview, Formulate, Optimize, Orchestrate, RN-AI 목차를 통해 다음 다섯 개의 vertical slide를 이동한다.
 
 1. **Identity:** Operations Research & Decision의 initials와 두 기술의 역할을 설명한다.
 2. **Problem formulation:** Operational context를 decision variables, constraints, objectives로 표현한다. Grounding과 clarification이 model의 가정을 명시하는 데 필요한 이유를 설명한다.
@@ -37,7 +37,7 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 4. **Agentic orchestration:** Observe → Formulate → Solve → Validate → Act → Observe의 loop와 clarification, model revision, replanning이 필요한 조건을 보여준다. 다음 화면에서 실제 구현인 RN-AI로 연결한다.
 5. **RN-AI:** 간호사 근무표 플랫폼의 실제 구조를 소개한다. UI와 agent의 shared domain services, OR-Tools CP-SAT, solver-independent evaluation을 설명하고 서비스 intro로 연결한다.
 
-분리 전 소개 페이지의 기술 관련 hash는 같은 언어의 `technology.html` 내 해당 slide로 이동한다. 기존 hash `#planning`, `#model`, `#execution`도 관련 기술 slide로 연결한다. 이 이전 URL 호환 처리는 JavaScript를 사용하며, 페이지 메뉴와 새 URL은 JavaScript 없이도 동작한다.
+이전 `technology.html` 및 `ko/technology.html` 주소는 query와 hash를 유지해 같은 언어의 홈으로 연결한다. 기존 홈의 사업 관련 hash `#vision`, `#efficiency`는 같은 언어의 `business.html`로 연결한다. 기술 관련 hash는 홈에서 표시하며, 이전 별칭 `#planning`, `#model`, `#execution`은 각각 formulation, formulation, orchestration으로 연결한다. 이전 주소의 상세 위치 보존은 JavaScript를 사용한다. JavaScript가 없는 경우에도 새 페이지 메뉴와 돌아가기 링크가 동작하고, 이전 기술 페이지는 meta refresh와 직접 링크로 홈을 안내한다.
 
 ## Visual identity
 
@@ -45,7 +45,7 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 
 한글은 Pretendard Variable, 영문은 InterVariable을 사용한다. 글꼴 선택은 복잡한 기술을 명확하고 신뢰할 수 있는 업무 도구로 전달하려는 시각적 해석이다. 두 글꼴 자체에 ORD 고유의 의미가 있거나 독점적인 브랜드 서체인 것으로 설명하지 않는다. 제목은 650, 소제목은 600의 굵기로 위계를 만든다. IBM Plex Mono는 단계 번호와 기술 라벨에 사용한다. 데스크톱 본문은 18px, 모바일 본문은 16px, 주요 설명은 14–15px로 유지한다.
 
-600px 이하에서는 설명이 많은 도식을 세로로 배치하고, 세부 목차를 Contents 버튼으로 접는다. 버튼은 열림 상태를 보조 기술에 전달하며 Escape, 목차 선택, 메뉴 밖 클릭 시 닫힌다. JavaScript가 없으면 목차를 그대로 표시한다. 상단 메뉴는 Business Vision과 Technology Vision으로 표기하고, 모바일에서는 각 메뉴를 두 줄로 배치한다. 한·영 페이지의 메뉴명은 동일하게 유지한다.
+600px 이하에서는 설명이 많은 도식을 세로로 배치하고, 세부 목차를 Contents 버튼으로 접는다. 버튼은 열림 상태를 보조 기술에 전달하며 Escape, 목차 선택, 메뉴 밖 클릭 시 닫힌다. JavaScript가 없으면 목차를 그대로 표시한다. 상단 Business Vision 링크는 모바일에서도 한 줄로 표시하며, 한·영 페이지의 메뉴명은 동일하게 유지한다.
 
 ## Motion
 
