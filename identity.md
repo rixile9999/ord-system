@@ -4,6 +4,8 @@
 
 ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems로 표기하며, symbol을 붙이지 않은 text wordmark를 사용한다.
 
+RN-AI에 사용하는 core의 이름은 **ORCA engine**이며, **Operational Research Conversational Agent**를 의미한다. RN-AI는 ORCA engine을 사용하는 제품이다. 첫 소개에는 full name을 함께 표기하고, 이후에는 ORCA engine으로 쓴다.
+
 복잡한 운영 문제를 효율적으로 최적화하는 agentic AI를 만든다. 핵심은 mathematical optimization과 language model의 융합이다.
 
 > Agentic decision systems. Grounded in mathematical optimization.
