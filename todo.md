@@ -10,4 +10,6 @@ Business Vision의 Vision 다음에는 Efficiency 화면을 둔다. 품질을 �
 
 시각 기준은 A안의 Pretendard·Inter 글꼴과 밝은 바탕에 밝은 코발트 `#3B5FE2`를 조합한다. 모바일에서는 본문 16px, 주요 설명 14–15px, 도식 세로 배치와 Contents 목차를 사용한다. 색상과 접근성의 상세 기준은 identity.md의 Visual identity를 따른다.
 
-상단에는 Business Vision 링크와 언어 선택을 두고, 로고는 같은 언어의 홈으로 연결한다. 사업 페이지에는 ← Back to Home 링크를 제공한다. 이전 기술 페이지 주소와 기존 사업 hash는 새 위치로 연결한다.
+상단에는 Business Vision, Engineering 링크와 언어 선택을 두고, 로고는 같은 언어의 홈으로 연결한다. 사업 페이지에는 ← Back to Home 링크를 제공한다. 이전 기술 페이지 주소와 기존 사업 hash는 새 위치로 연결한다.
+
+Engineering은 `/blog/`, `/ko/blog/`에 제공한다. 공개된 개념과 가상 사례로 기술적 판단을 설명하고 내부 구현과 평가 데이터는 공개하지 않는다. 모든 주요 페이지의 footer에 `rixile@ord.systems`로 연결하는 투자 및 협업 문의를 제공한다.

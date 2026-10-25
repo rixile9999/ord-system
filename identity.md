@@ -24,7 +24,7 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 
 ## Pages
 
-회사 정체성과 기술적 지향점을 홈페이지의 기본 내용으로 제공하고, 사업적 지향점은 별도 Business Vision 페이지로 제공한다. 상단에는 Business Vision 링크와 언어 선택을 두며, ORD Systems 로고는 같은 언어의 홈으로 연결한다. 언어를 바꾸면 현재 페이지와 slide를 유지한다. CSS와 JavaScript를 공유하며 build dependency는 없다.
+회사 정체성과 기술적 지향점을 홈페이지의 기본 내용으로 제공하고, 사업적 지향점은 별도 Business Vision 페이지로 제공한다. 상단에는 Business Vision, Engineering 링크와 언어 선택을 두며, ORD Systems 로고는 같은 언어의 홈으로 연결한다. 언어를 바꾸면 현재 페이지와 slide 또는 article section을 유지한다. CSS와 JavaScript를 공유하며 build dependency는 없다.
 
 홈페이지 제목은 ORD Systems — Agentic Decision Systems이다. 메뉴명은 한국어 페이지에서도 영문과 동일하게 Business Vision, Overview 등을 사용하고, 본문을 한국어로 번역한다.
 
@@ -38,6 +38,14 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 5. **RN-AI:** 간호사 근무표 플랫폼의 실제 구조를 소개한다. UI와 agent의 shared domain services, OR-Tools CP-SAT, solver-independent evaluation을 설명하고 서비스 intro로 연결한다.
 
 이전 `technology.html` 및 `ko/technology.html` 주소는 query와 hash를 유지해 같은 언어의 홈으로 연결한다. 기존 홈의 사업 관련 hash `#vision`, `#efficiency`는 같은 언어의 `business.html`로 연결한다. 기술 관련 hash는 홈에서 표시하며, 이전 별칭 `#planning`, `#model`, `#execution`은 각각 formulation, formulation, orchestration으로 연결한다. 이전 주소의 상세 위치 보존은 JavaScript를 사용한다. JavaScript가 없는 경우에도 새 페이지 메뉴와 돌아가기 링크가 동작하고, 이전 기술 페이지는 meta refresh와 직접 링크로 홈을 안내한다.
+
+## Engineering과 연락처
+
+상단 Engineering 메뉴는 영문 `/blog/`, 한국어 `/ko/blog/`의 글 목록으로 연결한다. 첫 글은 `good-roster-beyond-a-score/`에 제공하며, 두 언어에서 같은 article과 section으로 이동할 수 있다. Article은 일반 문서 scroll을 사용하고 목차, 작성자, 게시일, canonical URL, hreflang, BlogPosting metadata를 제공한다.
+
+Engineering은 현장의 문제, 공개된 기술, 평가 기준과 trade-off를 설명한다. 내부 constraint formulation, penalty 설계, 가중치, tuning 방법, prompt, tool schema, 평가 데이터는 게시하지 않는다. 가상 사례는 실제 고객 자료나 제품 성능 결과와 구분되도록 표시한다. 성능이나 도입 실적을 근거 없이 작성하지 않는다.
+
+홈, Business Vision, Engineering의 footer에 투자 및 협업 문의와 `rixile@ord.systems`의 `mailto:` 링크를 제공한다. 웹사이트의 링크와 이메일 수신·발신 설정은 별개다. Mail routing이나 mailbox는 이 repository에서 관리하지 않는다.
 
 ## Visual identity
 

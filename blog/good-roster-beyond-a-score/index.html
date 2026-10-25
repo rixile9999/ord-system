@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" class="editorial-document">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why a good roster takes more than one score — ORD Systems</title>
+  <meta name="description" content="What averages, essential requirements, and trade-offs tell us about roster quality. A closer look at scheduling evaluation through an illustrative example." />
+  <meta name="theme-color" content="#fafaf8" />
+  <meta property="og:title" content="Why a good roster takes more than one score — ORD Systems" />
+  <meta property="og:description" content="What averages, essential requirements, and trade-offs tell us about roster quality. A closer look at scheduling evaluation through an illustrative example." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ord.systems/blog/good-roster-beyond-a-score/" />
+  <link rel="canonical" href="https://ord.systems/blog/good-roster-beyond-a-score/" />
+  <link rel="alternate" hreflang="en" href="https://ord.systems/blog/good-roster-beyond-a-score/" />
+  <link rel="alternate" hreflang="ko" href="https://ord.systems/ko/blog/good-roster-beyond-a-score/" />
+  <link rel="alternate" hreflang="x-default" href="https://ord.systems/blog/good-roster-beyond-a-score/" />
+  <link rel="icon" type="image/svg+xml" href="/brand/ord-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://rsms.me" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
+  <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles/site.css?v=20261025-engineering" />
+  <script src="/scripts/site.js?v=20261025-engineering" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Why a good roster takes more than one score", "description": "What averages, essential requirements, and trade-offs tell us about roster quality. A closer look at scheduling evaluation through an illustrative example.", "datePublished": "2026-10-25", "dateModified": "2026-10-25", "inLanguage": "en", "author": {"@type": "Organization", "name": "ORD Systems", "url": "https://ord.systems/"}, "publisher": {"@type": "Organization", "name": "ORD Systems", "url": "https://ord.systems/"}, "mainEntityOfPage": "https://ord.systems/blog/good-roster-beyond-a-score/"}</script>
+</head>
+<body class="editorial-page article-page">
+  <a class="skip" href="#main-content">Skip to content</a>
+  <header class="header">
+    <div class="header-inner wrap">
+      <a class="brand" href="/" aria-label="ORD Systems — Home">ORD <span>Systems</span></a>
+      <nav class="page-nav" aria-label="Pages"><a href="/business.html"><span>Business</span> <span>Vision</span></a><a href="/blog/" aria-current="true">Engineering</a></nav>
+      <div class="languages" aria-label="Language"><a href="/blog/good-roster-beyond-a-score/" lang="en" hreflang="en" aria-current="page" data-language-href="/blog/good-roster-beyond-a-score/">EN</a><a href="/ko/blog/good-roster-beyond-a-score/" lang="ko" hreflang="ko" data-language-href="/ko/blog/good-roster-beyond-a-score/">KO</a></div>
+    </div>
+    <div class="reading-progress" aria-hidden="true"></div>
+  </header>
+  <main id="main-content" class="article-main wrap">
+    <article aria-labelledby="article-title">
+      <header class="article-heading"><a class="back-home" href="/blog/"><span aria-hidden="true">←</span> Engineering</a><div class="post-meta"><span>Scheduling / Decision quality</span><time datetime="2026-10-25">2026.10.25</time><span>ORD Systems</span></div><h1 id="article-title">Why a good roster takes more than one score</h1><p class="lead">What the numbers describe, and what they leave out. Roster evaluation through an illustrative example.</p></header>
+      <div class="article-layout"><aside class="article-aside"><nav aria-label="In this article"><p class="mini-label">In this article</p><a href="#averages">Same average, different experience</a><a href="#requirements">Requirements and objectives</a><a href="#trade-offs">The choices behind a score</a><a href="#optimality">Interpreting optimality</a><a href="#review">Results people can review</a></nav></aside><div class="article-body">
+<p class="article-intro">Evaluating an automatically generated roster raises several questions. Are the required staff assigned? How many requests were accommodated? Is the workload concentrated on particular people? Can the team review, adjust, and finalize the result?</p>
+<p>These questions address different aspects of quality. To judge a roster, we need to understand what each measure describes and what it can leave out.</p>
+<section id="averages" aria-labelledby="averages-title"><h2 id="averages-title">Same average, different experience</h2>
+<p>Consider four nurses with the same eligibility for night shifts and the same contracted workload. The assignment counts below are a fictional example.</p>
+<figure class="roster-example">
+  <table><caption>Illustrative example · Night shifts per person</caption><thead><tr><th scope="col">Person</th><th scope="col">Roster A</th><th scope="col">Roster B</th></tr></thead><tbody><tr><th scope="row">Nurse 1</th><td>4</td><td>1</td></tr><tr><th scope="row">Nurse 2</th><td>4</td><td>3</td></tr><tr><th scope="row">Nurse 3</th><td>4</td><td>5</td></tr><tr><th scope="row">Nurse 4</th><td>4</td><td>7</td></tr></tbody><tfoot><tr><th scope="row">Average</th><td>4</td><td>4</td></tr></tfoot></table>
+  <figcaption>Assumes four people with the same night-shift eligibility and contracted workload. These are illustrative totals, not ward data or product performance results.</figcaption>
+</figure>
+<p>Both rosters have the same average. Looking at individual assignments reveals a different distribution of work. An average helps describe the overall workload, but it does not show the differences each person experiences.</p>
+<p>Equal counts are not a universal answer either. In practice, availability, personal preferences, and assignments in earlier periods can differ. Judging whether a difference is reasonable requires understanding the circumstances behind the numbers.</p></section>
+<section id="requirements" aria-labelledby="requirements-title"><h2 id="requirements-title">Requirements and objectives</h2>
+<p>When discussing roster quality, we first need to distinguish <strong>requirements that must be satisfied from objectives we want to improve where possible</strong>. Scheduling problems commonly combine staffing requirements with objectives such as accommodating employee requests. <a href="https://developers.google.com/optimization/scheduling/employee_scheduling">Google’s public OR-Tools example</a> illustrates this distinction.</p>
+<p>When several rosters meet the requirements, choosing between them involves trade-offs. Accommodating more requests may concentrate work in a particular period. Preserving assignments that have already been announced may leave less room for other improvements.</p></section>
+<section id="trade-offs" aria-labelledby="trade-offs-title"><h2 id="trade-offs-title">The choices behind a score</h2>
+<p>An aggregate score is useful for comparing candidates. It also reflects choices about which factors matter and how much importance each receives.</p>
+<p class="article-emphasis">To interpret an improved score, we need to understand what improved and which burdens increased along the way.</p>
+<p>Even when two results use the same evaluation method, their totals alone cannot explain the change. If the overall request fulfillment rate increases, examining which requests were accommodated and who needed adjustments provides information for the next decision.</p></section>
+<section id="optimality" aria-labelledby="optimality-title"><h2 id="optimality-title">Interpreting optimality</h2>
+<p>The word “optimal” needs the same context. In optimization, optimality is assessed against a defined model and objective. A condition that matters in practice cannot be assumed satisfied simply because the computed solution is optimal, if that condition was never included in the model.</p>
+<p>Finding a feasible solution within a time limit is also distinct from establishing optimality. <a href="https://developers.google.com/optimization/cp/cp_solver">OR-Tools reports these outcomes separately.</a> An explanation of a result should include the conditions used in the calculation and what was actually established.</p></section>
+<section id="review" aria-labelledby="review-title"><h2 id="review-title">Results people can review</h2>
+<p>The person reviewing a roster needs information that makes these differences understandable: the requirements applied, the distribution of work, requests that could not be accommodated, and changes from the previous version. This gives them a basis for accepting or revising the result.</p>
+<p>The same principle applies when presenting automation performance. Generation time or request fulfillment rates need context about the problem size and the conditions used. Changing the comparison conditions changes what the numbers mean.</p>
+<p>ORD Systems develops systems that connect operational requirements expressed in language with mathematical optimization. RN-AI applies this approach to nurse scheduling.</p>
+<p>We place importance on helping people review results and make the next decision. An explanation of a good roster should make clear what it satisfies, which trade-offs it involves, and what still needs to be checked.</p></section>
+        <div class="article-end"><p>Explore our technical direction and RN-AI.</p><a href="/">About ORD Systems <span aria-hidden="true">↗</span></a><a href="https://rn.ai.kr/intro">RN-AI <span aria-hidden="true">↗</span></a></div>
+      </div></div>
+    </article>
+  </main>
+  <footer class="site-footer" id="contact" aria-labelledby="contact-title">
+    <div class="wrap contact-layout">
+      <div><p class="eyebrow">Contact / ORD Systems</p><h2 id="contact-title">Investment &amp; collaboration</h2><p class="contact-copy">Get in touch to discuss our technology, investment, or opportunities to work together.</p></div>
+      <a class="contact-email" href="mailto:rixile@ord.systems">rixile@ord.systems <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wrap footer-bottom"><span>© 2026 ORD Systems · Operations Research &amp; Decision</span><nav aria-label="Footer"><a href="/blog/">Engineering</a><a href="/business.html">Business Vision</a></nav></div>
+  </footer>
+</body>
+</html>

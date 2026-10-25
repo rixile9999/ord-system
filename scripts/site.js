@@ -84,10 +84,11 @@
       if (slide.getBoundingClientRect().top <= innerHeight * .42) active = slide;
     }
     for (const link of links) {
-      if (link.dataset.slideLink === active.id) link.setAttribute('aria-current', 'location');
+      if (link.dataset.slideLink === active?.id) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     }
-    for (const link of languages) link.href = `${link.dataset.languageHref}#${active.id}`;
+    const hash = active ? `#${active.id}` : location.hash;
+    for (const link of languages) link.href = `${link.dataset.languageHref}${hash}`;
     const length = document.documentElement.scrollHeight - innerHeight;
     document.documentElement.style.setProperty('--page-progress', length > 0 ? Math.min(1, Math.max(0, scrollY / length)) : 0);
   }
