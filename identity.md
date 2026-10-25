@@ -41,9 +41,11 @@ ORD는 Operations Research와 Decision을 의미한다. 회사명은 ORD Systems
 
 ## Engineering과 연락처
 
-상단 Engineering 메뉴는 영문 `/blog/`, 한국어 `/ko/blog/`의 글 목록으로 연결한다. 첫 글은 `good-roster-beyond-a-score/`에 제공하며, 두 언어에서 같은 article과 section으로 이동할 수 있다. Article은 일반 문서 scroll을 사용하고 목차, 작성자, 게시일, canonical URL, hreflang, BlogPosting metadata를 제공한다.
+상단 Engineering 메뉴는 영문 `/blog/`, 한국어 `/ko/blog/`의 글 목록으로 연결한다. 첫 글 「업무용 AI의 의사결정 품질을 정의하는 법」은 기존 `good-roster-beyond-a-score/` URL을 유지한다. 두 언어에서 같은 article과 section으로 이동할 수 있다. Article은 일반 문서 scroll을 사용하고 목차, 작성자, 게시일, canonical URL, hreflang, BlogPosting metadata를 제공한다.
 
-Engineering은 현장의 문제, 공개된 기술, 평가 기준과 trade-off를 설명한다. 내부 constraint formulation, penalty 설계, 가중치, tuning 방법, prompt, tool schema, 평가 데이터는 게시하지 않는다. 가상 사례는 실제 고객 자료나 제품 성능 결과와 구분되도록 표시한다. 성능이나 도입 실적을 근거 없이 작성하지 않는다.
+Engineering은 문제 정의, 이론적 근거, 반례, 범용 architecture와 재현 가능한 실험을 설명한다. 사용자는 지나치게 domain-specific하지 않은 기술의 공개를 허용했다. 실제 구현을 확인한 공통 설계 원칙과 evaluation 경로의 역할은 설명할 수 있다. 고객별 규칙·데이터, 내부 가중치·tuning, prompt와 tool schema의 공개는 별도로 판단한다. 공개용 toy formulation과 실제 제품 구현을 구분하고 성능이나 도입 실적을 근거 없이 작성하지 않는다.
+
+첫 글의 실험은 `/blog/experiments/decision-quality/experiment.py`와 `results.json`으로 재현한다. Python standard library로 모든 후보를 열거하고 `Fraction`으로 weight 구간을 구한다. 실험을 바꾸면 JSON, 본문의 수치·표, 두 언어의 `decision-data` 및 SVG를 함께 갱신하고 `python3 blog/experiments/decision-quality/experiment.py --check blog/experiments/decision-quality/results.json`으로 대조한다. Slider는 integer arithmetic으로 동점을 비교하며, JavaScript가 없어도 정적 그림·표·실험 코드를 읽을 수 있다.
 
 홈, Business Vision, Engineering의 footer에 투자 및 협업 문의와 `rixile@ord.systems`의 `mailto:` 링크를 제공한다. 웹사이트의 링크와 이메일 수신·발신 설정은 별개다. Mail routing이나 mailbox는 이 repository에서 관리하지 않는다.
 

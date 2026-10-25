@@ -12,4 +12,4 @@ Business Vision의 Vision 다음에는 Efficiency 화면을 둔다. 품질을 �
 
 상단에는 Business Vision, Engineering 링크와 언어 선택을 두고, 로고는 같은 언어의 홈으로 연결한다. 사업 페이지에는 ← Back to Home 링크를 제공한다. 이전 기술 페이지 주소와 기존 사업 hash는 새 위치로 연결한다.
 
-Engineering은 `/blog/`, `/ko/blog/`에 제공한다. 공개된 개념과 가상 사례로 기술적 판단을 설명하고 내부 구현과 평가 데이터는 공개하지 않는다. 모든 주요 페이지의 footer에 `rixile@ord.systems`로 연결하는 투자 및 협업 문의를 제공한다.
+Engineering은 `/blog/`, `/ko/blog/`에 제공한다. 공개 이론, 재현 가능한 가상 실험, 실제 구현에서 확인한 범용 architecture와 evaluation 구조를 설명한다. 고객별 규칙·데이터와 domain-specific한 세부 구현의 공개는 별도로 판단한다. 모든 주요 페이지의 footer에 `rixile@ord.systems`로 연결하는 투자 및 협업 문의를 제공한다.
