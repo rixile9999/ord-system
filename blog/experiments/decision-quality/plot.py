@@ -27,7 +27,7 @@ ax.set_yticks(range(8))
 ax.grid(axis="y", color="#d9dee7", linewidth=.6)
 ax.spines[["top", "right"]].set_visible(False)
 ax.legend(loc="upper right", frameon=False, fontsize=9)
-fig.text(.5, -.025, "Synthetic instance: 81 assignments, 32 feasible, 4 Pareto objective pairs.\nExact enumeration; no product performance claim.", ha="center", fontsize=9, color="#536171")
+fig.text(.5, -.095, "Synthetic instance: 81 assignments, 32 feasible, 4 Pareto objective pairs.\nExact enumeration; no product performance claim.", ha="center", fontsize=9, color="#536171")
 fig.savefig(folder / "objective-pairs.svg", bbox_inches="tight", metadata={"Date": None, "Title": "Decision quality: feasible objective pairs", "Description": "Synthetic resource allocation experiment. Exact data are provided in results.json."})
 svg = folder / "objective-pairs.svg"
 svg.write_text("\n".join(line.rstrip() for line in svg.read_text().splitlines()) + "\n")
