@@ -1,0 +1,82 @@
+{
+  "slug": "good-roster-beyond-a-score",
+  "category": "Optimization / Decision quality",
+  "author": "ORD Systems",
+  "published": "2026-10-25",
+  "updated": "2026-10-25",
+  "scripts": [
+    "/scripts/decision-quality.js"
+  ],
+  "locales": {
+    "en": {
+      "title": "Defining decision quality in operational AI",
+      "description": "Feasibility, Pareto optimality, and the guarantees and limits of weighted sums. With the ORCA engine’s evaluation architecture and a reproducible resource allocation experiment.",
+      "lead": "Feasibility, multi-objective optimization, evaluation. From definitions and counterexamples to system design and a reproducible experiment.",
+      "toc": [
+        {
+          "id": "formulation",
+          "label": "Decisions and requirements"
+        },
+        {
+          "id": "scalarization",
+          "label": "Weighted sums and scales"
+        },
+        {
+          "id": "pareto",
+          "label": "Pareto optimality"
+        },
+        {
+          "id": "evaluation",
+          "label": "ORCA engine evaluation"
+        },
+        {
+          "id": "experiment",
+          "label": "A reproducible experiment"
+        },
+        {
+          "id": "optimality",
+          "label": "Solver guarantees"
+        },
+        {
+          "id": "references",
+          "label": "References"
+        }
+      ]
+    },
+    "ko": {
+      "title": "업무용 AI의 의사결정 품질을 정의하는 법",
+      "description": "Feasibility, Pareto optimality, weighted sum의 보장과 한계. ORCA engine의 evaluation 구조와 재현 가능한 resource allocation 실험으로 살펴봅니다.",
+      "lead": "Feasibility, multi-objective optimization, evaluation. 정의와 반례에서 출발해, 실제 설계와 재현 가능한 실험으로 연결합니다.",
+      "toc": [
+        {
+          "id": "formulation",
+          "label": "결정·조건·목표"
+        },
+        {
+          "id": "scalarization",
+          "label": "Weighted sum과 scale"
+        },
+        {
+          "id": "pareto",
+          "label": "Pareto optimality와 반례"
+        },
+        {
+          "id": "evaluation",
+          "label": "ORCA engine의 evaluation 구조"
+        },
+        {
+          "id": "experiment",
+          "label": "재현 가능한 실험"
+        },
+        {
+          "id": "optimality",
+          "label": "Solver가 확인한 범위"
+        },
+        {
+          "id": "references",
+          "label": "참고 자료"
+        }
+      ]
+    }
+  }
+}

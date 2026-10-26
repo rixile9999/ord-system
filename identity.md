@@ -26,7 +26,7 @@ RN-AI에 사용하는 core의 이름은 **ORCA engine**이며, **Operational Res
 
 ## Pages
 
-회사 정체성과 기술적 지향점을 홈페이지의 기본 내용으로 제공하고, 사업적 지향점은 별도 Business Vision 페이지로 제공한다. 상단에는 Business Vision, Engineering 링크와 언어 선택을 두며, ORD Systems 로고는 같은 언어의 홈으로 연결한다. 언어를 바꾸면 현재 페이지와 slide 또는 article section을 유지한다. CSS와 JavaScript를 공유하며 build dependency는 없다.
+회사 정체성과 기술적 지향점을 홈페이지의 기본 내용으로 제공하고, 사업적 지향점은 별도 Business Vision 페이지로 제공한다. 상단에는 Business Vision, Engineering 링크와 언어 선택을 두며, ORD Systems 로고는 같은 언어의 홈으로 연결한다. 언어를 바꾸면 현재 페이지와 slide 또는 article section을 유지한다. GitHub Pages에서 정적 HTML을 제공한다. Blog 생성에는 Node.js 22 이상과 standard library만 사용하며 외부 package 설치는 필요하지 않다.
 
 홈페이지 제목은 ORD Systems — Agentic Decision Systems이다. 메뉴명은 한국어 페이지에서도 영문과 동일하게 Business Vision, Overview 등을 사용하고, 본문을 한국어로 번역한다.
 
@@ -44,6 +44,17 @@ RN-AI에 사용하는 core의 이름은 **ORCA engine**이며, **Operational Res
 ## Engineering과 연락처
 
 상단 Engineering 메뉴는 영문 `/blog/`, 한국어 `/ko/blog/`의 글 목록으로 연결한다. 첫 글 「업무용 AI의 의사결정 품질을 정의하는 법」은 기존 `good-roster-beyond-a-score/` URL을 유지한다. 두 언어에서 같은 article과 section으로 이동할 수 있다. Article은 일반 문서 scroll을 사용하고 목차, 작성자, 게시일, canonical URL, hreflang, BlogPosting metadata를 제공한다.
+
+Blog의 source는 다음과 같이 분리한다.
+
+- `content/blog/<글 이름>/post.json`: URL slug, category, author, published/updated 날짜, 글에 필요한 scripts, 언어별 title·description·lead·toc를 관리한다.
+- 같은 폴더의 `en.html`, `ko.html`: 글 본문만 포함한 HTML fragment다. 수식·표·SVG와 실험 데이터도 여기에서 수정한다.
+- `components/blog/Post.mjs`: 글의 제목·metadata·목차·본문·마지막 안내를 구성한다. `PostCard.mjs`와 `PostList.mjs`는 같은 metadata에서 목록을 만들고, `Page.mjs`는 head·navigation·footer를 제공한다. 공통 문구는 `shared.mjs`에서 관리한다.
+- `styles/blog.css`: Blog 전용 CSS다. 회사 페이지와 공유하는 header·footer·기본 글꼴은 `styles/site.css`에 둔다.
+
+글을 추가할 때는 `content/blog/` 아래 새 폴더에 `post.json`, `en.html`, `ko.html`을 만든다. 기존 글을 참고하되 `slug`는 고유하게 지정하고, `toc`의 id와 본문 section id를 맞춘다. 목록은 published 날짜가 최신인 순서로 정렬한다. 공개한 slug는 기존 링크를 유지하도록 그대로 사용한다.
+
+본문·metadata·component 또는 연결된 CSS/JavaScript를 바꾼 뒤 repository root에서 `node scripts/build-blog.mjs`를 실행한다. 한·영 목록과 상세 페이지, `sitemap.xml`이 생성되며 asset URL의 hash도 갱신된다. 생성한 HTML을 직접 편집하지 않는다. `node scripts/build-blog.mjs --check`로 source와 output이 일치하는지 확인하고 source와 생성 결과를 함께 commit한다. GitHub Pages는 commit된 HTML을 배포하므로 별도 runtime이나 browser의 본문 fetch가 필요하지 않다. 글을 삭제하거나 slug를 바꾸는 경우 기존 output을 자동 삭제하지 않으므로 기존 URL 처리도 함께 결정한다.
 
 Engineering은 문제 정의, 이론적 근거, 반례, 범용 architecture와 재현 가능한 실험을 설명한다. 사용자는 지나치게 domain-specific하지 않은 기술의 공개를 허용했다. 실제 구현을 확인한 공통 설계 원칙과 evaluation 경로의 역할은 설명할 수 있다. 고객별 규칙·데이터, 내부 가중치·tuning, prompt와 tool schema의 공개는 별도로 판단한다. 공개용 toy formulation과 실제 제품 구현을 구분하고 성능이나 도입 실적을 근거 없이 작성하지 않는다.
 
